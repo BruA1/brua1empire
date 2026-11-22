@@ -7,7 +7,7 @@ Response.json(data, {
 status,
 headers: { "Cache-Control": "no-store" }
 });
-async function paypal(env, path, method = "GET", body) {
+async function paypal(env, path, method = "GET", body, requestId) {
 const credentials = btoa(
 env.PAYPAL_CLIENT_ID + ":" +
 env.PAYPAL_CLIENT_SECRET
@@ -28,7 +28,7 @@ headers: {
 Authorization: "Bearer " + access_token,
 "Content-Type": "application/json",
 Prefer: "return=representation",
-"PayPal-Request-Id": crypto.randomUUID()
+"PayPal-Request-Id": requestId || crypto.randomUUID()
 },
 body: body ? JSON.stringify(body) : undefined
 });
@@ -199,54 +199,67 @@ if (!stored || stored.product_id !== PRODUCT_ID ||
     stored.amount_cents !== 2999 || stored.currency !== "USD") {
   return reply({ error: "Order not registered in sandbox database" }, 404);
 }
+// A persisted completion is idempotent: never capture it again.
 if (stored.status === "COMPLETED") {
   return reply({ sandbox: true, verified: true, orderId: id,
     captureId: stored.paypal_capture_id, status: "COMPLETED",
     fulfillment: "disabled", alreadyRecorded: true });
 }
-if (stored.status !== "CREATED") {
+if (stored.status !== "CREATED" && stored.status !== "CAPTURING") {
   return reply({ error: "Order is not eligible for capture" }, 409);
 }
-const order = await paypal(
-env, "/v2/checkout/orders/" + id
-);
+const order = await paypal(env, "/v2/checkout/orders/" + id);
 const unit = order.purchase_units?.[0];
-if (order.status !== "APPROVED" ||
-order.purchase_units?.length !== 1 ||
-unit?.custom_id !== PRODUCT_ID ||
-unit?.amount?.currency_code !== "USD" ||
-unit?.amount?.value !== PRICE) {
-return reply({
-error: "Order failed verification"
-}, 409);
+if (order.purchase_units?.length !== 1 ||
+    unit?.custom_id !== PRODUCT_ID ||
+    unit?.amount?.currency_code !== "USD" ||
+    unit?.amount?.value !== PRICE) {
+  return reply({ error: "Order failed verification" }, 409);
 }
-const captured = await paypal(
-env,
-"/v2/checkout/orders/" + id + "/capture",
-"POST",
-{}
+let capture = unit?.payments?.captures?.find(c =>
+  c.status === "COMPLETED" && c.amount?.currency_code === "USD" &&
+  c.amount?.value === PRICE
 );
-const capture =
-captured.purchase_units?.[0]?.payments?.captures?.[0];
-const verified =
-captured.status === "COMPLETED" &&
-capture?.status === "COMPLETED" &&
-capture?.amount?.currency_code === "USD" &&
-capture?.amount?.value === PRICE;
-if (verified && capture?.id) {
-  await env.ORDERS_DB.prepare(
-    "UPDATE orders SET status = 'COMPLETED', paypal_capture_id = ?, completed_at = CURRENT_TIMESTAMP WHERE id = ? AND status = 'CREATED'"
-  ).bind(capture.id, stored.id).run();
+// If PayPal captured but D1 failed to record it, reconcile instead of charging again.
+if (!capture) {
+  if (order.status !== "APPROVED") {
+    return reply({ error: "Order not approved or capture unresolved", status: order.status }, 409);
+  }
+  if (stored.status === "CREATED") {
+    const claimed = await env.ORDERS_DB.prepare(
+      "UPDATE orders SET status = 'CAPTURING' WHERE id = ? AND status = 'CREATED'"
+    ).bind(stored.id).run();
+    if (claimed.meta?.changes !== 1) {
+      return reply({ error: "Capture already in progress; retry shortly" }, 409);
+    }
+  } else {
+    // A previous capture attempt may still be running. Do not race it.
+    return reply({ error: "Capture pending reconciliation; retry later or review PayPal" }, 409);
+  }
+  // Stable idempotency key for this order, including network retries.
+  const captureRequestId = "brua1-" + id;
+  let captured;
+  try {
+    captured = await paypal(env, "/v2/checkout/orders/" + id + "/capture",
+      "POST", {}, captureRequestId);
+  } catch (e) {
+    // Deliberately leave CAPTURING; never issue a second capture blindly.
+    return reply({ error: "Capture result uncertain; check PayPal before retrying" }, 502);
+  }
+  capture = captured.purchase_units?.[0]?.payments?.captures?.find(c =>
+    c.status === "COMPLETED" && c.amount?.currency_code === "USD" &&
+    c.amount?.value === PRICE
+  );
 }
-return reply({
-sandbox: true,
-verified,
-orderId: id,
-captureId: capture?.id || null,
-status: capture?.status || captured.status,
-amount: capture?.amount || null,
-fulfillment: "disabled"
-}, verified ? 200 : 409);
+if (!capture?.id) {
+  return reply({ error: "Capture not verified; manual reconciliation required" }, 409);
+}
+await env.ORDERS_DB.prepare(
+  "UPDATE orders SET status = 'COMPLETED', paypal_capture_id = ?, completed_at = CURRENT_TIMESTAMP WHERE id = ? AND status IN ('CREATED', 'CAPTURING')"
+).bind(capture.id, stored.id).run();
+return reply({ sandbox: true, verified: true, orderId: id,
+  captureId: capture.id, status: "COMPLETED", amount: capture.amount,
+  fulfillment: "disabled" });
 }
 return reply({ error: "Not found" }, 404);
 } catch (e) {
