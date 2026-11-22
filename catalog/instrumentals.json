@@ -2,772 +2,779 @@
   "schemaVersion": 1,
   "source": "BruA1 original beats Google Drive folder",
   "inventoryScope": "First 100 returned files; additional files may exist",
-  "status": "Staging inventory only; no master audio URLs exposed",
+  "status": "Deduplicated storefront catalog; source masters retained in Drive; preview files pending",
   "tracks": [
     {
       "title": "108 in the shade",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 2,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 1
     },
     {
       "title": "A1 Be A Dream-High-Balanced",
       "formats": [
         "WAV"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "A1 Down n Out",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "A1 Feelings",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "A1 Matlock Collab - How We Get It",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "A1 Matlock Collab - Only 3 Jigs",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "A1 Mattlock Collab",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "A1 Paralyzed",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "A1 Paranoia",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "A1 Reflections",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "A1 solo Flying Higher",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "A1 they real",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "A1Chopan",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 3,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 2
     },
     {
       "title": "A1Chopan (1)",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "All We Do Is This",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 2,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 1
     },
     {
       "title": "Away From the Sun",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "chevyyy",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "Dallas",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 2,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 1
     },
     {
       "title": "DrPepperFlavoredListerineJ",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 2,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 1
     },
     {
       "title": "Elegant",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 2,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 1
     },
     {
       "title": "Enter Hell",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 2,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 1
     },
     {
       "title": "Freak Show",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "fuck stress",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "Get This Money",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "Im In There",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "Jitterbug",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "JRSHIT2",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "Just2Inspire",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "Kings of the South",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "LaidBackNLitty",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "lofi 1",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "No NINTENDO",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "Paralyze",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "Que Blue - Untitled Oct 16, 2022, 1115 PM 2022-10-16 23_29",
       "formats": [
         "M4A"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "realfocus_2",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "screamscottykickbass",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "shakeitlike",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "sheafreaktho666",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "shellshock",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "Smash On Everything",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "Smooth Groove",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 2,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 1
     },
     {
       "title": "smoothgroove2_2",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 2,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 1
     },
     {
       "title": "snooo",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "sohi",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 2,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 1
     },
     {
       "title": "SpaceShips",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "speeeeeed",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "Stalkin",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "stax",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "steel",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 2,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 1
     },
     {
       "title": "Street Dreams",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 2,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 1
     },
     {
       "title": "SUC.BMC",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "Swangin",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "take yo home beat",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "Team Trouble",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "terminal",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "testimony",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "thatsmyname",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "The Flu",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "The Game",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "thefuture",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "thghts",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "This How I Feel About It",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "thougts",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "thugga",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "Thuggin",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "Time Is Money",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "TOD",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "Too Loud",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "Trancended",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "trapmuzik",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "twerk",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "twerkthata$$",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "uptown",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 2,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 1
     },
     {
       "title": "viooo",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "wakaaa",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "WATUP2",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "wayuly_2",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "wayuly_2 guitar hookonly",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "wizzo",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "worse",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "WYM",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "Yak La Throwback Finished",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 2,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 1
     },
     {
       "title": "yela",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "zay",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "zayooo",
       "formats": [
         "MP3"
       ],
-      "sourceCount": 1,
       "preview": null,
-      "reviewStatus": "pending"
+      "reviewStatus": "pending",
+      "duplicateSourceFilesExcluded": 0
     }
-  ]
+  ],
+  "deduplication": {
+    "method": "case-insensitive normalized instrumental title",
+    "sourceFilesInspected": 100,
+    "duplicateFileEntriesExcluded": 15,
+    "uniqueCatalogTitles": 85,
+    "sourceFilesNotDeleted": true
+  }
 }
