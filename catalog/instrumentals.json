@@ -14,15 +14,6 @@
       "duplicateSourceFilesExcluded": 1
     },
     {
-      "title": "A1 Be A Dream-High-Balanced",
-      "formats": [
-        "WAV"
-      ],
-      "preview": null,
-      "reviewStatus": "pending",
-      "duplicateSourceFilesExcluded": 0
-    },
-    {
       "title": "A1 Matlock Collab - Only 3 Jigs",
       "formats": [
         "MP3"
@@ -224,15 +215,6 @@
       "title": "Paralyze",
       "formats": [
         "MP3"
-      ],
-      "preview": null,
-      "reviewStatus": "pending",
-      "duplicateSourceFilesExcluded": 0
-    },
-    {
-      "title": "Que Blue - Untitled Oct 16, 2022, 1115 PM 2022-10-16 23_29",
-      "formats": [
-        "M4A"
       ],
       "preview": null,
       "reviewStatus": "pending",
@@ -712,6 +694,8 @@
     "A1 Mattlock Collab",
     "A1 Reflections",
     "A1 solo Flying Higher",
-    "A1 they real"
+    "A1 they real",
+    "A1 Be A Dream-High-Balanced",
+    "Que Blue - Untitled Oct 16, 2022, 1115 PM 2022-10-16 23_29"
   ]
 }
