@@ -1,0 +1,41 @@
+name: Deploy BruA1 Checkout Sandbox
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: brua1-checkout-sandbox-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Deploy checkout Worker (manual)
+    runs-on: ubuntu-latest
+    environment: checkout-sandbox
+    steps:
+      - name: Check out sandbox development branch only
+        uses: actions/checkout@v4
+        with:
+          ref: feature/paypal-sandbox-checkout
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Check deployment secrets exist
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          test -n "$CLOUDFLARE_API_TOKEN" || { echo "Missing CLOUDFLARE_API_TOKEN"; exit 1; }
+          test -n "$CLOUDFLARE_ACCOUNT_ID" || { echo "Missing CLOUDFLARE_ACCOUNT_ID"; exit 1; }
+
+      - name: Deploy checkout Worker only
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: npx --yes wrangler@4 deploy --config workers/brua1-checkout-sandbox/wrangler.toml
