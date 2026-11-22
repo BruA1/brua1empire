@@ -1,0 +1,20 @@
+# Dedicated checkout Worker configuration.
+# Deploy from repository root with:
+# npx wrangler deploy --config workers/brua1-checkout-sandbox/wrangler.toml
+# The D1 database ID must be copied from the existing Cloudflare D1 database.
+name = "brua1-checkout-sandbox"
+main = "delivery-candidate.js"
+compatibility_date = "2026-11-22"
+workers_dev = true
+
+[[d1_databases]]
+binding = "ORDERS_DB"
+database_name = "brua1-orders-sandbox"
+database_id = "REPLACE_WITH_EXISTING_D1_DATABASE_ID"
+
+[[r2_buckets]]
+binding = "INSTRUMENTAL_MASTERS"
+bucket_name = "brua1-instrumentals-masters"
+
+# PayPal environment variables and secret values are managed in Cloudflare.
+# Do not commit PAYPAL_CLIENT_SECRET or CHECKOUT_TEST_KEY.
