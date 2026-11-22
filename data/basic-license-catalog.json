@@ -27,17 +27,19 @@
       "license_id": "basic",
       "price_usd": "29.99",
       "preview_status": "listed_in_development_storefront",
-      "master_mp3_status": "listed_in_private_bucket_unverified_size_and_content",
+      "master_mp3_status": "r2_object_metadata_verified_audio_not_yet_qa_tested",
       "master_mp3_private_key": "BruA1 - 108 in the Shade - Untagged.mp3",
       "product_status": "master_pending_review",
       "checkout_enabled": false,
       "fulfillment_enabled": false,
-      "qa_status": "pending_file_integrity_and_license_review",
-      "notes": "Screenshot shows both object names and Public Access Disabled; bucket size displayed 0 B. Verify each object size, download integrity and correct untagged audio before QA. No live checkout or fulfillment.",
+      "qa_status": "pending_audio_playback_and_license_review",
+      "notes": "R2 object details screenshot verifies MP3 object size 8.54 MB and audio/mpeg. Need confirm audio integrity, no tag, full length. WAV metadata and license terms still pending. Checkout and fulfillment remain disabled.",
       "master_mp3_private_bucket": "brua1-instrumentals-masters",
       "master_wav_private_bucket": "brua1-instrumentals-masters",
       "master_wav_private_key": "BruA1 - 108 in the Shade - Master.wav",
-      "master_wav_status": "listed_in_private_bucket_unverified_size_and_content"
+      "master_wav_status": "listed_in_private_bucket_unverified_size_and_content",
+      "master_mp3_size_display": "8.54 MB",
+      "master_mp3_content_type": "audio/mpeg"
     }
   ]
 }
