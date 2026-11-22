@@ -68,12 +68,15 @@ pre{white-space:pre-wrap;overflow-wrap:anywhere}
 <input id="key" type="password" placeholder="Private test key">
 <button id="create">Create Test Order</button>
 <button id="capture" hidden>Capture Approved Payment</button>
+<button id="issue" hidden>Generate Test Download Token</button>
+<button id="download" hidden>Download Test MP3</button>
 <pre id="result"></pre>
 <script>
 const result = document.getElementById("result");
 const key = document.getElementById("key");
 const params = new URLSearchParams(location.search);
 const orderId = params.get("token");
+let downloadToken = null;
 if (orderId) {
 document.getElementById("capture").hidden = false;
 result.textContent = "Order returned from PayPal. Enter your key and capture.";
@@ -103,7 +106,43 @@ if (data && data.approve) location.href = data.approve;
 };
 document.getElementById("capture").onclick = async () => {
 const data = await send("/api/capture-order", { orderId });
-if (data) result.textContent = JSON.stringify(data, null, 2);
+if (data) {
+  result.textContent = JSON.stringify(data, null, 2);
+  if (data.verified && data.status === "COMPLETED") document.getElementById("issue").hidden = false;
+}
+};
+document.getElementById("issue").onclick = async () => {
+  const data = await send("/api/issue-download", { orderId });
+  if (data?.token) {
+    downloadToken = data.token;
+    document.getElementById("download").hidden = false;
+    result.textContent = "Test token issued. Expires in 15 minutes. Up to 3 downloads.";
+  }
+};
+document.getElementById("download").onclick = async () => {
+  if (!downloadToken) return;
+  result.textContent = "Preparing private MP3...";
+  try {
+    const response = await fetch("/api/download", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Authorization: "Bearer " + key.value },
+      body: JSON.stringify({ token: downloadToken })
+    });
+    if (!response.ok) {
+      const error = await response.json().catch(() => ({}));
+      throw Error(error.error || "Download failed");
+    }
+    const blob = await response.blob();
+    const objectUrl = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = objectUrl;
+    a.download = "BruA1 - 108 in the Shade - Untagged.mp3";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(objectUrl), 60000);
+    result.textContent = "Test MP3 downloaded. Check your Downloads folder.";
+  } catch (e) { result.textContent = e.message; }
 };
 </script>
 </html>`;
