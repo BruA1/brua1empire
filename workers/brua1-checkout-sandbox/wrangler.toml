@@ -10,7 +10,7 @@ workers_dev = true
 [[d1_databases]]
 binding = "ORDERS_DB"
 database_name = "brua1-orders-sandbox"
-database_id = "REPLACE_WITH_EXISTING_D1_DATABASE_ID"
+database_id = "7e9532d6-857d-4ecf-ac4b-6de92424fcc3"
 
 [[r2_buckets]]
 binding = "INSTRUMENTAL_MASTERS"
