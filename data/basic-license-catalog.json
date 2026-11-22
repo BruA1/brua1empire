@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "environment": "development",
+  "license": {
+    "id": "basic",
+    "display_name": "Basic Instrumental License",
+    "price_usd": "29.99",
+    "exclusive": false,
+    "required_files": [
+      "clean_untagged_full_length_mp3"
+    ],
+    "rights_status": "agreement_pending_approval"
+  },
+  "product_status_values": [
+    "preview_only",
+    "master_pending_review",
+    "ready_for_qa",
+    "approved_for_sandbox",
+    "approved_for_live"
+  ],
+  "catalog_notes": "Do not infer readiness from public tagged previews. Never enable real checkout until private master, agreement, secure fulfillment and payment verification pass QA.",
+  "products": []
+}
