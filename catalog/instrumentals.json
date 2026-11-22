@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "source": "BruA1 original beats Google Drive folder",
   "inventoryScope": "First 100 returned files; additional files may exist",
-  "status": "Deduplicated storefront catalog; source masters retained in Drive; preview files pending",
+  "status": "Staging inventory, duplicate titles and A1Chopan alternate filename excluded; original audio retained in Drive",
   "tracks": [
     {
       "title": "108 in the shade",
@@ -120,15 +120,6 @@
       "preview": null,
       "reviewStatus": "pending",
       "duplicateSourceFilesExcluded": 2
-    },
-    {
-      "title": "A1Chopan (1)",
-      "formats": [
-        "MP3"
-      ],
-      "preview": null,
-      "reviewStatus": "pending",
-      "duplicateSourceFilesExcluded": 0
     },
     {
       "title": "All We Do Is This",
@@ -773,8 +764,8 @@
   "deduplication": {
     "method": "case-insensitive normalized instrumental title",
     "sourceFilesInspected": 100,
-    "duplicateFileEntriesExcluded": 15,
-    "uniqueCatalogTitles": 85,
+    "duplicateFileEntriesExcluded": 16,
+    "uniqueCatalogTitles": 84,
     "sourceFilesNotDeleted": true
   }
 }
