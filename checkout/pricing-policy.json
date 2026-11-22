@@ -1,0 +1,27 @@
+{
+  "currency": "USD",
+  "environment": "sandbox",
+  "status": "approved_proposed_for_testing",
+  "licenses": {
+    "basic": {
+      "price": "29.99",
+      "checkoutEligible": true
+    },
+    "premium": {
+      "price": "59.99",
+      "checkoutEligible": true
+    },
+    "unlimited": {
+      "price": "99.99",
+      "checkoutEligible": true
+    },
+    "exclusive": {
+      "price": null,
+      "checkoutEligible": false,
+      "quoteRequired": true
+    }
+  },
+  "licenseAgreements": "pending_final_review",
+  "liveCheckoutAuthorized": false,
+  "automaticDeliveryAuthorized": false
+}
