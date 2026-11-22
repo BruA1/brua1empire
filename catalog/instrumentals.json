@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "source": "BruA1 original beats Google Drive folder",
   "inventoryScope": "First 100 returned files; additional files may exist",
-  "status": "Staging inventory, duplicate titles and A1Chopan alternate filename excluded; original audio retained in Drive",
+  "status": "Staging instrumental inventory; four user-identified vocal songs excluded; other titles pending vocal review",
   "tracks": [
     {
       "title": "108 in the shade",
@@ -23,43 +23,7 @@
       "duplicateSourceFilesExcluded": 0
     },
     {
-      "title": "A1 Down n Out",
-      "formats": [
-        "MP3"
-      ],
-      "preview": null,
-      "reviewStatus": "pending",
-      "duplicateSourceFilesExcluded": 0
-    },
-    {
-      "title": "A1 Feelings",
-      "formats": [
-        "MP3"
-      ],
-      "preview": null,
-      "reviewStatus": "pending",
-      "duplicateSourceFilesExcluded": 0
-    },
-    {
-      "title": "A1 Matlock Collab - How We Get It",
-      "formats": [
-        "MP3"
-      ],
-      "preview": null,
-      "reviewStatus": "pending",
-      "duplicateSourceFilesExcluded": 0
-    },
-    {
       "title": "A1 Matlock Collab - Only 3 Jigs",
-      "formats": [
-        "MP3"
-      ],
-      "preview": null,
-      "reviewStatus": "pending",
-      "duplicateSourceFilesExcluded": 0
-    },
-    {
-      "title": "A1 Mattlock Collab",
       "formats": [
         "MP3"
       ],
@@ -765,7 +729,13 @@
     "method": "case-insensitive normalized instrumental title",
     "sourceFilesInspected": 100,
     "duplicateFileEntriesExcluded": 16,
-    "uniqueCatalogTitles": 84,
+    "uniqueCatalogTitles": 80,
     "sourceFilesNotDeleted": true
-  }
+  },
+  "excludedVocalSongs": [
+    "A1 Down n Out",
+    "A1 Feelings",
+    "A1 Matlock Collab - How We Get It",
+    "A1 Mattlock Collab"
+  ]
 }
