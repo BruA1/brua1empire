@@ -19,5 +19,21 @@
     "approved_for_live"
   ],
   "catalog_notes": "Do not infer readiness from public tagged previews. Never enable real checkout until private master, agreement, secure fulfillment and payment verification pass QA.",
-  "products": []
+  "products": [
+    {
+      "id": "BRUA1-INS-0001",
+      "title": "108 in the shade",
+      "storefront_title": "108 in the shade",
+      "license_id": "basic",
+      "price_usd": "29.99",
+      "preview_status": "listed_in_development_storefront",
+      "master_mp3_status": "unverified",
+      "master_mp3_private_key": null,
+      "product_status": "preview_only",
+      "checkout_enabled": false,
+      "fulfillment_enabled": false,
+      "qa_status": "pending",
+      "notes": "Confirm clean untagged full-length MP3 before advancing to QA; do not use tagged public preview for delivery."
+    }
+  ]
 }
