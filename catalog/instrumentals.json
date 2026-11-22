@@ -50,33 +50,6 @@
       "duplicateSourceFilesExcluded": 0
     },
     {
-      "title": "A1 Reflections",
-      "formats": [
-        "MP3"
-      ],
-      "preview": null,
-      "reviewStatus": "pending",
-      "duplicateSourceFilesExcluded": 0
-    },
-    {
-      "title": "A1 solo Flying Higher",
-      "formats": [
-        "MP3"
-      ],
-      "preview": null,
-      "reviewStatus": "pending",
-      "duplicateSourceFilesExcluded": 0
-    },
-    {
-      "title": "A1 they real",
-      "formats": [
-        "MP3"
-      ],
-      "preview": null,
-      "reviewStatus": "pending",
-      "duplicateSourceFilesExcluded": 0
-    },
-    {
       "title": "A1Chopan",
       "formats": [
         "MP3"
@@ -729,13 +702,16 @@
     "method": "case-insensitive normalized instrumental title",
     "sourceFilesInspected": 100,
     "duplicateFileEntriesExcluded": 16,
-    "uniqueCatalogTitles": 80,
+    "uniqueCatalogTitles": 77,
     "sourceFilesNotDeleted": true
   },
   "excludedVocalSongs": [
     "A1 Down n Out",
     "A1 Feelings",
     "A1 Matlock Collab - How We Get It",
-    "A1 Mattlock Collab"
+    "A1 Mattlock Collab",
+    "A1 Reflections",
+    "A1 solo Flying Higher",
+    "A1 they real"
   ]
 }
