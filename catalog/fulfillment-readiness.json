@@ -7,7 +7,7 @@
   "private_master_keys": "OMITTED_FROM_PUBLIC_CATALOG",
   "purchase_status": "BATCH_36_IN_PREPARATION__ALL_REAL_PAYMENTS_DISABLED",
   "license_status": "DRAFT_V2_NOT_LEGALLY_FINAL",
-  "remote_object_verification": "NOT_PERFORMED_FROM_THIS_CATALOG",
+  "remote_object_verification": "72_OF_72_PRIVATE_OBJECTS_EXIST_AND_AUDIO_SIGNATURE_PASS_FOR_36",
   "notes": "This is a preparation manifest only, not proof of active private R2 objects. All private mp3/wav must pass HEAD+content QA, rights clearance, final license acceptance and payment verification before sale.",
   "products": [
     {
@@ -35,10 +35,12 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "status": "BATCH_36_R2_AUDIO_HEADERS_PASS__RIGHTS_AND_INDEPENDENT_QA_PENDING",
       "owner_hold": false,
       "pilot_batch_candidate": true,
-      "owner_hold_reason": null
+      "owner_hold_reason": null,
+      "r2_private_mp3_header_pass": true,
+      "r2_private_wav_header_pass": true
     },
     {
       "product_id": "BRUA1-INS-0002",
@@ -65,10 +67,12 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "status": "BATCH_36_R2_AUDIO_HEADERS_PASS__RIGHTS_AND_INDEPENDENT_QA_PENDING",
       "owner_hold": false,
       "pilot_batch_candidate": true,
-      "owner_hold_reason": null
+      "owner_hold_reason": null,
+      "r2_private_mp3_header_pass": true,
+      "r2_private_wav_header_pass": true
     },
     {
       "product_id": "BRUA1-INS-0003",
@@ -95,10 +99,12 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "status": "BATCH_36_R2_AUDIO_HEADERS_PASS__RIGHTS_AND_INDEPENDENT_QA_PENDING",
       "owner_hold": false,
       "pilot_batch_candidate": true,
-      "owner_hold_reason": null
+      "owner_hold_reason": null,
+      "r2_private_mp3_header_pass": true,
+      "r2_private_wav_header_pass": true
     },
     {
       "product_id": "BRUA1-INS-0004",
@@ -155,10 +161,12 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "status": "BATCH_36_R2_AUDIO_HEADERS_PASS__RIGHTS_AND_INDEPENDENT_QA_PENDING",
       "owner_hold": false,
       "pilot_batch_candidate": true,
-      "owner_hold_reason": null
+      "owner_hold_reason": null,
+      "r2_private_mp3_header_pass": true,
+      "r2_private_wav_header_pass": true
     },
     {
       "product_id": "BRUA1-INS-0006",
@@ -185,10 +193,12 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "status": "BATCH_36_R2_AUDIO_HEADERS_PASS__RIGHTS_AND_INDEPENDENT_QA_PENDING",
       "owner_hold": false,
       "pilot_batch_candidate": true,
-      "owner_hold_reason": null
+      "owner_hold_reason": null,
+      "r2_private_mp3_header_pass": true,
+      "r2_private_wav_header_pass": true
     },
     {
       "product_id": "BRUA1-INS-0007",
@@ -215,10 +225,12 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "status": "BATCH_36_R2_AUDIO_HEADERS_PASS__RIGHTS_AND_INDEPENDENT_QA_PENDING",
       "owner_hold": false,
       "pilot_batch_candidate": true,
-      "owner_hold_reason": null
+      "owner_hold_reason": null,
+      "r2_private_mp3_header_pass": true,
+      "r2_private_wav_header_pass": true
     },
     {
       "product_id": "BRUA1-INS-0008",
@@ -245,10 +257,12 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "status": "BATCH_36_R2_AUDIO_HEADERS_PASS__RIGHTS_AND_INDEPENDENT_QA_PENDING",
       "owner_hold": false,
       "pilot_batch_candidate": true,
-      "owner_hold_reason": null
+      "owner_hold_reason": null,
+      "r2_private_mp3_header_pass": true,
+      "r2_private_wav_header_pass": true
     },
     {
       "product_id": "BRUA1-INS-0009",
@@ -275,10 +289,12 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "status": "BATCH_36_R2_AUDIO_HEADERS_PASS__RIGHTS_AND_INDEPENDENT_QA_PENDING",
       "owner_hold": false,
       "pilot_batch_candidate": true,
-      "owner_hold_reason": null
+      "owner_hold_reason": null,
+      "r2_private_mp3_header_pass": true,
+      "r2_private_wav_header_pass": true
     },
     {
       "product_id": "BRUA1-INS-0010",
@@ -305,10 +321,12 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "status": "BATCH_36_R2_AUDIO_HEADERS_PASS__RIGHTS_AND_INDEPENDENT_QA_PENDING",
       "owner_hold": false,
       "pilot_batch_candidate": true,
-      "owner_hold_reason": null
+      "owner_hold_reason": null,
+      "r2_private_mp3_header_pass": true,
+      "r2_private_wav_header_pass": true
     },
     {
       "product_id": "BRUA1-INS-0011",
@@ -335,10 +353,12 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "status": "BATCH_36_R2_AUDIO_HEADERS_PASS__RIGHTS_AND_INDEPENDENT_QA_PENDING",
       "owner_hold": false,
       "pilot_batch_candidate": true,
-      "owner_hold_reason": null
+      "owner_hold_reason": null,
+      "r2_private_mp3_header_pass": true,
+      "r2_private_wav_header_pass": true
     },
     {
       "product_id": "BRUA1-INS-0012",
@@ -365,10 +385,12 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "status": "BATCH_36_R2_AUDIO_HEADERS_PASS__RIGHTS_AND_INDEPENDENT_QA_PENDING",
       "owner_hold": false,
       "pilot_batch_candidate": true,
-      "owner_hold_reason": null
+      "owner_hold_reason": null,
+      "r2_private_mp3_header_pass": true,
+      "r2_private_wav_header_pass": true
     },
     {
       "product_id": "BRUA1-INS-0013",
@@ -395,10 +417,12 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "status": "BATCH_36_R2_AUDIO_HEADERS_PASS__RIGHTS_AND_INDEPENDENT_QA_PENDING",
       "owner_hold": false,
       "pilot_batch_candidate": true,
-      "owner_hold_reason": null
+      "owner_hold_reason": null,
+      "r2_private_mp3_header_pass": true,
+      "r2_private_wav_header_pass": true
     },
     {
       "product_id": "BRUA1-INS-0014",
@@ -425,10 +449,12 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "status": "BATCH_36_R2_AUDIO_HEADERS_PASS__RIGHTS_AND_INDEPENDENT_QA_PENDING",
       "owner_hold": false,
       "pilot_batch_candidate": true,
-      "owner_hold_reason": null
+      "owner_hold_reason": null,
+      "r2_private_mp3_header_pass": true,
+      "r2_private_wav_header_pass": true
     },
     {
       "product_id": "BRUA1-INS-0015",
@@ -455,10 +481,12 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "status": "BATCH_36_R2_AUDIO_HEADERS_PASS__RIGHTS_AND_INDEPENDENT_QA_PENDING",
       "owner_hold": false,
       "pilot_batch_candidate": true,
-      "owner_hold_reason": null
+      "owner_hold_reason": null,
+      "r2_private_mp3_header_pass": true,
+      "r2_private_wav_header_pass": true
     },
     {
       "product_id": "BRUA1-INS-0016",
@@ -485,10 +513,12 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "status": "BATCH_36_R2_AUDIO_HEADERS_PASS__RIGHTS_AND_INDEPENDENT_QA_PENDING",
       "owner_hold": false,
       "pilot_batch_candidate": true,
-      "owner_hold_reason": null
+      "owner_hold_reason": null,
+      "r2_private_mp3_header_pass": true,
+      "r2_private_wav_header_pass": true
     },
     {
       "product_id": "BRUA1-INS-0017",
@@ -515,10 +545,12 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "status": "BATCH_36_R2_AUDIO_HEADERS_PASS__RIGHTS_AND_INDEPENDENT_QA_PENDING",
       "owner_hold": false,
       "pilot_batch_candidate": true,
-      "owner_hold_reason": null
+      "owner_hold_reason": null,
+      "r2_private_mp3_header_pass": true,
+      "r2_private_wav_header_pass": true
     },
     {
       "product_id": "BRUA1-INS-0018",
@@ -545,10 +577,12 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "status": "BATCH_36_R2_AUDIO_HEADERS_PASS__RIGHTS_AND_INDEPENDENT_QA_PENDING",
       "owner_hold": false,
       "pilot_batch_candidate": true,
-      "owner_hold_reason": null
+      "owner_hold_reason": null,
+      "r2_private_mp3_header_pass": true,
+      "r2_private_wav_header_pass": true
     },
     {
       "product_id": "BRUA1-INS-0019",
@@ -605,10 +639,12 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "status": "BATCH_36_R2_AUDIO_HEADERS_PASS__RIGHTS_AND_INDEPENDENT_QA_PENDING",
       "owner_hold": false,
       "pilot_batch_candidate": true,
-      "owner_hold_reason": null
+      "owner_hold_reason": null,
+      "r2_private_mp3_header_pass": true,
+      "r2_private_wav_header_pass": true
     },
     {
       "product_id": "BRUA1-INS-0021",
@@ -635,10 +671,12 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "status": "BATCH_36_R2_AUDIO_HEADERS_PASS__RIGHTS_AND_INDEPENDENT_QA_PENDING",
       "owner_hold": false,
       "pilot_batch_candidate": true,
-      "owner_hold_reason": null
+      "owner_hold_reason": null,
+      "r2_private_mp3_header_pass": true,
+      "r2_private_wav_header_pass": true
     },
     {
       "product_id": "BRUA1-INS-0022",
@@ -665,10 +703,12 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "status": "BATCH_36_R2_AUDIO_HEADERS_PASS__RIGHTS_AND_INDEPENDENT_QA_PENDING",
       "owner_hold": false,
       "pilot_batch_candidate": true,
-      "owner_hold_reason": null
+      "owner_hold_reason": null,
+      "r2_private_mp3_header_pass": true,
+      "r2_private_wav_header_pass": true
     },
     {
       "product_id": "BRUA1-INS-0023",
@@ -695,10 +735,12 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "status": "BATCH_36_R2_AUDIO_HEADERS_PASS__RIGHTS_AND_INDEPENDENT_QA_PENDING",
       "owner_hold": false,
       "pilot_batch_candidate": true,
-      "owner_hold_reason": null
+      "owner_hold_reason": null,
+      "r2_private_mp3_header_pass": true,
+      "r2_private_wav_header_pass": true
     },
     {
       "product_id": "BRUA1-INS-0024",
@@ -725,10 +767,12 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "status": "BATCH_36_R2_AUDIO_HEADERS_PASS__RIGHTS_AND_INDEPENDENT_QA_PENDING",
       "owner_hold": false,
       "pilot_batch_candidate": true,
-      "owner_hold_reason": null
+      "owner_hold_reason": null,
+      "r2_private_mp3_header_pass": true,
+      "r2_private_wav_header_pass": true
     },
     {
       "product_id": "BRUA1-INS-0025",
@@ -755,10 +799,12 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "status": "BATCH_36_R2_AUDIO_HEADERS_PASS__RIGHTS_AND_INDEPENDENT_QA_PENDING",
       "owner_hold": false,
       "pilot_batch_candidate": true,
-      "owner_hold_reason": null
+      "owner_hold_reason": null,
+      "r2_private_mp3_header_pass": true,
+      "r2_private_wav_header_pass": true
     },
     {
       "product_id": "BRUA1-INS-0026",
@@ -815,10 +861,12 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "status": "BATCH_36_R2_AUDIO_HEADERS_PASS__RIGHTS_AND_INDEPENDENT_QA_PENDING",
       "owner_hold": false,
       "pilot_batch_candidate": true,
-      "owner_hold_reason": null
+      "owner_hold_reason": null,
+      "r2_private_mp3_header_pass": true,
+      "r2_private_wav_header_pass": true
     },
     {
       "product_id": "BRUA1-INS-0028",
@@ -845,10 +893,12 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "status": "BATCH_36_R2_AUDIO_HEADERS_PASS__RIGHTS_AND_INDEPENDENT_QA_PENDING",
       "owner_hold": false,
       "pilot_batch_candidate": true,
-      "owner_hold_reason": null
+      "owner_hold_reason": null,
+      "r2_private_mp3_header_pass": true,
+      "r2_private_wav_header_pass": true
     },
     {
       "product_id": "BRUA1-INS-0029",
@@ -875,10 +925,12 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "status": "BATCH_36_R2_AUDIO_HEADERS_PASS__RIGHTS_AND_INDEPENDENT_QA_PENDING",
       "owner_hold": false,
       "pilot_batch_candidate": true,
-      "owner_hold_reason": null
+      "owner_hold_reason": null,
+      "r2_private_mp3_header_pass": true,
+      "r2_private_wav_header_pass": true
     },
     {
       "product_id": "BRUA1-INS-0030",
@@ -905,10 +957,12 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "status": "BATCH_36_R2_AUDIO_HEADERS_PASS__RIGHTS_AND_INDEPENDENT_QA_PENDING",
       "owner_hold": false,
       "pilot_batch_candidate": true,
-      "owner_hold_reason": null
+      "owner_hold_reason": null,
+      "r2_private_mp3_header_pass": true,
+      "r2_private_wav_header_pass": true
     },
     {
       "product_id": "BRUA1-INS-0031",
@@ -935,10 +989,12 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "status": "BATCH_36_R2_AUDIO_HEADERS_PASS__RIGHTS_AND_INDEPENDENT_QA_PENDING",
       "owner_hold": false,
       "pilot_batch_candidate": true,
-      "owner_hold_reason": null
+      "owner_hold_reason": null,
+      "r2_private_mp3_header_pass": true,
+      "r2_private_wav_header_pass": true
     },
     {
       "product_id": "BRUA1-INS-0032",
@@ -965,10 +1021,12 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "status": "BATCH_36_R2_AUDIO_HEADERS_PASS__RIGHTS_AND_INDEPENDENT_QA_PENDING",
       "owner_hold": false,
       "pilot_batch_candidate": true,
-      "owner_hold_reason": null
+      "owner_hold_reason": null,
+      "r2_private_mp3_header_pass": true,
+      "r2_private_wav_header_pass": true
     },
     {
       "product_id": "BRUA1-INS-0033",
@@ -995,10 +1053,12 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "status": "BATCH_36_R2_AUDIO_HEADERS_PASS__RIGHTS_AND_INDEPENDENT_QA_PENDING",
       "owner_hold": false,
       "pilot_batch_candidate": true,
-      "owner_hold_reason": null
+      "owner_hold_reason": null,
+      "r2_private_mp3_header_pass": true,
+      "r2_private_wav_header_pass": true
     },
     {
       "product_id": "BRUA1-INS-0034",
@@ -1025,10 +1085,12 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "status": "BATCH_36_R2_AUDIO_HEADERS_PASS__RIGHTS_AND_INDEPENDENT_QA_PENDING",
       "owner_hold": false,
       "pilot_batch_candidate": true,
-      "owner_hold_reason": null
+      "owner_hold_reason": null,
+      "r2_private_mp3_header_pass": true,
+      "r2_private_wav_header_pass": true
     },
     {
       "product_id": "BRUA1-INS-0035",
@@ -1055,10 +1117,12 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "status": "BATCH_36_R2_AUDIO_HEADERS_PASS__RIGHTS_AND_INDEPENDENT_QA_PENDING",
       "owner_hold": false,
       "pilot_batch_candidate": true,
-      "owner_hold_reason": null
+      "owner_hold_reason": null,
+      "r2_private_mp3_header_pass": true,
+      "r2_private_wav_header_pass": true
     },
     {
       "product_id": "BRUA1-INS-0036",
@@ -1085,10 +1149,12 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "status": "BATCH_36_R2_AUDIO_HEADERS_PASS__RIGHTS_AND_INDEPENDENT_QA_PENDING",
       "owner_hold": false,
       "pilot_batch_candidate": true,
-      "owner_hold_reason": null
+      "owner_hold_reason": null,
+      "r2_private_mp3_header_pass": true,
+      "r2_private_wav_header_pass": true
     },
     {
       "product_id": "BRUA1-INS-0037",
@@ -1115,10 +1181,12 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "status": "BATCH_36_R2_AUDIO_HEADERS_PASS__RIGHTS_AND_INDEPENDENT_QA_PENDING",
       "owner_hold": false,
       "pilot_batch_candidate": true,
-      "owner_hold_reason": null
+      "owner_hold_reason": null,
+      "r2_private_mp3_header_pass": true,
+      "r2_private_wav_header_pass": true
     },
     {
       "product_id": "BRUA1-INS-0038",
@@ -1145,10 +1213,12 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "status": "BATCH_36_R2_AUDIO_HEADERS_PASS__RIGHTS_AND_INDEPENDENT_QA_PENDING",
       "owner_hold": false,
       "pilot_batch_candidate": true,
-      "owner_hold_reason": null
+      "owner_hold_reason": null,
+      "r2_private_mp3_header_pass": true,
+      "r2_private_wav_header_pass": true
     },
     {
       "product_id": "BRUA1-INS-0039",
@@ -1175,10 +1245,12 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "status": "BATCH_36_R2_AUDIO_HEADERS_PASS__RIGHTS_AND_INDEPENDENT_QA_PENDING",
       "owner_hold": false,
       "pilot_batch_candidate": true,
-      "owner_hold_reason": null
+      "owner_hold_reason": null,
+      "r2_private_mp3_header_pass": true,
+      "r2_private_wav_header_pass": true
     }
   ],
   "owner_instruction": "2026-11-23: Prepare the other 36 for selling; hold Paralyzed, Chopin and Laid Back & Litty until owner provides missing WAV masters. Do not activate checkout without final independent QA and approved license agreements.",
@@ -1189,5 +1261,7 @@
     "BRUA1-INS-0019",
     "BRUA1-INS-0026"
   ],
-  "sale_enabled": false
+  "sale_enabled": false,
+  "remote_object_audit_url": "https://github.com/BruA1/brua1-media-sync/actions/runs/45283146128",
+  "reviewed_on": "2026-11-23"
 }
