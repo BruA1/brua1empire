@@ -7,6 +7,8 @@ on:
       - 'contracts/instrumental-terms-draft-v2.json'
       - 'fulfillment/**'
       - 'tests/fulfillment-gates.test.mjs'
+      - 'tests/private-delivery.test.mjs'
+      - 'catalog/store-skus-staging.json'
       - '.github/workflows/fulfillment-readiness-qa.yml'
   pull_request:
     paths:
@@ -14,6 +16,8 @@ on:
       - 'contracts/instrumental-terms-draft-v2.json'
       - 'fulfillment/**'
       - 'tests/fulfillment-gates.test.mjs'
+      - 'tests/private-delivery.test.mjs'
+      - 'catalog/store-skus-staging.json'
       - '.github/workflows/fulfillment-readiness-qa.yml'
 permissions:
   contents: read
@@ -27,10 +31,13 @@ jobs:
         with:
           node-version: '22'
       - name: Check fulfillment module syntax
-        run: node --check fulfillment/core.mjs
+        run: |
+          node --check fulfillment/core.mjs
+          node --check fulfillment/private-delivery.mjs
       - name: Enforce 36-only batch, signed-term/payment/format gates and 3 on hold
-        run: node --test tests/fulfillment-gates.test.mjs
+        run: node --test tests/fulfillment-gates.test.mjs tests/private-delivery.test.mjs
       - name: Ensure staging manifest never allows live checkout
         run: |
           node --input-type=module -e "import fs from 'fs';const j=JSON.parse(fs.readFileSync('catalog/fulfillment-readiness.json'));if(j.products.filter(x=>x.pilot_batch_candidate).length!==36||j.products.some(x=>x.sale_enabled)||j.products.filter(x=>x.owner_hold).length!==3)process.exit(1)"
-          echo 'All sales remain disabled'
+          node --input-type=module -e "import fs from 'fs';const j=JSON.parse(fs.readFileSync('catalog/store-skus-staging.json'));if(j.skus.length!==108||j.items_in_batch!==36||j.skus.some(x=>x.checkout_enabled||x.fulfillment_enabled||!x.asset_metadata_verified))process.exit(1)"
+          echo 'All sales remain disabled; 108 staged SKUs verified'
