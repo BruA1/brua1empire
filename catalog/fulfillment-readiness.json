@@ -5,7 +5,7 @@
   "private_manifest_product_count": 38,
   "private_manifest_source": "BruA1/brua1-media-sync:data/product-masters.json",
   "private_master_keys": "OMITTED_FROM_PUBLIC_CATALOG",
-  "purchase_status": "ALL_DISABLED",
+  "purchase_status": "BATCH_36_IN_PREPARATION__ALL_REAL_PAYMENTS_DISABLED",
   "license_status": "DRAFT_V2_NOT_LEGALLY_FINAL",
   "remote_object_verification": "NOT_PERFORMED_FROM_THIS_CATALOG",
   "notes": "This is a preparation manifest only, not proof of active private R2 objects. All private mp3/wav must pass HEAD+content QA, rights clearance, final license acceptance and payment verification before sale.",
@@ -35,7 +35,10 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "owner_hold": false,
+      "pilot_batch_candidate": true,
+      "owner_hold_reason": null
     },
     {
       "product_id": "BRUA1-INS-0002",
@@ -62,7 +65,10 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "owner_hold": false,
+      "pilot_batch_candidate": true,
+      "owner_hold_reason": null
     },
     {
       "product_id": "BRUA1-INS-0003",
@@ -89,7 +95,10 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "owner_hold": false,
+      "pilot_batch_candidate": true,
+      "owner_hold_reason": null
     },
     {
       "product_id": "BRUA1-INS-0004",
@@ -116,7 +125,10 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "MISSING_PRIVATE_WAV_RECORD"
+      "status": "OWNER_HOLD_AWAITING_WAV",
+      "owner_hold": true,
+      "pilot_batch_candidate": false,
+      "owner_hold_reason": "Waiting for WAV from owner; Paralyzed also lacks a delivery master mapping in current manifest"
     },
     {
       "product_id": "BRUA1-INS-0005",
@@ -143,7 +155,10 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "owner_hold": false,
+      "pilot_batch_candidate": true,
+      "owner_hold_reason": null
     },
     {
       "product_id": "BRUA1-INS-0006",
@@ -170,7 +185,10 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "owner_hold": false,
+      "pilot_batch_candidate": true,
+      "owner_hold_reason": null
     },
     {
       "product_id": "BRUA1-INS-0007",
@@ -197,7 +215,10 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "owner_hold": false,
+      "pilot_batch_candidate": true,
+      "owner_hold_reason": null
     },
     {
       "product_id": "BRUA1-INS-0008",
@@ -224,7 +245,10 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "owner_hold": false,
+      "pilot_batch_candidate": true,
+      "owner_hold_reason": null
     },
     {
       "product_id": "BRUA1-INS-0009",
@@ -251,7 +275,10 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "owner_hold": false,
+      "pilot_batch_candidate": true,
+      "owner_hold_reason": null
     },
     {
       "product_id": "BRUA1-INS-0010",
@@ -278,7 +305,10 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "owner_hold": false,
+      "pilot_batch_candidate": true,
+      "owner_hold_reason": null
     },
     {
       "product_id": "BRUA1-INS-0011",
@@ -305,7 +335,10 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "owner_hold": false,
+      "pilot_batch_candidate": true,
+      "owner_hold_reason": null
     },
     {
       "product_id": "BRUA1-INS-0012",
@@ -332,7 +365,10 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "owner_hold": false,
+      "pilot_batch_candidate": true,
+      "owner_hold_reason": null
     },
     {
       "product_id": "BRUA1-INS-0013",
@@ -359,7 +395,10 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "owner_hold": false,
+      "pilot_batch_candidate": true,
+      "owner_hold_reason": null
     },
     {
       "product_id": "BRUA1-INS-0014",
@@ -386,7 +425,10 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "owner_hold": false,
+      "pilot_batch_candidate": true,
+      "owner_hold_reason": null
     },
     {
       "product_id": "BRUA1-INS-0015",
@@ -413,7 +455,10 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "owner_hold": false,
+      "pilot_batch_candidate": true,
+      "owner_hold_reason": null
     },
     {
       "product_id": "BRUA1-INS-0016",
@@ -440,7 +485,10 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "owner_hold": false,
+      "pilot_batch_candidate": true,
+      "owner_hold_reason": null
     },
     {
       "product_id": "BRUA1-INS-0017",
@@ -467,7 +515,10 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "owner_hold": false,
+      "pilot_batch_candidate": true,
+      "owner_hold_reason": null
     },
     {
       "product_id": "BRUA1-INS-0018",
@@ -494,7 +545,10 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "owner_hold": false,
+      "pilot_batch_candidate": true,
+      "owner_hold_reason": null
     },
     {
       "product_id": "BRUA1-INS-0019",
@@ -521,7 +575,10 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "MISSING_PRIVATE_WAV_RECORD"
+      "status": "OWNER_HOLD_AWAITING_WAV",
+      "owner_hold": true,
+      "pilot_batch_candidate": false,
+      "owner_hold_reason": "Waiting for WAV from owner; Paralyzed also lacks a delivery master mapping in current manifest"
     },
     {
       "product_id": "BRUA1-INS-0020",
@@ -548,7 +605,10 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "owner_hold": false,
+      "pilot_batch_candidate": true,
+      "owner_hold_reason": null
     },
     {
       "product_id": "BRUA1-INS-0021",
@@ -575,7 +635,10 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "owner_hold": false,
+      "pilot_batch_candidate": true,
+      "owner_hold_reason": null
     },
     {
       "product_id": "BRUA1-INS-0022",
@@ -602,7 +665,10 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "owner_hold": false,
+      "pilot_batch_candidate": true,
+      "owner_hold_reason": null
     },
     {
       "product_id": "BRUA1-INS-0023",
@@ -629,7 +695,10 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "owner_hold": false,
+      "pilot_batch_candidate": true,
+      "owner_hold_reason": null
     },
     {
       "product_id": "BRUA1-INS-0024",
@@ -656,7 +725,10 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "owner_hold": false,
+      "pilot_batch_candidate": true,
+      "owner_hold_reason": null
     },
     {
       "product_id": "BRUA1-INS-0025",
@@ -683,7 +755,10 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "owner_hold": false,
+      "pilot_batch_candidate": true,
+      "owner_hold_reason": null
     },
     {
       "product_id": "BRUA1-INS-0026",
@@ -710,7 +785,10 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "MISSING_PRIVATE_MP3_RECORD"
+      "status": "OWNER_HOLD_AWAITING_WAV",
+      "owner_hold": true,
+      "pilot_batch_candidate": false,
+      "owner_hold_reason": "Waiting for WAV from owner; Paralyzed also lacks a delivery master mapping in current manifest"
     },
     {
       "product_id": "BRUA1-INS-0027",
@@ -737,7 +815,10 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "owner_hold": false,
+      "pilot_batch_candidate": true,
+      "owner_hold_reason": null
     },
     {
       "product_id": "BRUA1-INS-0028",
@@ -764,7 +845,10 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "owner_hold": false,
+      "pilot_batch_candidate": true,
+      "owner_hold_reason": null
     },
     {
       "product_id": "BRUA1-INS-0029",
@@ -791,7 +875,10 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "owner_hold": false,
+      "pilot_batch_candidate": true,
+      "owner_hold_reason": null
     },
     {
       "product_id": "BRUA1-INS-0030",
@@ -818,7 +905,10 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "owner_hold": false,
+      "pilot_batch_candidate": true,
+      "owner_hold_reason": null
     },
     {
       "product_id": "BRUA1-INS-0031",
@@ -845,7 +935,10 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "owner_hold": false,
+      "pilot_batch_candidate": true,
+      "owner_hold_reason": null
     },
     {
       "product_id": "BRUA1-INS-0032",
@@ -872,7 +965,10 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "owner_hold": false,
+      "pilot_batch_candidate": true,
+      "owner_hold_reason": null
     },
     {
       "product_id": "BRUA1-INS-0033",
@@ -899,7 +995,10 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "owner_hold": false,
+      "pilot_batch_candidate": true,
+      "owner_hold_reason": null
     },
     {
       "product_id": "BRUA1-INS-0034",
@@ -926,7 +1025,10 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "owner_hold": false,
+      "pilot_batch_candidate": true,
+      "owner_hold_reason": null
     },
     {
       "product_id": "BRUA1-INS-0035",
@@ -953,7 +1055,10 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "owner_hold": false,
+      "pilot_batch_candidate": true,
+      "owner_hold_reason": null
     },
     {
       "product_id": "BRUA1-INS-0036",
@@ -980,7 +1085,10 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "owner_hold": false,
+      "pilot_batch_candidate": true,
+      "owner_hold_reason": null
     },
     {
       "product_id": "BRUA1-INS-0037",
@@ -1007,7 +1115,10 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "owner_hold": false,
+      "pilot_batch_candidate": true,
+      "owner_hold_reason": null
     },
     {
       "product_id": "BRUA1-INS-0038",
@@ -1034,7 +1145,10 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "owner_hold": false,
+      "pilot_batch_candidate": true,
+      "owner_hold_reason": null
     },
     {
       "product_id": "BRUA1-INS-0039",
@@ -1061,7 +1175,19 @@
         "independent_qa_pass": false
       },
       "sale_enabled": false,
-      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+      "status": "BATCH_36_MANIFESTED_PENDING_PRIVATE_R2_AUDIT_AND_INDEPENDENT_QA",
+      "owner_hold": false,
+      "pilot_batch_candidate": true,
+      "owner_hold_reason": null
     }
-  ]
+  ],
+  "owner_instruction": "2026-11-23: Prepare the other 36 for selling; hold Paralyzed, Chopin and Laid Back & Litty until owner provides missing WAV masters. Do not activate checkout without final independent QA and approved license agreements.",
+  "pilot_batch_count": 36,
+  "owner_held_count": 3,
+  "owner_hold_ids": [
+    "BRUA1-INS-0004",
+    "BRUA1-INS-0019",
+    "BRUA1-INS-0026"
+  ],
+  "sale_enabled": false
 }
