@@ -6,5 +6,6 @@
 !script.js
 !catalog/
 !catalog/instrumentals.json
+!catalog/public-license-options.json
 !assets/
 !assets/*.png
