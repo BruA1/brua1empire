@@ -64,10 +64,12 @@ export function fulfillmentDecision({order,product,verifiedPayment,acceptance,co
 /** Immutable audit metadata; attach an exact legally approved agreement separately.
  * This is not itself a valid contract and MUST NOT stand in for legal counsel review.
  */
-export function createLicenseRecord({order,acceptedTerms,issueAt,licenseId,documentHash,config}) {
-  if(!config || config.agreement_status!=="LEGAL_APPROVED" || !config.approved_terms_version ||
+export function createLicenseRecord({order,acceptedTerms,issueAt,licenseId,documentHash,config,decision}) {
+  if(!config || !config.owner_signed_off || !config.approved_terms_published || config.agreement_status!=="LEGAL_APPROVED" || !config.approved_terms_version ||
      config.approved_terms_version===DRAFT_TERMS_VERSION)
-    throw Error("Agreement must be legally approved before license issuance");
+    throw Error("Agreement and CEO signoff required before license issuance");
+  if(!decision?.allowed || decision.product_id!==order?.product_id || decision.tier!==order?.license_tier)
+    throw Error("Complete verified fulfillment decision required for this purchase");
   if(!order || order.status!=="COMPLETED" || !PRODUCT_ID.test(order.product_id||"") ||
      !own(PRICES,order.license_tier) || typeof order.buyer_email!=="string")
     throw Error("Verified purchase details required");
