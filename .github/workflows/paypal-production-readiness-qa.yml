@@ -1,0 +1,42 @@
+name: BruA1 Production Payments Readiness QA — No Live Charges
+on:
+  pull_request:
+    paths:
+      - "fulfillment/paypal-payment-gates.mjs"
+      - "fulfillment/launch-approval-status.json"
+      - "tests/paypal-production-gates.test.mjs"
+      - "tests/payment-to-delivery.integration.test.mjs"
+      - ".github/workflows/paypal-production-readiness-qa.yml"
+  push:
+    branches: [main,feature/production-commerce-payment-gates-20261123]
+    paths:
+      - "fulfillment/paypal-payment-gates.mjs"
+      - "fulfillment/launch-approval-status.json"
+      - "tests/paypal-production-gates.test.mjs"
+      - "tests/payment-to-delivery.integration.test.mjs"
+      - ".github/workflows/paypal-production-readiness-qa.yml"
+permissions:
+  contents: read
+jobs:
+  mock-security:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate payment gate module syntax
+        run: node --check fulfillment/paypal-payment-gates.mjs
+      - name: Verify every 36-track SKU and safe payment, license and webhook behavior
+        run: node --test tests/paypal-production-gates.test.mjs tests/payment-to-delivery.integration.test.mjs
+      - name: Refuse to deploy while final agreements remain drafts
+        run: |
+          node --input-type=module <<'EOF'
+          import fs from "node:fs";
+          const c=JSON.parse(fs.readFileSync("contracts/instrumental-terms-draft-v2.json","utf8"));
+          const s=JSON.parse(fs.readFileSync("catalog/store-skus-staging.json","utf8"));
+          const g=JSON.parse(fs.readFileSync("fulfillment/launch-approval-status.json","utf8"));
+          if(!c.not_live||c.public_license_issuance_enabled||!s.skus.every(x=>!x.checkout_enabled&&!x.fulfillment_enabled)||g.payments_live||g.automatic_full_master_delivery_live||Object.values(g.launch_gates).some(x=>x!==false))process.exit(1);
+          console.log("PASS: production purchasing, license issuance and clean audio delivery remain disabled");
+          EOF
