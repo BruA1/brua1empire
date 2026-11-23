@@ -1,0 +1,28 @@
+name: BruA1 Instrumental Store Catalog QA
+on:
+  pull_request:
+    paths:
+      - 'instrumentals.html'
+      - 'catalog/instrumentals.json'
+      - 'scripts/validate-store-catalog.mjs'
+      - '.github/workflows/store-catalog-qa.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'instrumentals.html'
+      - 'catalog/instrumentals.json'
+      - 'scripts/validate-store-catalog.mjs'
+      - '.github/workflows/store-catalog-qa.yml'
+permissions:
+  contents: read
+jobs:
+  validate-public-store:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate private/public boundary and inquiry-only catalog
+        run: node scripts/validate-store-catalog.mjs
