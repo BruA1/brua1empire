@@ -3,6 +3,7 @@ on:
   pull_request:
     paths:
       - "fulfillment/paypal-payment-gates.mjs"
+      - "fulfillment/launch-approval-status.json"
       - "tests/paypal-production-gates.test.mjs"
       - "tests/payment-to-delivery.integration.test.mjs"
       - ".github/workflows/paypal-production-readiness-qa.yml"
@@ -10,6 +11,7 @@ on:
     branches: [main,feature/production-commerce-payment-gates-20261123]
     paths:
       - "fulfillment/paypal-payment-gates.mjs"
+      - "fulfillment/launch-approval-status.json"
       - "tests/paypal-production-gates.test.mjs"
       - "tests/payment-to-delivery.integration.test.mjs"
       - ".github/workflows/paypal-production-readiness-qa.yml"
@@ -34,6 +36,7 @@ jobs:
           import fs from "node:fs";
           const c=JSON.parse(fs.readFileSync("contracts/instrumental-terms-draft-v2.json","utf8"));
           const s=JSON.parse(fs.readFileSync("catalog/store-skus-staging.json","utf8"));
-          if(!c.not_live||c.public_license_issuance_enabled||!s.skus.every(x=>!x.checkout_enabled&&!x.fulfillment_enabled))process.exit(1);
+          const g=JSON.parse(fs.readFileSync("fulfillment/launch-approval-status.json","utf8"));
+          if(!c.not_live||c.public_license_issuance_enabled||!s.skus.every(x=>!x.checkout_enabled&&!x.fulfillment_enabled)||g.payments_live||g.automatic_full_master_delivery_live||Object.values(g.launch_gates).some(x=>x!==false))process.exit(1);
           console.log("PASS: production purchasing, license issuance and clean audio delivery remain disabled");
           EOF
