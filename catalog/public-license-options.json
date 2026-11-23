@@ -1,0 +1,1583 @@
+{
+  "schema_version": 1,
+  "title": "BruA1 instrumental license selection — display only",
+  "agreement_status": "DRAFT_V2_PENDING_FINAL_REVIEW",
+  "checkout_enabled": false,
+  "notice": "Pricing and license limits are proposed; requests do not constitute purchases or licenses. Payment processing and automated delivery are not yet live.",
+  "terms_summary": {
+    "basic": "MP3 · 5 years · up to 5,000 sales and 100,000 monetized audio streams",
+    "premium": "MP3 + WAV · 10 years · up to 25,000 sales and 500,000 monetized audio streams",
+    "unlimited": "MP3 + WAV · 10 years · unlimited permitted sales and streams (not an exclusive license)"
+  },
+  "items": [
+    {
+      "id": "BRUA1-INS-0001",
+      "title": "108 in the Shade",
+      "availability": "license_options_preview",
+      "checkout_enabled": false,
+      "options": [
+        {
+          "tier": "basic",
+          "price_cents": 2999,
+          "currency": "USD",
+          "formats": [
+            "mp3"
+          ],
+          "duration_years": 5,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0001-BASIC"
+        },
+        {
+          "tier": "premium",
+          "price_cents": 5999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0001-PREMIUM"
+        },
+        {
+          "tier": "unlimited",
+          "price_cents": 9999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0001-UNLIMITED"
+        }
+      ]
+    },
+    {
+      "id": "BRUA1-INS-0002",
+      "title": "Anxiety",
+      "availability": "license_options_preview",
+      "checkout_enabled": false,
+      "options": [
+        {
+          "tier": "basic",
+          "price_cents": 2999,
+          "currency": "USD",
+          "formats": [
+            "mp3"
+          ],
+          "duration_years": 5,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0002-BASIC"
+        },
+        {
+          "tier": "premium",
+          "price_cents": 5999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0002-PREMIUM"
+        },
+        {
+          "tier": "unlimited",
+          "price_cents": 9999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0002-UNLIMITED"
+        }
+      ]
+    },
+    {
+      "id": "BRUA1-INS-0003",
+      "title": "Blaze",
+      "availability": "license_options_preview",
+      "checkout_enabled": false,
+      "options": [
+        {
+          "tier": "basic",
+          "price_cents": 2999,
+          "currency": "USD",
+          "formats": [
+            "mp3"
+          ],
+          "duration_years": 5,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0003-BASIC"
+        },
+        {
+          "tier": "premium",
+          "price_cents": 5999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0003-PREMIUM"
+        },
+        {
+          "tier": "unlimited",
+          "price_cents": 9999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0003-UNLIMITED"
+        }
+      ]
+    },
+    {
+      "id": "BRUA1-INS-0004",
+      "title": "Chopin",
+      "availability": "listening_only",
+      "checkout_enabled": false,
+      "options": []
+    },
+    {
+      "id": "BRUA1-INS-0005",
+      "title": "Cypher",
+      "availability": "license_options_preview",
+      "checkout_enabled": false,
+      "options": [
+        {
+          "tier": "basic",
+          "price_cents": 2999,
+          "currency": "USD",
+          "formats": [
+            "mp3"
+          ],
+          "duration_years": 5,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0005-BASIC"
+        },
+        {
+          "tier": "premium",
+          "price_cents": 5999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0005-PREMIUM"
+        },
+        {
+          "tier": "unlimited",
+          "price_cents": 9999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0005-UNLIMITED"
+        }
+      ]
+    },
+    {
+      "id": "BRUA1-INS-0006",
+      "title": "Dallar and a Dream",
+      "availability": "license_options_preview",
+      "checkout_enabled": false,
+      "options": [
+        {
+          "tier": "basic",
+          "price_cents": 2999,
+          "currency": "USD",
+          "formats": [
+            "mp3"
+          ],
+          "duration_years": 5,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0006-BASIC"
+        },
+        {
+          "tier": "premium",
+          "price_cents": 5999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0006-PREMIUM"
+        },
+        {
+          "tier": "unlimited",
+          "price_cents": 9999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0006-UNLIMITED"
+        }
+      ]
+    },
+    {
+      "id": "BRUA1-INS-0007",
+      "title": "Danger",
+      "availability": "license_options_preview",
+      "checkout_enabled": false,
+      "options": [
+        {
+          "tier": "basic",
+          "price_cents": 2999,
+          "currency": "USD",
+          "formats": [
+            "mp3"
+          ],
+          "duration_years": 5,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0007-BASIC"
+        },
+        {
+          "tier": "premium",
+          "price_cents": 5999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0007-PREMIUM"
+        },
+        {
+          "tier": "unlimited",
+          "price_cents": 9999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0007-UNLIMITED"
+        }
+      ]
+    },
+    {
+      "id": "BRUA1-INS-0008",
+      "title": "decater",
+      "availability": "license_options_preview",
+      "checkout_enabled": false,
+      "options": [
+        {
+          "tier": "basic",
+          "price_cents": 2999,
+          "currency": "USD",
+          "formats": [
+            "mp3"
+          ],
+          "duration_years": 5,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0008-BASIC"
+        },
+        {
+          "tier": "premium",
+          "price_cents": 5999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0008-PREMIUM"
+        },
+        {
+          "tier": "unlimited",
+          "price_cents": 9999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0008-UNLIMITED"
+        }
+      ]
+    },
+    {
+      "id": "BRUA1-INS-0009",
+      "title": "Drawdown",
+      "availability": "license_options_preview",
+      "checkout_enabled": false,
+      "options": [
+        {
+          "tier": "basic",
+          "price_cents": 2999,
+          "currency": "USD",
+          "formats": [
+            "mp3"
+          ],
+          "duration_years": 5,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0009-BASIC"
+        },
+        {
+          "tier": "premium",
+          "price_cents": 5999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0009-PREMIUM"
+        },
+        {
+          "tier": "unlimited",
+          "price_cents": 9999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0009-UNLIMITED"
+        }
+      ]
+    },
+    {
+      "id": "BRUA1-INS-0010",
+      "title": "DreSlide",
+      "availability": "license_options_preview",
+      "checkout_enabled": false,
+      "options": [
+        {
+          "tier": "basic",
+          "price_cents": 2999,
+          "currency": "USD",
+          "formats": [
+            "mp3"
+          ],
+          "duration_years": 5,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0010-BASIC"
+        },
+        {
+          "tier": "premium",
+          "price_cents": 5999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0010-PREMIUM"
+        },
+        {
+          "tier": "unlimited",
+          "price_cents": 9999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0010-UNLIMITED"
+        }
+      ]
+    },
+    {
+      "id": "BRUA1-INS-0011",
+      "title": "DrPepperFlavoredListerineJ",
+      "availability": "license_options_preview",
+      "checkout_enabled": false,
+      "options": [
+        {
+          "tier": "basic",
+          "price_cents": 2999,
+          "currency": "USD",
+          "formats": [
+            "mp3"
+          ],
+          "duration_years": 5,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0011-BASIC"
+        },
+        {
+          "tier": "premium",
+          "price_cents": 5999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0011-PREMIUM"
+        },
+        {
+          "tier": "unlimited",
+          "price_cents": 9999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0011-UNLIMITED"
+        }
+      ]
+    },
+    {
+      "id": "BRUA1-INS-0012",
+      "title": "Elon Free",
+      "availability": "license_options_preview",
+      "checkout_enabled": false,
+      "options": [
+        {
+          "tier": "basic",
+          "price_cents": 2999,
+          "currency": "USD",
+          "formats": [
+            "mp3"
+          ],
+          "duration_years": 5,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0012-BASIC"
+        },
+        {
+          "tier": "premium",
+          "price_cents": 5999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0012-PREMIUM"
+        },
+        {
+          "tier": "unlimited",
+          "price_cents": 9999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0012-UNLIMITED"
+        }
+      ]
+    },
+    {
+      "id": "BRUA1-INS-0013",
+      "title": "Fck Stress",
+      "availability": "license_options_preview",
+      "checkout_enabled": false,
+      "options": [
+        {
+          "tier": "basic",
+          "price_cents": 2999,
+          "currency": "USD",
+          "formats": [
+            "mp3"
+          ],
+          "duration_years": 5,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0013-BASIC"
+        },
+        {
+          "tier": "premium",
+          "price_cents": 5999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0013-PREMIUM"
+        },
+        {
+          "tier": "unlimited",
+          "price_cents": 9999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0013-UNLIMITED"
+        }
+      ]
+    },
+    {
+      "id": "BRUA1-INS-0014",
+      "title": "Get Em",
+      "availability": "license_options_preview",
+      "checkout_enabled": false,
+      "options": [
+        {
+          "tier": "basic",
+          "price_cents": 2999,
+          "currency": "USD",
+          "formats": [
+            "mp3"
+          ],
+          "duration_years": 5,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0014-BASIC"
+        },
+        {
+          "tier": "premium",
+          "price_cents": 5999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0014-PREMIUM"
+        },
+        {
+          "tier": "unlimited",
+          "price_cents": 9999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0014-UNLIMITED"
+        }
+      ]
+    },
+    {
+      "id": "BRUA1-INS-0015",
+      "title": "Ginu",
+      "availability": "license_options_preview",
+      "checkout_enabled": false,
+      "options": [
+        {
+          "tier": "basic",
+          "price_cents": 2999,
+          "currency": "USD",
+          "formats": [
+            "mp3"
+          ],
+          "duration_years": 5,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0015-BASIC"
+        },
+        {
+          "tier": "premium",
+          "price_cents": 5999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0015-PREMIUM"
+        },
+        {
+          "tier": "unlimited",
+          "price_cents": 9999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0015-UNLIMITED"
+        }
+      ]
+    },
+    {
+      "id": "BRUA1-INS-0016",
+      "title": "Gnosis",
+      "availability": "license_options_preview",
+      "checkout_enabled": false,
+      "options": [
+        {
+          "tier": "basic",
+          "price_cents": 2999,
+          "currency": "USD",
+          "formats": [
+            "mp3"
+          ],
+          "duration_years": 5,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0016-BASIC"
+        },
+        {
+          "tier": "premium",
+          "price_cents": 5999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0016-PREMIUM"
+        },
+        {
+          "tier": "unlimited",
+          "price_cents": 9999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0016-UNLIMITED"
+        }
+      ]
+    },
+    {
+      "id": "BRUA1-INS-0017",
+      "title": "JRSHIT2",
+      "availability": "license_options_preview",
+      "checkout_enabled": false,
+      "options": [
+        {
+          "tier": "basic",
+          "price_cents": 2999,
+          "currency": "USD",
+          "formats": [
+            "mp3"
+          ],
+          "duration_years": 5,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0017-BASIC"
+        },
+        {
+          "tier": "premium",
+          "price_cents": 5999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0017-PREMIUM"
+        },
+        {
+          "tier": "unlimited",
+          "price_cents": 9999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0017-UNLIMITED"
+        }
+      ]
+    },
+    {
+      "id": "BRUA1-INS-0018",
+      "title": "Just2Inspire",
+      "availability": "license_options_preview",
+      "checkout_enabled": false,
+      "options": [
+        {
+          "tier": "basic",
+          "price_cents": 2999,
+          "currency": "USD",
+          "formats": [
+            "mp3"
+          ],
+          "duration_years": 5,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0018-BASIC"
+        },
+        {
+          "tier": "premium",
+          "price_cents": 5999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0018-PREMIUM"
+        },
+        {
+          "tier": "unlimited",
+          "price_cents": 9999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0018-UNLIMITED"
+        }
+      ]
+    },
+    {
+      "id": "BRUA1-INS-0019",
+      "title": "Laid Back & Litty",
+      "availability": "listening_only",
+      "checkout_enabled": false,
+      "options": []
+    },
+    {
+      "id": "BRUA1-INS-0020",
+      "title": "Litty",
+      "availability": "license_options_preview",
+      "checkout_enabled": false,
+      "options": [
+        {
+          "tier": "basic",
+          "price_cents": 2999,
+          "currency": "USD",
+          "formats": [
+            "mp3"
+          ],
+          "duration_years": 5,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0020-BASIC"
+        },
+        {
+          "tier": "premium",
+          "price_cents": 5999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0020-PREMIUM"
+        },
+        {
+          "tier": "unlimited",
+          "price_cents": 9999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0020-UNLIMITED"
+        }
+      ]
+    },
+    {
+      "id": "BRUA1-INS-0021",
+      "title": "Loving You",
+      "availability": "license_options_preview",
+      "checkout_enabled": false,
+      "options": [
+        {
+          "tier": "basic",
+          "price_cents": 2999,
+          "currency": "USD",
+          "formats": [
+            "mp3"
+          ],
+          "duration_years": 5,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0021-BASIC"
+        },
+        {
+          "tier": "premium",
+          "price_cents": 5999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0021-PREMIUM"
+        },
+        {
+          "tier": "unlimited",
+          "price_cents": 9999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0021-UNLIMITED"
+        }
+      ]
+    },
+    {
+      "id": "BRUA1-INS-0022",
+      "title": "Mailvoi",
+      "availability": "license_options_preview",
+      "checkout_enabled": false,
+      "options": [
+        {
+          "tier": "basic",
+          "price_cents": 2999,
+          "currency": "USD",
+          "formats": [
+            "mp3"
+          ],
+          "duration_years": 5,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0022-BASIC"
+        },
+        {
+          "tier": "premium",
+          "price_cents": 5999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0022-PREMIUM"
+        },
+        {
+          "tier": "unlimited",
+          "price_cents": 9999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0022-UNLIMITED"
+        }
+      ]
+    },
+    {
+      "id": "BRUA1-INS-0023",
+      "title": "Messy",
+      "availability": "license_options_preview",
+      "checkout_enabled": false,
+      "options": [
+        {
+          "tier": "basic",
+          "price_cents": 2999,
+          "currency": "USD",
+          "formats": [
+            "mp3"
+          ],
+          "duration_years": 5,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0023-BASIC"
+        },
+        {
+          "tier": "premium",
+          "price_cents": 5999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0023-PREMIUM"
+        },
+        {
+          "tier": "unlimited",
+          "price_cents": 9999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0023-UNLIMITED"
+        }
+      ]
+    },
+    {
+      "id": "BRUA1-INS-0024",
+      "title": "Morf",
+      "availability": "license_options_preview",
+      "checkout_enabled": false,
+      "options": [
+        {
+          "tier": "basic",
+          "price_cents": 2999,
+          "currency": "USD",
+          "formats": [
+            "mp3"
+          ],
+          "duration_years": 5,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0024-BASIC"
+        },
+        {
+          "tier": "premium",
+          "price_cents": 5999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0024-PREMIUM"
+        },
+        {
+          "tier": "unlimited",
+          "price_cents": 9999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0024-UNLIMITED"
+        }
+      ]
+    },
+    {
+      "id": "BRUA1-INS-0025",
+      "title": "Nawlins",
+      "availability": "license_options_preview",
+      "checkout_enabled": false,
+      "options": [
+        {
+          "tier": "basic",
+          "price_cents": 2999,
+          "currency": "USD",
+          "formats": [
+            "mp3"
+          ],
+          "duration_years": 5,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0025-BASIC"
+        },
+        {
+          "tier": "premium",
+          "price_cents": 5999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0025-PREMIUM"
+        },
+        {
+          "tier": "unlimited",
+          "price_cents": 9999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0025-UNLIMITED"
+        }
+      ]
+    },
+    {
+      "id": "BRUA1-INS-0026",
+      "title": "paralyzed",
+      "availability": "listening_only",
+      "checkout_enabled": false,
+      "options": []
+    },
+    {
+      "id": "BRUA1-INS-0027",
+      "title": "Phareal",
+      "availability": "license_options_preview",
+      "checkout_enabled": false,
+      "options": [
+        {
+          "tier": "basic",
+          "price_cents": 2999,
+          "currency": "USD",
+          "formats": [
+            "mp3"
+          ],
+          "duration_years": 5,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0027-BASIC"
+        },
+        {
+          "tier": "premium",
+          "price_cents": 5999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0027-PREMIUM"
+        },
+        {
+          "tier": "unlimited",
+          "price_cents": 9999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0027-UNLIMITED"
+        }
+      ]
+    },
+    {
+      "id": "BRUA1-INS-0028",
+      "title": "realfocus_2",
+      "availability": "license_options_preview",
+      "checkout_enabled": false,
+      "options": [
+        {
+          "tier": "basic",
+          "price_cents": 2999,
+          "currency": "USD",
+          "formats": [
+            "mp3"
+          ],
+          "duration_years": 5,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0028-BASIC"
+        },
+        {
+          "tier": "premium",
+          "price_cents": 5999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0028-PREMIUM"
+        },
+        {
+          "tier": "unlimited",
+          "price_cents": 9999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0028-UNLIMITED"
+        }
+      ]
+    },
+    {
+      "id": "BRUA1-INS-0029",
+      "title": "Ride With Me",
+      "availability": "license_options_preview",
+      "checkout_enabled": false,
+      "options": [
+        {
+          "tier": "basic",
+          "price_cents": 2999,
+          "currency": "USD",
+          "formats": [
+            "mp3"
+          ],
+          "duration_years": 5,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0029-BASIC"
+        },
+        {
+          "tier": "premium",
+          "price_cents": 5999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0029-PREMIUM"
+        },
+        {
+          "tier": "unlimited",
+          "price_cents": 9999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0029-UNLIMITED"
+        }
+      ]
+    },
+    {
+      "id": "BRUA1-INS-0030",
+      "title": "Shake it like",
+      "availability": "license_options_preview",
+      "checkout_enabled": false,
+      "options": [
+        {
+          "tier": "basic",
+          "price_cents": 2999,
+          "currency": "USD",
+          "formats": [
+            "mp3"
+          ],
+          "duration_years": 5,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0030-BASIC"
+        },
+        {
+          "tier": "premium",
+          "price_cents": 5999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0030-PREMIUM"
+        },
+        {
+          "tier": "unlimited",
+          "price_cents": 9999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0030-UNLIMITED"
+        }
+      ]
+    },
+    {
+      "id": "BRUA1-INS-0031",
+      "title": "Shop Open",
+      "availability": "license_options_preview",
+      "checkout_enabled": false,
+      "options": [
+        {
+          "tier": "basic",
+          "price_cents": 2999,
+          "currency": "USD",
+          "formats": [
+            "mp3"
+          ],
+          "duration_years": 5,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0031-BASIC"
+        },
+        {
+          "tier": "premium",
+          "price_cents": 5999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0031-PREMIUM"
+        },
+        {
+          "tier": "unlimited",
+          "price_cents": 9999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0031-UNLIMITED"
+        }
+      ]
+    },
+    {
+      "id": "BRUA1-INS-0032",
+      "title": "SpaceX",
+      "availability": "license_options_preview",
+      "checkout_enabled": false,
+      "options": [
+        {
+          "tier": "basic",
+          "price_cents": 2999,
+          "currency": "USD",
+          "formats": [
+            "mp3"
+          ],
+          "duration_years": 5,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0032-BASIC"
+        },
+        {
+          "tier": "premium",
+          "price_cents": 5999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0032-PREMIUM"
+        },
+        {
+          "tier": "unlimited",
+          "price_cents": 9999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0032-UNLIMITED"
+        }
+      ]
+    },
+    {
+      "id": "BRUA1-INS-0033",
+      "title": "Steel",
+      "availability": "license_options_preview",
+      "checkout_enabled": false,
+      "options": [
+        {
+          "tier": "basic",
+          "price_cents": 2999,
+          "currency": "USD",
+          "formats": [
+            "mp3"
+          ],
+          "duration_years": 5,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0033-BASIC"
+        },
+        {
+          "tier": "premium",
+          "price_cents": 5999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0033-PREMIUM"
+        },
+        {
+          "tier": "unlimited",
+          "price_cents": 9999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0033-UNLIMITED"
+        }
+      ]
+    },
+    {
+      "id": "BRUA1-INS-0034",
+      "title": "Stranger",
+      "availability": "license_options_preview",
+      "checkout_enabled": false,
+      "options": [
+        {
+          "tier": "basic",
+          "price_cents": 2999,
+          "currency": "USD",
+          "formats": [
+            "mp3"
+          ],
+          "duration_years": 5,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0034-BASIC"
+        },
+        {
+          "tier": "premium",
+          "price_cents": 5999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0034-PREMIUM"
+        },
+        {
+          "tier": "unlimited",
+          "price_cents": 9999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0034-UNLIMITED"
+        }
+      ]
+    },
+    {
+      "id": "BRUA1-INS-0035",
+      "title": "Street Dreams",
+      "availability": "license_options_preview",
+      "checkout_enabled": false,
+      "options": [
+        {
+          "tier": "basic",
+          "price_cents": 2999,
+          "currency": "USD",
+          "formats": [
+            "mp3"
+          ],
+          "duration_years": 5,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0035-BASIC"
+        },
+        {
+          "tier": "premium",
+          "price_cents": 5999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0035-PREMIUM"
+        },
+        {
+          "tier": "unlimited",
+          "price_cents": 9999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0035-UNLIMITED"
+        }
+      ]
+    },
+    {
+      "id": "BRUA1-INS-0036",
+      "title": "The Flu",
+      "availability": "license_options_preview",
+      "checkout_enabled": false,
+      "options": [
+        {
+          "tier": "basic",
+          "price_cents": 2999,
+          "currency": "USD",
+          "formats": [
+            "mp3"
+          ],
+          "duration_years": 5,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0036-BASIC"
+        },
+        {
+          "tier": "premium",
+          "price_cents": 5999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0036-PREMIUM"
+        },
+        {
+          "tier": "unlimited",
+          "price_cents": 9999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0036-UNLIMITED"
+        }
+      ]
+    },
+    {
+      "id": "BRUA1-INS-0037",
+      "title": "Whoa Naa",
+      "availability": "license_options_preview",
+      "checkout_enabled": false,
+      "options": [
+        {
+          "tier": "basic",
+          "price_cents": 2999,
+          "currency": "USD",
+          "formats": [
+            "mp3"
+          ],
+          "duration_years": 5,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0037-BASIC"
+        },
+        {
+          "tier": "premium",
+          "price_cents": 5999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0037-PREMIUM"
+        },
+        {
+          "tier": "unlimited",
+          "price_cents": 9999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0037-UNLIMITED"
+        }
+      ]
+    },
+    {
+      "id": "BRUA1-INS-0038",
+      "title": "Worse",
+      "availability": "license_options_preview",
+      "checkout_enabled": false,
+      "options": [
+        {
+          "tier": "basic",
+          "price_cents": 2999,
+          "currency": "USD",
+          "formats": [
+            "mp3"
+          ],
+          "duration_years": 5,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0038-BASIC"
+        },
+        {
+          "tier": "premium",
+          "price_cents": 5999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0038-PREMIUM"
+        },
+        {
+          "tier": "unlimited",
+          "price_cents": 9999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0038-UNLIMITED"
+        }
+      ]
+    },
+    {
+      "id": "BRUA1-INS-0039",
+      "title": "Zayoo",
+      "availability": "license_options_preview",
+      "checkout_enabled": false,
+      "options": [
+        {
+          "tier": "basic",
+          "price_cents": 2999,
+          "currency": "USD",
+          "formats": [
+            "mp3"
+          ],
+          "duration_years": 5,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0039-BASIC"
+        },
+        {
+          "tier": "premium",
+          "price_cents": 5999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0039-PREMIUM"
+        },
+        {
+          "tier": "unlimited",
+          "price_cents": 9999,
+          "currency": "USD",
+          "formats": [
+            "mp3",
+            "wav"
+          ],
+          "duration_years": 10,
+          "status": "inquiry_only",
+          "sku": "BRUA1-INS-0039-UNLIMITED"
+        }
+      ]
+    }
+  ]
+}

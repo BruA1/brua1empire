@@ -3,6 +3,10 @@ on:
   pull_request:
     paths:
       - 'instrumentals.html'
+      - 'catalog/public-license-options.json'
+      - 'catalog/store-skus-staging.json'
+      - 'catalog/fulfillment-readiness.json'
+      - 'scripts/validate-store-license-options.mjs'
       - 'catalog/instrumentals.json'
       - 'scripts/validate-store-catalog.mjs'
       - 'scripts/check-public-previews.mjs'
@@ -11,6 +15,10 @@ on:
     branches: [main]
     paths:
       - 'instrumentals.html'
+      - 'catalog/public-license-options.json'
+      - 'catalog/store-skus-staging.json'
+      - 'catalog/fulfillment-readiness.json'
+      - 'scripts/validate-store-license-options.mjs'
       - 'catalog/instrumentals.json'
       - 'scripts/validate-store-catalog.mjs'
       - 'scripts/check-public-previews.mjs'
@@ -28,5 +36,7 @@ jobs:
           node-version: '22'
       - name: Validate private/public boundary and inquiry-only catalog
         run: node scripts/validate-store-catalog.mjs
+      - name: Validate 36 licensed display tracks, 3 listening-only holds, safe browsing and tier pricing
+        run: node scripts/validate-store-license-options.mjs
       - name: Check all 39 public audio previews for reachability and MP3 bytes
         run: node scripts/check-public-previews.mjs

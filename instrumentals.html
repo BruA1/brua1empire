@@ -1,16 +1,70 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Explore original BruA1 instrumentals and request licensing from A1 Music Productions."><title>Instrumental Store | BruA1 Empire</title><link rel="stylesheet" href="style.css"><style>
 .storehead{padding:75px max(24px,calc((100vw - 1180px)/2)) 30px;background:linear-gradient(120deg,#101723,#282315)}.storehead h1{font-size:clamp(42px,7vw,78px);margin:12px 0}.storehead p{max-width:740px;color:var(--muted)}.storetools{display:flex;flex-wrap:wrap;gap:12px;margin:28px 0}.storetools input{width:min(100%,400px);padding:14px;background:#151b25;color:white;border:1px solid #596273;border-radius:8px}.trackgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(245px,1fr));gap:18px}.track{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:10px}.track h3{margin:0;font-size:21px}.track p{color:var(--muted);font-size:13px;margin:0}.track .symbol{font-size:35px}.track .btn{margin-top:auto;text-align:center}.track audio{display:block;width:100%;height:40px;max-width:100%;accent-color:var(--gold)}.track .preview-status{font-size:12px;color:var(--muted)}.store-notice{border:1px solid #80603a;background:#34271c;color:#ffdfad;border-radius:10px;padding:15px;margin:20px 0}.licensegrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:16px}.licensegrid article{background:var(--panel);padding:20px;border:1px solid var(--line);border-radius:12px}.licensegrid strong{display:block;font-size:25px;color:var(--gold)}.licensegrid p{font-size:13px;color:var(--muted)}
-</style></head><body><header class="top"><a class="logo" href="index.html">BRU<span>A1</span> <small>EMPIRE</small></a><nav><a href="index.html">Home</a><a href="#catalog">Instrumentals</a><a href="#licenses">Licenses</a><a href="mailto:brua1@brua1.com">Contact</a></nav></header><main><section class="storehead"><div class="eyebrow">A1 MUSIC PRODUCTIONS</div><h1>Original <span style="color:var(--gold)">Instrumentals.</span></h1><p>Browse the BruA1 instrumental catalog. Listen to tagged and short audio previews, explore license options, and contact A1 Music Productions about a track.</p><div class="store-notice" role="status"><strong>Catalog now open:</strong> Browse our inventoried instrumentals and request licensing. Secure online checkout is still in testing; this page does not take payments.</div></section><section id="catalog" class="section"><div class="eyebrow">MUSIC CATALOG</div><h2>Find your sound.</h2><div class="storetools"><input id="trackSearch" type="search" placeholder="Search instrumentals by title…" aria-label="Search instrumentals"></div><p id="trackCount" class="muted" aria-live="polite"></p><div class="trackgrid" id="trackGrid"></div><p class="muted">The catalog reflects uploaded source files; Preview playback is activated after each audio file passes availability and listening QA. License details are still being finalized.</p></section><section id="licenses" class="section"><div class="eyebrow">LICENSING</div><h2>Choose the rights you need.</h2><div class="licensegrid"><article><h3>Basic</h3><strong>$29.99</strong><p>Proposed MP3 nonexclusive license. Terms being finalized.</p></article><article><h3>Premium</h3><strong>$59.99</strong><p>Proposed WAV + MP3 nonexclusive license. Terms being finalized.</p></article><article><h3>Unlimited</h3><strong>$99.99</strong><p>Proposed expanded nonexclusive license. Terms being finalized.</p></article><article><h3>Exclusive</h3><strong>Request quote</strong><p>Subject to track eligibility and a separately signed agreement.</p></article></div><div class="store-notice">License prices are proposed while agreements and payment processing are finalized. No real-money checkout or automatic digital delivery is currently enabled.</div><div class="actions"><a class="btn" href="mailto:brua1@brua1.com?subject=BruA1%20Instrumental%20Licensing">Ask about licensing</a></div><section aria-label="PayPal checkout preparation" class="store-notice"><strong>PayPal checkout — security testing</strong><p>Catalog browsing and licensing inquiries are open. Payments will be enabled only after license terms, product-specific delivery, and production payment verification pass review.</p><button type="button" class="btn secondary" disabled aria-disabled="true">PayPal checkout coming soon</button></section></section></main><footer>© <span id="year"></span> BruA1 Empire · A1 Music Productions</footer><script src="script.js"></script><script>
+.track .licensing-status{font-size:12px;line-height:1.45;color:#e9cd91}
+.track .license-options{border:1px solid #67512f;border-radius:10px;background:#1e222b;padding:10px;margin-top:3px}
+.track .license-options summary{cursor:pointer;font-size:13px;color:#f8dc9e;font-weight:700;line-height:1.45}
+.track .license-rows{display:grid;gap:8px;margin-top:12px}
+.track .license-row{border:1px solid var(--line);border-radius:8px;padding:9px;background:#151b25;display:grid;gap:5px}
+.track .license-row strong{color:var(--gold)}
+.track .license-row small{font-size:12px;color:var(--muted)}
+.track .license-row a{display:inline-block;color:#f7d28b;font-size:13px;font-weight:700;text-decoration:underline;text-underline-offset:3px}
+.track .license-note{font-size:11px;line-height:1.4;color:var(--muted);margin:6px 0 0}
+.track .listen-only{font-size:13px;color:#e2d6ba;border:1px solid #746247;padding:10px;border-radius:8px;background:#27231e}
+
+</style></head><body><header class="top"><a class="logo" href="index.html">BRU<span>A1</span> <small>EMPIRE</small></a><nav><a href="index.html">Home</a><a href="#catalog">Instrumentals</a><a href="#licenses">Licenses</a><a href="mailto:brua1@brua1.com">Contact</a></nav></header><main><section class="storehead"><div class="eyebrow">A1 MUSIC PRODUCTIONS</div><h1>Original <span style="color:var(--gold)">Instrumentals.</span></h1><p>Browse the BruA1 instrumental catalog. Listen to tagged and short audio previews, explore license options, and contact A1 Music Productions about a track.</p><div class="store-notice" role="status"><strong>Catalog now open:</strong> Listen to all 39 original instrumentals. View Basic, Premium, and Unlimited license options for 36 tracks, or contact us to discuss your music. Secure checkout is still in testing.</div></section><section id="catalog" class="section"><div class="eyebrow">MUSIC CATALOG</div><h2>Find your sound.</h2><div class="storetools"><input id="trackSearch" type="search" placeholder="Search instrumentals by title…" aria-label="Search instrumentals"></div><p id="trackCount" class="muted" aria-live="polite"></p><div class="trackgrid" id="trackGrid"></div><p class="muted">All 39 listening previews remain available, including three tracks held from licensing. Prices and usage limits are preliminary until agreements and secure payment delivery receive final approval.</p></section><section id="licenses" class="section"><div class="eyebrow">LICENSING</div><h2>Choose the rights you need.</h2><div class="licensegrid"><article><h3>Basic</h3><strong>$29.99</strong><p>MP3 · 5 years · proposed limit of 5,000 copies and 100,000 monetized audio streams. Non-exclusive; final terms pending.</p></article><article><h3>Premium</h3><strong>$59.99</strong><p>MP3 + WAV · 10 years · proposed limit of 25,000 copies and 500,000 monetized audio streams. Non-exclusive; final terms pending.</p></article><article><h3>Unlimited</h3><strong>$99.99</strong><p>MP3 + WAV · 10 years · unlimited permitted sales and streams during the term. Non-exclusive; final terms pending.</p></article><article><h3>Exclusive</h3><strong>Request quote</strong><p>Negotiated separately for eligible instrumentals only. Requires a signed agreement.</p></article></div><div class="store-notice">The three tracks Paralyzed, Chopin, and Laid Back &amp; Litty remain available for listening only. Other tracks show nonbinding proposed license options for inquiry. No real-money checkout or automatic digital delivery is enabled.</div><div class="actions"><a class="btn" href="mailto:brua1@brua1.com?subject=BruA1%20Instrumental%20Licensing">Ask about licensing</a></div><section aria-label="PayPal checkout preparation" class="store-notice"><strong>PayPal checkout — security testing</strong><p>Catalog browsing and licensing inquiries are open. Payments will be enabled only after license terms, product-specific delivery, and production payment verification pass review.</p><button type="button" class="btn secondary" disabled aria-disabled="true">PayPal checkout coming soon</button></section></section></main><footer>© <span id="year"></span> BruA1 Empire · A1 Music Productions</footer><script src="script.js"></script><script>
 "use strict";
 const grid=document.getElementById("trackGrid");
 const counter=document.getElementById("trackCount");
 const search=document.getElementById("trackSearch");
 let tracks=[];
+let licenseListings=new Map();
+const licenseText={basic:"Basic",premium:"Premium",unlimited:"Unlimited"};
+const licenseFormats={basic:"MP3",premium:"MP3 + WAV",unlimited:"MP3 + WAV"};
+const priceLabel=cents=>"$"+(cents/100).toFixed(2);
+function requestLink(track,option){
+  const name=licenseText[option.tier];
+  const subject="BruA1 "+name+" license inquiry: "+track.title+" ("+track.id+")";
+  const body="Hello BruA1,\n\nI am interested in the "+name+" license for "+track.title+".\nProduct ID: "+track.id+"\nProposed price: "+priceLabel(option.price_cents)+"\n\nPlease confirm final availability, signed licensing terms, and payment arrangements. I understand this is an inquiry, not a purchase.\n\nThank you.";
+  return "mailto:brua1@brua1.com?subject="+encodeURIComponent(subject)+"&body="+encodeURIComponent(body);
+}
+function makeLicensing(track){
+  const item=licenseListings.get(track.id);
+  if(!item||item.availability==="listening_only"||!Array.isArray(item.options)||item.options.length!==3){
+    const held=document.createElement("p");
+    held.className="listen-only";
+    held.textContent=item&&item.availability==="listening_only"?
+      "Listening preview only — licensing is not available for this instrumental yet.":
+      "Listening preview available. License options are being prepared.";
+    return held;
+  }
+  const details=document.createElement("details");
+  details.className="license-options";
+  const summary=document.createElement("summary");
+  summary.textContent="View license options · Basic $29.99 · Premium $59.99 · Unlimited $99.99";
+  const rows=document.createElement("div");rows.className="license-rows";
+  for(const option of item.options){
+    if(!Object.hasOwn(licenseText,option.tier)||option.status!=="inquiry_only"||option.currency!=="USD"||option.price_cents<=0)continue;
+    const row=document.createElement("div");row.className="license-row";
+    const title=document.createElement("strong");
+    title.textContent=licenseText[option.tier]+" · "+priceLabel(option.price_cents);
+    const meta=document.createElement("small");
+    meta.textContent=licenseFormats[option.tier]+" · "+option.duration_years+"-year proposed term · non-exclusive";
+    const action=document.createElement("a");
+    action.href=requestLink(track,option);action.textContent="Request "+licenseText[option.tier]+" license";
+    row.append(title,meta,action);rows.append(row);
+  }
+  const note=document.createElement("p");note.className="license-note";
+  note.textContent="Prices and terms are proposed. This is a licensing inquiry, not checkout or an issued agreement.";
+  details.append(summary,rows,note);
+  return details;
+}
 function renderTracks(){
   const query=search.value.trim().toLowerCase();
   const filtered=tracks.filter(item=>item.title.toLowerCase().includes(query));
-  counter.textContent=filtered.length+" instrumental"+(filtered.length===1?"":"s")+" shown";
+  const count=tracks.filter(item=>licenseListings.get(item.id)?.availability==="license_options_preview").length;
+  counter.textContent=filtered.length+" instrumental"+(filtered.length===1?"":"s")+" shown · "+
+    (licenseListings.size?count+" with proposed license options · "+(tracks.length-count)+" listening only":"Loading licensing options");
   grid.replaceChildren();
   for(const track of filtered){
     const card=document.createElement("article");card.className="track";
@@ -27,8 +81,7 @@ function renderTracks(){
     const short=typeof track.id==="string"&&url===base+"store-previews/"+track.id+".mp3";
     if(tagged||short){
       const audio=document.createElement("audio");
-      audio.controls=true;audio.preload="none";
-      audio.src=url;
+      audio.controls=true;audio.preload="none";audio.src=url;
       audio.setAttribute("controlslist","nodownload");
       audio.setAttribute("aria-label","Play or pause "+track.title+" instrumental preview");
       audio.addEventListener("play",()=>{
@@ -39,28 +92,28 @@ function renderTracks(){
         status.setAttribute("role","alert");
       });
       card.append(audio);
-      status.textContent=short?"Untagged listening excerpt":"Tagged listening preview";
+      status.textContent=short?"Instrumental listening excerpt":"Tagged listening preview";
     }else{
       status.textContent="Audio preview in preparation";
     }
-    const inquiry=document.createElement("a");inquiry.className="btn secondary";
-    inquiry.textContent="Ask about licensing";
-    inquiry.href="mailto:brua1@brua1.com?subject="+encodeURIComponent("BruA1 instrumental licensing: "+track.title);
-    card.append(status,inquiry);
+    card.append(status,makeLicensing(track));
     grid.append(card);
   }
 }
 search.addEventListener("input",renderTracks);
 counter.textContent="Loading verified catalog…";
-fetch("catalog/instrumentals.json",{cache:"no-store"})
-  .then(response=>{if(!response.ok)throw new Error("Catalog response unavailable");return response.json();})
-  .then(data=>{
-    if(!Array.isArray(data.tracks))throw new Error("Invalid catalog");
-    tracks=data.tracks.filter(t=>t&&typeof t.title==="string"&&t.title.length>0&&t.listing_status==="licensing_inquiry_only");
-    renderTracks();
-  })
-  .catch(()=>{
-    counter.textContent="The instrumental catalog is temporarily unavailable. Please contact us for current titles.";
-    grid.replaceChildren();
-  });
+Promise.all([
+  fetch("catalog/instrumentals.json",{cache:"no-store"}).then(r=>{if(!r.ok)throw new Error("Catalog unavailable");return r.json();}),
+  fetch("catalog/public-license-options.json",{cache:"no-store"}).then(r=>{if(!r.ok)throw new Error("License info unavailable");return r.json();}).catch(()=>null)
+]).then(([data,listing])=>{
+  if(!Array.isArray(data.tracks))throw new Error("Invalid catalog");
+  tracks=data.tracks.filter(t=>t&&typeof t.title==="string"&&t.title.length>0&&t.listing_status==="licensing_inquiry_only");
+  if(listing&&Array.isArray(listing.items)&&listing.checkout_enabled===false&&listing.items.length===tracks.length){
+    licenseListings=new Map(listing.items.filter(i=>i&&typeof i.id==="string").map(i=>[i.id,i]));
+  }
+  renderTracks();
+}).catch(()=>{
+  counter.textContent="The instrumental catalog is temporarily unavailable. Please contact us for current titles.";
+  grid.replaceChildren();
+});
 </script></body></html>
