@@ -4,6 +4,8 @@ name = "brua1-checkout-sandbox"
 main = "index.mjs"
 compatibility_date = "2026-11-23"
 workers_dev = true
+# Preserve dashboard-only PAYPAL_CLIENT_ID and other runtime variables during future Wrangler deploys.
+keep_vars = true
 
 [vars]
 PAYPAL_ENVIRONMENT = "sandbox"
