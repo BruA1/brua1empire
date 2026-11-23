@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "as_of": "2026-11-23",
+  "launch_batch": "36 instrumentals / 108 tier SKUs",
+  "public_site": "https://brua1.com/instrumentals.html",
+  "status": "PREPRODUCTION_BLOCKED",
+  "payments_live": false,
+  "automatic_full_master_delivery_live": false,
+  "inquiries_live": true,
+  "held_listening_only": [
+    "BRUA1-INS-0004",
+    "BRUA1-INS-0019",
+    "BRUA1-INS-0026"
+  ],
+  "completed": {
+    "public_storefront_39_audio_previews": true,
+    "public_license_inquiry_36_tracks": true,
+    "private_r2_72_file_header_audit": true,
+    "paypal_sandbox_single_basic_receipt_test": true,
+    "production_code_mock_108_sku_integration_qa": true
+  },
+  "launch_gates": {
+    "exact_legal_seller_name_verified": false,
+    "music_ip_counsel_license_signoff": false,
+    "approved_versioned_license_published": false,
+    "songwriter_publishing_split_policy_finalized": false,
+    "per_track_music_and_sample_rights_cleared": false,
+    "independent_human_content_qa_all_36": false,
+    "public_refund_and_privacy_policy_approved": false,
+    "tax_obligations_and_customer_receipt_setup_verified": false,
+    "paypal_live_merchant_credentials_configured": false,
+    "paypal_live_webhook_and_signature_verified": false,
+    "production_d1_migration_applied_and_reviewed": false,
+    "purchase_bound_private_r2_delivery_service_qa": false,
+    "real_money_test_capture_refund_and_dispute_qa": false,
+    "email_receipt_and_download_delivery_qa": false,
+    "owner_final_go_live_signoff": false
+  },
+  "restrictions": {
+    "public_paypal_buy_button_enabled": false,
+    "production_secret_values_in_source": false,
+    "public_master_file_urls": false,
+    "automatic_exclusive_licenses": false,
+    "held_tracks_sku_enabled": false,
+    "payment_provider": "PayPal Orders v2",
+    "test_merchant_only": "sandbox until all gates pass"
+  },
+  "review_document": "https://docs.google.com/document/d/1FXSI0LqcTe9GjUAoo1xLytNduT206yKtxMLCtPeICkw/edit",
+  "notes": "This record tracks evidence and blockers. Never interpret a mocked integration test or owner commercial price delegation as a legal opinion, verified real payment, or readiness for live charge capture."
+}
