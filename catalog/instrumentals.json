@@ -1,11 +1,11 @@
 {
   "schemaVersion": 2,
-  "source": "Verified Drive → R2 private-master transfer (GitHub Actions run #5)",
-  "verifiedFileCount": 74,
-  "trackCount": 38,
+  "source": "Verified Drive → private R2 master sync (GitHub Actions Nov 23, 2026)",
+  "verifiedFileCount": 75,
+  "trackCount": 39,
   "lastReviewedDate": "2026-11-23",
   "checkoutEnabled": false,
-  "notes": "PUBLIC PREVIEW MAPPING STAGED FOR QA. 10 existing tagged preview links retained, 28 short excerpt destinations mapped; do not merge until clips are uploaded and public HTTP listening QA passes. Clean MP3/WAV masters remain private. Licensing inquiries only.",
+  "notes": "All 39 titles have 10 tagged previews and 29 short excerpt files in Cloudflare R2. Checkout disabled; masters and license delivery private. Public HTTP/audio QA required before final storefront rollout.",
   "tracks": [
     {
       "title": "108 in the Shade",
@@ -306,6 +306,17 @@
       "preview_type": "short"
     },
     {
+      "title": "paralyzed",
+      "formats": [
+        "MP3"
+      ],
+      "preview": "https://pub-994c8c7a928c44ba9521493dbdeb80cf.r2.dev/store-previews/BRUA1-INS-0026.mp3",
+      "inventory_status": "private_master_uploaded",
+      "listing_status": "licensing_inquiry_only",
+      "id": "BRUA1-INS-0026",
+      "preview_type": "short"
+    },
+    {
       "title": "Phareal",
       "formats": [
         "MP3",
@@ -462,5 +473,5 @@
       "preview_type": "short"
     }
   ],
-  "previewReleaseStatus": "PENDING_R2_UPLOAD_AND_LISTENING_QA"
+  "previewReleaseStatus": "AWAITING_PUBLIC_HTTP_QA"
 }
