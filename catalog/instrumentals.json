@@ -1,11 +1,11 @@
 {
   "schemaVersion": 2,
-  "source": "Verified Drive → R2 private-master transfer (GitHub Actions run #5)",
-  "verifiedFileCount": 74,
-  "trackCount": 38,
+  "source": "Verified Drive → private R2 master sync (GitHub Actions Nov 23, 2026)",
+  "verifiedFileCount": 75,
+  "trackCount": 39,
   "lastReviewedDate": "2026-11-23",
   "checkoutEnabled": false,
-  "notes": "Public catalog entries only. No private R2 object keys or untagged audio URLs. Public tagged previews attached only for confidently matched titles. Licensing by inquiry while checkout and license agreements remain under QA.",
+  "notes": "All 39 instrumental titles have mapped public audio preview URLs; GitHub Actions independent HTTP QA verified 39 of 39 returned MP3 audio/mpeg (206 partial response) on 2026-11-23. These are 10 tagged previews + 29 40-second short excerpts. No private full-length masters or checkout enabled. Human listening on devices remains advisable.",
   "tracks": [
     {
       "title": "108 in the Shade",
@@ -15,7 +15,9 @@
       ],
       "preview": "https://pub-994c8c7a928c44ba9521493dbdeb80cf.r2.dev/108%20in%20the%20Shade/BruA1_108_in_the_Shade_TAGGED_PREVIEW.mp3",
       "inventory_status": "private_master_uploaded",
-      "listing_status": "licensing_inquiry_only"
+      "listing_status": "licensing_inquiry_only",
+      "id": "BRUA1-INS-0001",
+      "preview_type": "tagged"
     },
     {
       "title": "Anxiety",
@@ -23,9 +25,11 @@
         "MP3",
         "WAV"
       ],
-      "preview": null,
+      "preview": "https://pub-994c8c7a928c44ba9521493dbdeb80cf.r2.dev/store-previews/BRUA1-INS-0002.mp3",
       "inventory_status": "private_master_uploaded",
-      "listing_status": "licensing_inquiry_only"
+      "listing_status": "licensing_inquiry_only",
+      "id": "BRUA1-INS-0002",
+      "preview_type": "short"
     },
     {
       "title": "Blaze",
@@ -33,18 +37,22 @@
         "MP3",
         "WAV"
       ],
-      "preview": null,
+      "preview": "https://pub-994c8c7a928c44ba9521493dbdeb80cf.r2.dev/store-previews/BRUA1-INS-0003.mp3",
       "inventory_status": "private_master_uploaded",
-      "listing_status": "licensing_inquiry_only"
+      "listing_status": "licensing_inquiry_only",
+      "id": "BRUA1-INS-0003",
+      "preview_type": "short"
     },
     {
       "title": "Chopin",
       "formats": [
         "MP3"
       ],
-      "preview": null,
+      "preview": "https://pub-994c8c7a928c44ba9521493dbdeb80cf.r2.dev/store-previews/BRUA1-INS-0004.mp3",
       "inventory_status": "private_master_uploaded",
-      "listing_status": "licensing_inquiry_only"
+      "listing_status": "licensing_inquiry_only",
+      "id": "BRUA1-INS-0004",
+      "preview_type": "short"
     },
     {
       "title": "Cypher",
@@ -52,9 +60,11 @@
         "MP3",
         "WAV"
       ],
-      "preview": null,
+      "preview": "https://pub-994c8c7a928c44ba9521493dbdeb80cf.r2.dev/store-previews/BRUA1-INS-0005.mp3",
       "inventory_status": "private_master_uploaded",
-      "listing_status": "licensing_inquiry_only"
+      "listing_status": "licensing_inquiry_only",
+      "id": "BRUA1-INS-0005",
+      "preview_type": "short"
     },
     {
       "title": "Dallar and a Dream",
@@ -62,9 +72,11 @@
         "MP3",
         "WAV"
       ],
-      "preview": null,
+      "preview": "https://pub-994c8c7a928c44ba9521493dbdeb80cf.r2.dev/store-previews/BRUA1-INS-0006.mp3",
       "inventory_status": "private_master_uploaded",
-      "listing_status": "licensing_inquiry_only"
+      "listing_status": "licensing_inquiry_only",
+      "id": "BRUA1-INS-0006",
+      "preview_type": "short"
     },
     {
       "title": "Danger",
@@ -72,9 +84,11 @@
         "MP3",
         "WAV"
       ],
-      "preview": null,
+      "preview": "https://pub-994c8c7a928c44ba9521493dbdeb80cf.r2.dev/store-previews/BRUA1-INS-0007.mp3",
       "inventory_status": "private_master_uploaded",
-      "listing_status": "licensing_inquiry_only"
+      "listing_status": "licensing_inquiry_only",
+      "id": "BRUA1-INS-0007",
+      "preview_type": "short"
     },
     {
       "title": "decater",
@@ -82,9 +96,11 @@
         "MP3",
         "WAV"
       ],
-      "preview": null,
+      "preview": "https://pub-994c8c7a928c44ba9521493dbdeb80cf.r2.dev/store-previews/BRUA1-INS-0008.mp3",
       "inventory_status": "private_master_uploaded",
-      "listing_status": "licensing_inquiry_only"
+      "listing_status": "licensing_inquiry_only",
+      "id": "BRUA1-INS-0008",
+      "preview_type": "short"
     },
     {
       "title": "Drawdown",
@@ -92,9 +108,11 @@
         "MP3",
         "WAV"
       ],
-      "preview": null,
+      "preview": "https://pub-994c8c7a928c44ba9521493dbdeb80cf.r2.dev/store-previews/BRUA1-INS-0009.mp3",
       "inventory_status": "private_master_uploaded",
-      "listing_status": "licensing_inquiry_only"
+      "listing_status": "licensing_inquiry_only",
+      "id": "BRUA1-INS-0009",
+      "preview_type": "short"
     },
     {
       "title": "DreSlide",
@@ -102,9 +120,11 @@
         "MP3",
         "WAV"
       ],
-      "preview": null,
+      "preview": "https://pub-994c8c7a928c44ba9521493dbdeb80cf.r2.dev/store-previews/BRUA1-INS-0010.mp3",
       "inventory_status": "private_master_uploaded",
-      "listing_status": "licensing_inquiry_only"
+      "listing_status": "licensing_inquiry_only",
+      "id": "BRUA1-INS-0010",
+      "preview_type": "short"
     },
     {
       "title": "DrPepperFlavoredListerineJ",
@@ -114,7 +134,9 @@
       ],
       "preview": "https://pub-994c8c7a928c44ba9521493dbdeb80cf.r2.dev/108%20in%20the%20Shade/BruA1_DrPepperFlavoredListerineJ_TAGGED_PREVIEW.mp3",
       "inventory_status": "private_master_uploaded",
-      "listing_status": "licensing_inquiry_only"
+      "listing_status": "licensing_inquiry_only",
+      "id": "BRUA1-INS-0011",
+      "preview_type": "tagged"
     },
     {
       "title": "Elon Free",
@@ -122,9 +144,11 @@
         "MP3",
         "WAV"
       ],
-      "preview": null,
+      "preview": "https://pub-994c8c7a928c44ba9521493dbdeb80cf.r2.dev/store-previews/BRUA1-INS-0012.mp3",
       "inventory_status": "private_master_uploaded",
-      "listing_status": "licensing_inquiry_only"
+      "listing_status": "licensing_inquiry_only",
+      "id": "BRUA1-INS-0012",
+      "preview_type": "short"
     },
     {
       "title": "Fck Stress",
@@ -132,9 +156,11 @@
         "MP3",
         "WAV"
       ],
-      "preview": null,
+      "preview": "https://pub-994c8c7a928c44ba9521493dbdeb80cf.r2.dev/store-previews/BRUA1-INS-0013.mp3",
       "inventory_status": "private_master_uploaded",
-      "listing_status": "licensing_inquiry_only"
+      "listing_status": "licensing_inquiry_only",
+      "id": "BRUA1-INS-0013",
+      "preview_type": "short"
     },
     {
       "title": "Get Em",
@@ -142,9 +168,11 @@
         "MP3",
         "WAV"
       ],
-      "preview": null,
+      "preview": "https://pub-994c8c7a928c44ba9521493dbdeb80cf.r2.dev/store-previews/BRUA1-INS-0014.mp3",
       "inventory_status": "private_master_uploaded",
-      "listing_status": "licensing_inquiry_only"
+      "listing_status": "licensing_inquiry_only",
+      "id": "BRUA1-INS-0014",
+      "preview_type": "short"
     },
     {
       "title": "Ginu",
@@ -152,9 +180,11 @@
         "MP3",
         "WAV"
       ],
-      "preview": null,
+      "preview": "https://pub-994c8c7a928c44ba9521493dbdeb80cf.r2.dev/store-previews/BRUA1-INS-0015.mp3",
       "inventory_status": "private_master_uploaded",
-      "listing_status": "licensing_inquiry_only"
+      "listing_status": "licensing_inquiry_only",
+      "id": "BRUA1-INS-0015",
+      "preview_type": "short"
     },
     {
       "title": "Gnosis",
@@ -162,9 +192,11 @@
         "MP3",
         "WAV"
       ],
-      "preview": null,
+      "preview": "https://pub-994c8c7a928c44ba9521493dbdeb80cf.r2.dev/store-previews/BRUA1-INS-0016.mp3",
       "inventory_status": "private_master_uploaded",
-      "listing_status": "licensing_inquiry_only"
+      "listing_status": "licensing_inquiry_only",
+      "id": "BRUA1-INS-0016",
+      "preview_type": "short"
     },
     {
       "title": "JRSHIT2",
@@ -174,7 +206,9 @@
       ],
       "preview": "https://pub-994c8c7a928c44ba9521493dbdeb80cf.r2.dev/108%20in%20the%20Shade/BruA1_JRSHIT2_TAGGED_PREVIEW.mp3",
       "inventory_status": "private_master_uploaded",
-      "listing_status": "licensing_inquiry_only"
+      "listing_status": "licensing_inquiry_only",
+      "id": "BRUA1-INS-0017",
+      "preview_type": "tagged"
     },
     {
       "title": "Just2Inspire",
@@ -184,16 +218,20 @@
       ],
       "preview": "https://pub-994c8c7a928c44ba9521493dbdeb80cf.r2.dev/108%20in%20the%20Shade/BruA1_Just2Inspire_TAGGED_PREVIEW.mp3",
       "inventory_status": "private_master_uploaded",
-      "listing_status": "licensing_inquiry_only"
+      "listing_status": "licensing_inquiry_only",
+      "id": "BRUA1-INS-0018",
+      "preview_type": "tagged"
     },
     {
       "title": "Laid Back & Litty",
       "formats": [
         "MP3"
       ],
-      "preview": null,
+      "preview": "https://pub-994c8c7a928c44ba9521493dbdeb80cf.r2.dev/store-previews/BRUA1-INS-0019.mp3",
       "inventory_status": "private_master_uploaded",
-      "listing_status": "licensing_inquiry_only"
+      "listing_status": "licensing_inquiry_only",
+      "id": "BRUA1-INS-0019",
+      "preview_type": "short"
     },
     {
       "title": "Litty",
@@ -201,9 +239,11 @@
         "MP3",
         "WAV"
       ],
-      "preview": null,
+      "preview": "https://pub-994c8c7a928c44ba9521493dbdeb80cf.r2.dev/store-previews/BRUA1-INS-0020.mp3",
       "inventory_status": "private_master_uploaded",
-      "listing_status": "licensing_inquiry_only"
+      "listing_status": "licensing_inquiry_only",
+      "id": "BRUA1-INS-0020",
+      "preview_type": "short"
     },
     {
       "title": "Loving You",
@@ -211,9 +251,11 @@
         "MP3",
         "WAV"
       ],
-      "preview": null,
+      "preview": "https://pub-994c8c7a928c44ba9521493dbdeb80cf.r2.dev/store-previews/BRUA1-INS-0021.mp3",
       "inventory_status": "private_master_uploaded",
-      "listing_status": "licensing_inquiry_only"
+      "listing_status": "licensing_inquiry_only",
+      "id": "BRUA1-INS-0021",
+      "preview_type": "short"
     },
     {
       "title": "Mailvoi",
@@ -221,9 +263,11 @@
         "MP3",
         "WAV"
       ],
-      "preview": null,
+      "preview": "https://pub-994c8c7a928c44ba9521493dbdeb80cf.r2.dev/store-previews/BRUA1-INS-0022.mp3",
       "inventory_status": "private_master_uploaded",
-      "listing_status": "licensing_inquiry_only"
+      "listing_status": "licensing_inquiry_only",
+      "id": "BRUA1-INS-0022",
+      "preview_type": "short"
     },
     {
       "title": "Messy",
@@ -231,9 +275,11 @@
         "MP3",
         "WAV"
       ],
-      "preview": null,
+      "preview": "https://pub-994c8c7a928c44ba9521493dbdeb80cf.r2.dev/store-previews/BRUA1-INS-0023.mp3",
       "inventory_status": "private_master_uploaded",
-      "listing_status": "licensing_inquiry_only"
+      "listing_status": "licensing_inquiry_only",
+      "id": "BRUA1-INS-0023",
+      "preview_type": "short"
     },
     {
       "title": "Morf",
@@ -241,9 +287,11 @@
         "MP3",
         "WAV"
       ],
-      "preview": null,
+      "preview": "https://pub-994c8c7a928c44ba9521493dbdeb80cf.r2.dev/store-previews/BRUA1-INS-0024.mp3",
       "inventory_status": "private_master_uploaded",
-      "listing_status": "licensing_inquiry_only"
+      "listing_status": "licensing_inquiry_only",
+      "id": "BRUA1-INS-0024",
+      "preview_type": "short"
     },
     {
       "title": "Nawlins",
@@ -251,9 +299,22 @@
         "MP3",
         "WAV"
       ],
-      "preview": null,
+      "preview": "https://pub-994c8c7a928c44ba9521493dbdeb80cf.r2.dev/store-previews/BRUA1-INS-0025.mp3",
       "inventory_status": "private_master_uploaded",
-      "listing_status": "licensing_inquiry_only"
+      "listing_status": "licensing_inquiry_only",
+      "id": "BRUA1-INS-0025",
+      "preview_type": "short"
+    },
+    {
+      "title": "paralyzed",
+      "formats": [
+        "MP3"
+      ],
+      "preview": "https://pub-994c8c7a928c44ba9521493dbdeb80cf.r2.dev/store-previews/BRUA1-INS-0026.mp3",
+      "inventory_status": "private_master_uploaded",
+      "listing_status": "licensing_inquiry_only",
+      "id": "BRUA1-INS-0026",
+      "preview_type": "short"
     },
     {
       "title": "Phareal",
@@ -261,9 +322,11 @@
         "MP3",
         "WAV"
       ],
-      "preview": null,
+      "preview": "https://pub-994c8c7a928c44ba9521493dbdeb80cf.r2.dev/store-previews/BRUA1-INS-0027.mp3",
       "inventory_status": "private_master_uploaded",
-      "listing_status": "licensing_inquiry_only"
+      "listing_status": "licensing_inquiry_only",
+      "id": "BRUA1-INS-0027",
+      "preview_type": "short"
     },
     {
       "title": "realfocus_2",
@@ -273,7 +336,9 @@
       ],
       "preview": "https://pub-994c8c7a928c44ba9521493dbdeb80cf.r2.dev/108%20in%20the%20Shade/BruA1_realfocus_2_TAGGED_PREVIEW.mp3",
       "inventory_status": "private_master_uploaded",
-      "listing_status": "licensing_inquiry_only"
+      "listing_status": "licensing_inquiry_only",
+      "id": "BRUA1-INS-0028",
+      "preview_type": "tagged"
     },
     {
       "title": "Ride With Me",
@@ -281,9 +346,11 @@
         "MP3",
         "WAV"
       ],
-      "preview": null,
+      "preview": "https://pub-994c8c7a928c44ba9521493dbdeb80cf.r2.dev/store-previews/BRUA1-INS-0029.mp3",
       "inventory_status": "private_master_uploaded",
-      "listing_status": "licensing_inquiry_only"
+      "listing_status": "licensing_inquiry_only",
+      "id": "BRUA1-INS-0029",
+      "preview_type": "short"
     },
     {
       "title": "Shake it like",
@@ -293,7 +360,9 @@
       ],
       "preview": "https://pub-994c8c7a928c44ba9521493dbdeb80cf.r2.dev/108%20in%20the%20Shade/BruA1_shakeitlike_TAGGED_PREVIEW.mp3",
       "inventory_status": "private_master_uploaded",
-      "listing_status": "licensing_inquiry_only"
+      "listing_status": "licensing_inquiry_only",
+      "id": "BRUA1-INS-0030",
+      "preview_type": "tagged"
     },
     {
       "title": "Shop Open",
@@ -301,9 +370,11 @@
         "MP3",
         "WAV"
       ],
-      "preview": null,
+      "preview": "https://pub-994c8c7a928c44ba9521493dbdeb80cf.r2.dev/store-previews/BRUA1-INS-0031.mp3",
       "inventory_status": "private_master_uploaded",
-      "listing_status": "licensing_inquiry_only"
+      "listing_status": "licensing_inquiry_only",
+      "id": "BRUA1-INS-0031",
+      "preview_type": "short"
     },
     {
       "title": "SpaceX",
@@ -311,9 +382,11 @@
         "MP3",
         "WAV"
       ],
-      "preview": null,
+      "preview": "https://pub-994c8c7a928c44ba9521493dbdeb80cf.r2.dev/store-previews/BRUA1-INS-0032.mp3",
       "inventory_status": "private_master_uploaded",
-      "listing_status": "licensing_inquiry_only"
+      "listing_status": "licensing_inquiry_only",
+      "id": "BRUA1-INS-0032",
+      "preview_type": "short"
     },
     {
       "title": "Steel",
@@ -323,7 +396,9 @@
       ],
       "preview": "https://pub-994c8c7a928c44ba9521493dbdeb80cf.r2.dev/108%20in%20the%20Shade/BruA1_steel_TAGGED_PREVIEW.mp3",
       "inventory_status": "private_master_uploaded",
-      "listing_status": "licensing_inquiry_only"
+      "listing_status": "licensing_inquiry_only",
+      "id": "BRUA1-INS-0033",
+      "preview_type": "tagged"
     },
     {
       "title": "Stranger",
@@ -331,9 +406,11 @@
         "MP3",
         "WAV"
       ],
-      "preview": null,
+      "preview": "https://pub-994c8c7a928c44ba9521493dbdeb80cf.r2.dev/store-previews/BRUA1-INS-0034.mp3",
       "inventory_status": "private_master_uploaded",
-      "listing_status": "licensing_inquiry_only"
+      "listing_status": "licensing_inquiry_only",
+      "id": "BRUA1-INS-0034",
+      "preview_type": "short"
     },
     {
       "title": "Street Dreams",
@@ -343,7 +420,9 @@
       ],
       "preview": "https://pub-994c8c7a928c44ba9521493dbdeb80cf.r2.dev/108%20in%20the%20Shade/BruA1_Street_Dreams_TAGGED_PREVIEW.mp3",
       "inventory_status": "private_master_uploaded",
-      "listing_status": "licensing_inquiry_only"
+      "listing_status": "licensing_inquiry_only",
+      "id": "BRUA1-INS-0035",
+      "preview_type": "tagged"
     },
     {
       "title": "The Flu",
@@ -353,7 +432,9 @@
       ],
       "preview": "https://pub-994c8c7a928c44ba9521493dbdeb80cf.r2.dev/108%20in%20the%20Shade/BruA1_The_Flu_TAGGED_PREVIEW.mp3",
       "inventory_status": "private_master_uploaded",
-      "listing_status": "licensing_inquiry_only"
+      "listing_status": "licensing_inquiry_only",
+      "id": "BRUA1-INS-0036",
+      "preview_type": "tagged"
     },
     {
       "title": "Whoa Naa",
@@ -361,9 +442,11 @@
         "MP3",
         "WAV"
       ],
-      "preview": null,
+      "preview": "https://pub-994c8c7a928c44ba9521493dbdeb80cf.r2.dev/store-previews/BRUA1-INS-0037.mp3",
       "inventory_status": "private_master_uploaded",
-      "listing_status": "licensing_inquiry_only"
+      "listing_status": "licensing_inquiry_only",
+      "id": "BRUA1-INS-0037",
+      "preview_type": "short"
     },
     {
       "title": "Worse",
@@ -373,7 +456,9 @@
       ],
       "preview": "https://pub-994c8c7a928c44ba9521493dbdeb80cf.r2.dev/108%20in%20the%20Shade/BruA1_worse_TAGGED_PREVIEW.mp3",
       "inventory_status": "private_master_uploaded",
-      "listing_status": "licensing_inquiry_only"
+      "listing_status": "licensing_inquiry_only",
+      "id": "BRUA1-INS-0038",
+      "preview_type": "tagged"
     },
     {
       "title": "Zayoo",
@@ -381,9 +466,12 @@
         "MP3",
         "WAV"
       ],
-      "preview": null,
+      "preview": "https://pub-994c8c7a928c44ba9521493dbdeb80cf.r2.dev/store-previews/BRUA1-INS-0039.mp3",
       "inventory_status": "private_master_uploaded",
-      "listing_status": "licensing_inquiry_only"
+      "listing_status": "licensing_inquiry_only",
+      "id": "BRUA1-INS-0039",
+      "preview_type": "short"
     }
-  ]
+  ],
+  "previewReleaseStatus": "ALL_39_PUBLIC_MP3_HTTP_CHECKS_PASS"
 }
