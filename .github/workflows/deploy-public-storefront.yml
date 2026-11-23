@@ -1,0 +1,88 @@
+name: BruA1 Public Storefront Deployment — License Options
+on:
+  pull_request:
+    paths:
+      - ".assetsignore"
+      - "wrangler.jsonc"
+      - "catalog/instrumentals.json"
+      - "catalog/public-license-options.json"
+      - "instrumentals.html"
+      - "scripts/validate-store-license-options.mjs"
+      - ".github/workflows/deploy-public-storefront.yml"
+  push:
+    branches: [main]
+    paths:
+      - ".assetsignore"
+      - "wrangler.jsonc"
+      - "catalog/instrumentals.json"
+      - "catalog/public-license-options.json"
+      - "instrumentals.html"
+      - ".github/workflows/deploy-public-storefront.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: brua1-public-storefront
+  cancel-in-progress: false
+
+jobs:
+  independent-qa:
+    name: Verify public licensing and safe asset allowlist
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Verify site, license options, public preview URLs
+        run: |
+          node scripts/validate-store-catalog.mjs
+          node scripts/validate-store-license-options.mjs
+          node scripts/check-public-previews.mjs
+      - name: Verify Cloudflare static assets are allowlisted, no private master keys
+        run: |
+          node --input-type=module <<'EOF'
+          import fs from 'node:fs';
+          import assert from 'node:assert/strict';
+          const config = JSON.parse(fs.readFileSync('wrangler.jsonc','utf8'));
+          assert.equal(config.name,'brua1empire');
+          assert.equal(config.assets?.directory,'./');
+          const lines = fs.readFileSync('.assetsignore','utf8').trim().split(/\r?\n/).filter(Boolean);
+          assert(lines.includes('*'),'Public assets must have deny-all default');
+          for(const item of ['!index.html','!instrumentals.html','!style.css','!script.js','!catalog/','!catalog/instrumentals.json','!catalog/public-license-options.json']){
+            assert(lines.includes(item),'Missing public allowlist entry '+item);
+          }
+          assert(!lines.some(x=>/^!(contracts|fulfillment|workers|tests|docs)\//.test(x)),'Private commerce folders must never be publicly exposed');
+          console.log('PASS: only approved public site content is allowed into Cloudflare assets');
+          EOF
+
+  deploy:
+    name: Publish safe static storefront to existing BruA1 Worker
+    if: github.event_name != 'pull_request'
+    needs: independent-qa
+    runs-on: ubuntu-latest
+    environment: website-production
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Check deployment credentials without exposing values
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          test -n "$CLOUDFLARE_API_TOKEN" || { echo "::error::Missing Cloudflare API token"; exit 1; }
+          test -n "$CLOUDFLARE_ACCOUNT_ID" || { echo "::error::Missing Cloudflare account ID"; exit 1; }
+      - name: Deploy safe public assets; no checkout, no private masters
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          npx --yes wrangler@4 deploy --config wrangler.jsonc
