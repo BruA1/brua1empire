@@ -1,0 +1,46 @@
+name: Deploy Isolated BruA1 PayPal Checkout Sandbox (Test Only)
+on:
+  push:
+    branches: [feature/secure-checkout-sandbox-20261123]
+    paths:
+      - ".github/workflows/deploy-secure-checkout-sandbox.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: brua1-isolated-checkout-sandbox
+  cancel-in-progress: false
+
+jobs:
+  deploy-test-only:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    environment: checkout-sandbox
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Test sandbox API and prove no private audio binding
+        run: |
+          node --check workers/brua1-checkout-sandbox/index.mjs
+          node --test tests/checkout-sandbox.test.mjs
+          grep -Fq 'https://api-m.sandbox.paypal.com' workers/brua1-checkout-sandbox/index.mjs
+          ! grep -Fq 'env.INSTRUMENTAL_MASTERS' workers/brua1-checkout-sandbox/index.mjs
+          ! grep -Eq '^\[\[r2_buckets\]\]|^route\s*=' workers/brua1-checkout-sandbox/wrangler.toml
+      - name: Verify deployment credential availability without printing values
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          test -n "$CLOUDFLARE_API_TOKEN" || { echo "::error::Missing GitHub CLOUDFLARE_API_TOKEN"; exit 1; }
+          test -n "$CLOUDFLARE_ACCOUNT_ID" || { echo "::error::Missing GitHub CLOUDFLARE_ACCOUNT_ID"; exit 1; }
+      - name: Deploy test-only Worker on workers.dev (not brua1.com)
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          npx --yes wrangler@4 deploy --config workers/brua1-checkout-sandbox/wrangler.toml
+          echo "Deployment executed for isolated sandbox only. Use output to verify URL."
