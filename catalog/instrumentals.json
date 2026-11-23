@@ -5,7 +5,7 @@
   "trackCount": 39,
   "lastReviewedDate": "2026-11-23",
   "checkoutEnabled": false,
-  "notes": "All 39 titles have 10 tagged previews and 29 short excerpt files in Cloudflare R2. Checkout disabled; masters and license delivery private. Public HTTP/audio QA required before final storefront rollout.",
+  "notes": "All 39 instrumental titles have mapped public audio preview URLs; GitHub Actions independent HTTP QA verified 39 of 39 returned MP3 audio/mpeg (206 partial response) on 2026-11-23. These are 10 tagged previews + 29 40-second short excerpts. No private full-length masters or checkout enabled. Human listening on devices remains advisable.",
   "tracks": [
     {
       "title": "108 in the Shade",
@@ -473,5 +473,5 @@
       "preview_type": "short"
     }
   ],
-  "previewReleaseStatus": "AWAITING_PUBLIC_HTTP_QA"
+  "previewReleaseStatus": "ALL_39_PUBLIC_MP3_HTTP_CHECKS_PASS"
 }
