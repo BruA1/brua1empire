@@ -22,9 +22,9 @@ export function fulfillmentDecision({order,product,verifiedPayment,acceptance,co
   const blocks = [];
   const tier = order?.license_tier;
   const priceCents = PRICES[tier];
-  if(!isBoolTrue(config?.enabled))blocks.push("FULFILLMENT_DISABLED");
+  if(!isBoolTrue(config?.enabled) || !isBoolTrue(config?.owner_signed_off))blocks.push("FULFILLMENT_DISABLED");
   if(config?.environment!=="production")blocks.push("NON_PRODUCTION_ENVIRONMENT");
-  if(config?.agreement_status!=="LEGAL_APPROVED")blocks.push("AGREEMENT_NOT_APPROVED");
+  if(config?.agreement_status!=="LEGAL_APPROVED" || !isBoolTrue(config?.approved_terms_published))blocks.push("AGREEMENT_NOT_APPROVED");
   if(!isBoolTrue(config?.merchant_identity_verified))blocks.push("MERCHANT_NOT_VERIFIED");
   if(!config?.approved_terms_version || config.approved_terms_version===DRAFT_TERMS_VERSION)blocks.push("DRAFT_OR_MISSING_TERMS");
   if(!order || !PAYPAL_ORDER_ID.test(order.paypal_order_id||"") || !PRODUCT_ID.test(order.product_id||"") || !own(PRICES,tier))
