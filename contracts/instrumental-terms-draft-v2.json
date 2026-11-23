@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "source_document": "https://docs.google.com/document/d/1I6M9L5o2wG_L92NRJbNWuCkK4aL3y4mZPYltd7JlIoI/edit",
+  "draft_id": "BRUA1-DRAFT-V2-2026-11-23",
+  "status": "LEGAL_REVIEW_REQUIRED",
+  "not_live": true,
+  "legal_seller_verified": false,
+  "public_license_issuance_enabled": false,
+  "notice": "This is a versioned reference to unapproved commercial terms; the checkout must not issue binding licenses based on this document.",
+  "tiers": {
+    "basic": {
+      "price_cents": 2999,
+      "currency": "USD",
+      "duration_years": 5,
+      "formats": [
+        "mp3"
+      ],
+      "paid_unit_limit": 5000,
+      "monetized_audio_stream_limit": 100000,
+      "monetized_music_videos": 1,
+      "non_monetized_music_videos": 2,
+      "monetized_music_video_view_limit": 100000,
+      "exclusive": false
+    },
+    "premium": {
+      "price_cents": 5999,
+      "currency": "USD",
+      "duration_years": 10,
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "paid_unit_limit": 25000,
+      "monetized_audio_stream_limit": 500000,
+      "monetized_music_videos": 2,
+      "non_monetized_music_videos": 5,
+      "monetized_music_video_view_limit": 500000,
+      "exclusive": false
+    },
+    "unlimited": {
+      "price_cents": 9999,
+      "currency": "USD",
+      "duration_years": 10,
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "paid_unit_limit": null,
+      "monetized_audio_stream_limit": null,
+      "monetized_music_videos": null,
+      "non_monetized_music_videos": null,
+      "monetized_music_video_view_limit": null,
+      "exclusive": false
+    },
+    "exclusive": {
+      "price_cents": null,
+      "currency": "USD",
+      "formats": [],
+      "automated_checkout": false,
+      "require_individually_signed_contract": true
+    }
+  },
+  "all_tiers": {
+    "one_new_song_per_license": true,
+    "license_is_nonexclusive": true,
+    "owner_retains_underlying_music_rights": true,
+    "standalone_instrumental_resale": false,
+    "sublicensing": false,
+    "third_party_sync_without_separate_permission": false,
+    "content_id_claim_on_underlying_instrumental": false,
+    "producer_credit": "Prod. by BruA1",
+    "prior_valid_licenses_survive_later_exclusive": true
+  }
+}
