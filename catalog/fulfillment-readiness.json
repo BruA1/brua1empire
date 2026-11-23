@@ -1,0 +1,1067 @@
+{
+  "schema_version": 1,
+  "updated_date": "2026-11-23",
+  "catalog_track_count": 39,
+  "private_manifest_product_count": 38,
+  "private_manifest_source": "BruA1/brua1-media-sync:data/product-masters.json",
+  "private_master_keys": "OMITTED_FROM_PUBLIC_CATALOG",
+  "purchase_status": "ALL_DISABLED",
+  "license_status": "DRAFT_V2_NOT_LEGALLY_FINAL",
+  "remote_object_verification": "NOT_PERFORMED_FROM_THIS_CATALOG",
+  "notes": "This is a preparation manifest only, not proof of active private R2 objects. All private mp3/wav must pass HEAD+content QA, rights clearance, final license acceptance and payment verification before sale.",
+  "products": [
+    {
+      "product_id": "BRUA1-INS-0001",
+      "title": "108 in the Shade",
+      "public_preview_ready": true,
+      "private_mp3_manifested": true,
+      "private_wav_manifested": true,
+      "basic": {
+        "price_cents": 2999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "premium": {
+        "price_cents": 5999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "unlimited": {
+        "price_cents": 9999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "sale_enabled": false,
+      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+    },
+    {
+      "product_id": "BRUA1-INS-0002",
+      "title": "Anxiety",
+      "public_preview_ready": true,
+      "private_mp3_manifested": true,
+      "private_wav_manifested": true,
+      "basic": {
+        "price_cents": 2999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "premium": {
+        "price_cents": 5999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "unlimited": {
+        "price_cents": 9999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "sale_enabled": false,
+      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+    },
+    {
+      "product_id": "BRUA1-INS-0003",
+      "title": "Blaze",
+      "public_preview_ready": true,
+      "private_mp3_manifested": true,
+      "private_wav_manifested": true,
+      "basic": {
+        "price_cents": 2999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "premium": {
+        "price_cents": 5999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "unlimited": {
+        "price_cents": 9999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "sale_enabled": false,
+      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+    },
+    {
+      "product_id": "BRUA1-INS-0004",
+      "title": "Chopin",
+      "public_preview_ready": true,
+      "private_mp3_manifested": true,
+      "private_wav_manifested": false,
+      "basic": {
+        "price_cents": 2999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "premium": {
+        "price_cents": 5999,
+        "deliverable": false,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "unlimited": {
+        "price_cents": 9999,
+        "deliverable": false,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "sale_enabled": false,
+      "status": "MISSING_PRIVATE_WAV_RECORD"
+    },
+    {
+      "product_id": "BRUA1-INS-0005",
+      "title": "Cypher",
+      "public_preview_ready": true,
+      "private_mp3_manifested": true,
+      "private_wav_manifested": true,
+      "basic": {
+        "price_cents": 2999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "premium": {
+        "price_cents": 5999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "unlimited": {
+        "price_cents": 9999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "sale_enabled": false,
+      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+    },
+    {
+      "product_id": "BRUA1-INS-0006",
+      "title": "Dallar and a Dream",
+      "public_preview_ready": true,
+      "private_mp3_manifested": true,
+      "private_wav_manifested": true,
+      "basic": {
+        "price_cents": 2999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "premium": {
+        "price_cents": 5999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "unlimited": {
+        "price_cents": 9999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "sale_enabled": false,
+      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+    },
+    {
+      "product_id": "BRUA1-INS-0007",
+      "title": "Danger",
+      "public_preview_ready": true,
+      "private_mp3_manifested": true,
+      "private_wav_manifested": true,
+      "basic": {
+        "price_cents": 2999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "premium": {
+        "price_cents": 5999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "unlimited": {
+        "price_cents": 9999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "sale_enabled": false,
+      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+    },
+    {
+      "product_id": "BRUA1-INS-0008",
+      "title": "decater",
+      "public_preview_ready": true,
+      "private_mp3_manifested": true,
+      "private_wav_manifested": true,
+      "basic": {
+        "price_cents": 2999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "premium": {
+        "price_cents": 5999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "unlimited": {
+        "price_cents": 9999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "sale_enabled": false,
+      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+    },
+    {
+      "product_id": "BRUA1-INS-0009",
+      "title": "Drawdown",
+      "public_preview_ready": true,
+      "private_mp3_manifested": true,
+      "private_wav_manifested": true,
+      "basic": {
+        "price_cents": 2999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "premium": {
+        "price_cents": 5999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "unlimited": {
+        "price_cents": 9999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "sale_enabled": false,
+      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+    },
+    {
+      "product_id": "BRUA1-INS-0010",
+      "title": "DreSlide",
+      "public_preview_ready": true,
+      "private_mp3_manifested": true,
+      "private_wav_manifested": true,
+      "basic": {
+        "price_cents": 2999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "premium": {
+        "price_cents": 5999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "unlimited": {
+        "price_cents": 9999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "sale_enabled": false,
+      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+    },
+    {
+      "product_id": "BRUA1-INS-0011",
+      "title": "DrPepperFlavoredListerineJ",
+      "public_preview_ready": true,
+      "private_mp3_manifested": true,
+      "private_wav_manifested": true,
+      "basic": {
+        "price_cents": 2999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "premium": {
+        "price_cents": 5999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "unlimited": {
+        "price_cents": 9999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "sale_enabled": false,
+      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+    },
+    {
+      "product_id": "BRUA1-INS-0012",
+      "title": "Elon Free",
+      "public_preview_ready": true,
+      "private_mp3_manifested": true,
+      "private_wav_manifested": true,
+      "basic": {
+        "price_cents": 2999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "premium": {
+        "price_cents": 5999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "unlimited": {
+        "price_cents": 9999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "sale_enabled": false,
+      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+    },
+    {
+      "product_id": "BRUA1-INS-0013",
+      "title": "Fck Stress",
+      "public_preview_ready": true,
+      "private_mp3_manifested": true,
+      "private_wav_manifested": true,
+      "basic": {
+        "price_cents": 2999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "premium": {
+        "price_cents": 5999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "unlimited": {
+        "price_cents": 9999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "sale_enabled": false,
+      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+    },
+    {
+      "product_id": "BRUA1-INS-0014",
+      "title": "Get Em",
+      "public_preview_ready": true,
+      "private_mp3_manifested": true,
+      "private_wav_manifested": true,
+      "basic": {
+        "price_cents": 2999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "premium": {
+        "price_cents": 5999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "unlimited": {
+        "price_cents": 9999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "sale_enabled": false,
+      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+    },
+    {
+      "product_id": "BRUA1-INS-0015",
+      "title": "Ginu",
+      "public_preview_ready": true,
+      "private_mp3_manifested": true,
+      "private_wav_manifested": true,
+      "basic": {
+        "price_cents": 2999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "premium": {
+        "price_cents": 5999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "unlimited": {
+        "price_cents": 9999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "sale_enabled": false,
+      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+    },
+    {
+      "product_id": "BRUA1-INS-0016",
+      "title": "Gnosis",
+      "public_preview_ready": true,
+      "private_mp3_manifested": true,
+      "private_wav_manifested": true,
+      "basic": {
+        "price_cents": 2999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "premium": {
+        "price_cents": 5999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "unlimited": {
+        "price_cents": 9999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "sale_enabled": false,
+      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+    },
+    {
+      "product_id": "BRUA1-INS-0017",
+      "title": "JRSHIT2",
+      "public_preview_ready": true,
+      "private_mp3_manifested": true,
+      "private_wav_manifested": true,
+      "basic": {
+        "price_cents": 2999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "premium": {
+        "price_cents": 5999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "unlimited": {
+        "price_cents": 9999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "sale_enabled": false,
+      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+    },
+    {
+      "product_id": "BRUA1-INS-0018",
+      "title": "Just2Inspire",
+      "public_preview_ready": true,
+      "private_mp3_manifested": true,
+      "private_wav_manifested": true,
+      "basic": {
+        "price_cents": 2999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "premium": {
+        "price_cents": 5999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "unlimited": {
+        "price_cents": 9999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "sale_enabled": false,
+      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+    },
+    {
+      "product_id": "BRUA1-INS-0019",
+      "title": "Laid Back & Litty",
+      "public_preview_ready": true,
+      "private_mp3_manifested": true,
+      "private_wav_manifested": false,
+      "basic": {
+        "price_cents": 2999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "premium": {
+        "price_cents": 5999,
+        "deliverable": false,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "unlimited": {
+        "price_cents": 9999,
+        "deliverable": false,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "sale_enabled": false,
+      "status": "MISSING_PRIVATE_WAV_RECORD"
+    },
+    {
+      "product_id": "BRUA1-INS-0020",
+      "title": "Litty",
+      "public_preview_ready": true,
+      "private_mp3_manifested": true,
+      "private_wav_manifested": true,
+      "basic": {
+        "price_cents": 2999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "premium": {
+        "price_cents": 5999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "unlimited": {
+        "price_cents": 9999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "sale_enabled": false,
+      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+    },
+    {
+      "product_id": "BRUA1-INS-0021",
+      "title": "Loving You",
+      "public_preview_ready": true,
+      "private_mp3_manifested": true,
+      "private_wav_manifested": true,
+      "basic": {
+        "price_cents": 2999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "premium": {
+        "price_cents": 5999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "unlimited": {
+        "price_cents": 9999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "sale_enabled": false,
+      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+    },
+    {
+      "product_id": "BRUA1-INS-0022",
+      "title": "Mailvoi",
+      "public_preview_ready": true,
+      "private_mp3_manifested": true,
+      "private_wav_manifested": true,
+      "basic": {
+        "price_cents": 2999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "premium": {
+        "price_cents": 5999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "unlimited": {
+        "price_cents": 9999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "sale_enabled": false,
+      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+    },
+    {
+      "product_id": "BRUA1-INS-0023",
+      "title": "Messy",
+      "public_preview_ready": true,
+      "private_mp3_manifested": true,
+      "private_wav_manifested": true,
+      "basic": {
+        "price_cents": 2999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "premium": {
+        "price_cents": 5999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "unlimited": {
+        "price_cents": 9999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "sale_enabled": false,
+      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+    },
+    {
+      "product_id": "BRUA1-INS-0024",
+      "title": "Morf",
+      "public_preview_ready": true,
+      "private_mp3_manifested": true,
+      "private_wav_manifested": true,
+      "basic": {
+        "price_cents": 2999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "premium": {
+        "price_cents": 5999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "unlimited": {
+        "price_cents": 9999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "sale_enabled": false,
+      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+    },
+    {
+      "product_id": "BRUA1-INS-0025",
+      "title": "Nawlins",
+      "public_preview_ready": true,
+      "private_mp3_manifested": true,
+      "private_wav_manifested": true,
+      "basic": {
+        "price_cents": 2999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "premium": {
+        "price_cents": 5999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "unlimited": {
+        "price_cents": 9999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "sale_enabled": false,
+      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+    },
+    {
+      "product_id": "BRUA1-INS-0026",
+      "title": "paralyzed",
+      "public_preview_ready": true,
+      "private_mp3_manifested": false,
+      "private_wav_manifested": false,
+      "basic": {
+        "price_cents": 2999,
+        "deliverable": false,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "premium": {
+        "price_cents": 5999,
+        "deliverable": false,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "unlimited": {
+        "price_cents": 9999,
+        "deliverable": false,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "sale_enabled": false,
+      "status": "MISSING_PRIVATE_MP3_RECORD"
+    },
+    {
+      "product_id": "BRUA1-INS-0027",
+      "title": "Phareal",
+      "public_preview_ready": true,
+      "private_mp3_manifested": true,
+      "private_wav_manifested": true,
+      "basic": {
+        "price_cents": 2999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "premium": {
+        "price_cents": 5999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "unlimited": {
+        "price_cents": 9999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "sale_enabled": false,
+      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+    },
+    {
+      "product_id": "BRUA1-INS-0028",
+      "title": "realfocus_2",
+      "public_preview_ready": true,
+      "private_mp3_manifested": true,
+      "private_wav_manifested": true,
+      "basic": {
+        "price_cents": 2999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "premium": {
+        "price_cents": 5999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "unlimited": {
+        "price_cents": 9999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "sale_enabled": false,
+      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+    },
+    {
+      "product_id": "BRUA1-INS-0029",
+      "title": "Ride With Me",
+      "public_preview_ready": true,
+      "private_mp3_manifested": true,
+      "private_wav_manifested": true,
+      "basic": {
+        "price_cents": 2999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "premium": {
+        "price_cents": 5999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "unlimited": {
+        "price_cents": 9999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "sale_enabled": false,
+      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+    },
+    {
+      "product_id": "BRUA1-INS-0030",
+      "title": "Shake it like",
+      "public_preview_ready": true,
+      "private_mp3_manifested": true,
+      "private_wav_manifested": true,
+      "basic": {
+        "price_cents": 2999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "premium": {
+        "price_cents": 5999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "unlimited": {
+        "price_cents": 9999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "sale_enabled": false,
+      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+    },
+    {
+      "product_id": "BRUA1-INS-0031",
+      "title": "Shop Open",
+      "public_preview_ready": true,
+      "private_mp3_manifested": true,
+      "private_wav_manifested": true,
+      "basic": {
+        "price_cents": 2999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "premium": {
+        "price_cents": 5999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "unlimited": {
+        "price_cents": 9999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "sale_enabled": false,
+      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+    },
+    {
+      "product_id": "BRUA1-INS-0032",
+      "title": "SpaceX",
+      "public_preview_ready": true,
+      "private_mp3_manifested": true,
+      "private_wav_manifested": true,
+      "basic": {
+        "price_cents": 2999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "premium": {
+        "price_cents": 5999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "unlimited": {
+        "price_cents": 9999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "sale_enabled": false,
+      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+    },
+    {
+      "product_id": "BRUA1-INS-0033",
+      "title": "Steel",
+      "public_preview_ready": true,
+      "private_mp3_manifested": true,
+      "private_wav_manifested": true,
+      "basic": {
+        "price_cents": 2999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "premium": {
+        "price_cents": 5999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "unlimited": {
+        "price_cents": 9999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "sale_enabled": false,
+      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+    },
+    {
+      "product_id": "BRUA1-INS-0034",
+      "title": "Stranger",
+      "public_preview_ready": true,
+      "private_mp3_manifested": true,
+      "private_wav_manifested": true,
+      "basic": {
+        "price_cents": 2999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "premium": {
+        "price_cents": 5999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "unlimited": {
+        "price_cents": 9999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "sale_enabled": false,
+      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+    },
+    {
+      "product_id": "BRUA1-INS-0035",
+      "title": "Street Dreams",
+      "public_preview_ready": true,
+      "private_mp3_manifested": true,
+      "private_wav_manifested": true,
+      "basic": {
+        "price_cents": 2999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "premium": {
+        "price_cents": 5999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "unlimited": {
+        "price_cents": 9999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "sale_enabled": false,
+      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+    },
+    {
+      "product_id": "BRUA1-INS-0036",
+      "title": "The Flu",
+      "public_preview_ready": true,
+      "private_mp3_manifested": true,
+      "private_wav_manifested": true,
+      "basic": {
+        "price_cents": 2999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "premium": {
+        "price_cents": 5999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "unlimited": {
+        "price_cents": 9999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "sale_enabled": false,
+      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+    },
+    {
+      "product_id": "BRUA1-INS-0037",
+      "title": "Whoa Naa",
+      "public_preview_ready": true,
+      "private_mp3_manifested": true,
+      "private_wav_manifested": true,
+      "basic": {
+        "price_cents": 2999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "premium": {
+        "price_cents": 5999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "unlimited": {
+        "price_cents": 9999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "sale_enabled": false,
+      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+    },
+    {
+      "product_id": "BRUA1-INS-0038",
+      "title": "Worse",
+      "public_preview_ready": true,
+      "private_mp3_manifested": true,
+      "private_wav_manifested": true,
+      "basic": {
+        "price_cents": 2999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "premium": {
+        "price_cents": 5999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "unlimited": {
+        "price_cents": 9999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "sale_enabled": false,
+      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+    },
+    {
+      "product_id": "BRUA1-INS-0039",
+      "title": "Zayoo",
+      "public_preview_ready": true,
+      "private_mp3_manifested": true,
+      "private_wav_manifested": true,
+      "basic": {
+        "price_cents": 2999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "premium": {
+        "price_cents": 5999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "unlimited": {
+        "price_cents": 9999,
+        "deliverable": true,
+        "rights_cleared": false,
+        "independent_qa_pass": false
+      },
+      "sale_enabled": false,
+      "status": "MANIFESTED_AWAITING_PRIVATE_R2_HEAD_AND_QA"
+    }
+  ]
+}
