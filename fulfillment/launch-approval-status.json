@@ -50,5 +50,9 @@
   "customer_facing_seller_brand": "BruA1",
   "brand_preference_confirmed_on": "2026-11-23",
   "legal_seller_entity_name": null,
-  "legal_seller_identity_status": "NOT_VERIFIED__CUSTOMER_BRAND_ONLY"
+  "legal_seller_identity_status": "OWNER_CONFIRMED_NOT_REGISTERED__LLC_AND_BUSINESS_ACCOUNT_PLANNED",
+  "brand_legal_status": "ARTIST_PRODUCER_PEN_NAME_ONLY_NOT_AN_LLC",
+  "owner_reported_status_on": "2026-11-23",
+  "planned_legal_entity": "BruA1 LLC (planned, subject to name approval and legal formation)",
+  "planned_business_bank_account": true
 }
