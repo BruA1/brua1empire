@@ -23,8 +23,8 @@ function renderTracks(){
     card.append(symbol,heading,formats);
     const url=typeof track.preview==="string"?track.preview:"";
     const base="https://pub-994c8c7a928c44ba9521493dbdeb80cf.r2.dev/";
-    const tagged=url.startsWith(base)&&/_TAGGED_PREVIEW\\.mp3$/i.test(url);
-    const short=/^BRUA1-INS-\\d{4}$/.test(track.id||"")&&url===base+"store-previews/"+track.id+".mp3";
+    const tagged=url.startsWith(base)&&url.toLowerCase().endsWith("_tagged_preview.mp3");
+    const short=typeof track.id==="string"&&url===base+"store-previews/"+track.id+".mp3";
     if(tagged||short){
       const audio=document.createElement("audio");
       audio.controls=true;audio.preload="none";
