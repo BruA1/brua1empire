@@ -20,7 +20,7 @@ for (const track of data.tracks) {
   titles.add(track.title.toLocaleLowerCase());
   assert.deepEqual(track.formats.filter(f => !["MP3", "WAV"].includes(f)), [], "Unknown format");
   assert(track.formats.includes("MP3"), "Basic license requires MP3: " + track.title);
-  assert(/^BRUA1-INS-\\d{4}$/.test(track.id), "Missing stable product ID");
+  assert(typeof track.id==="string" && track.id.startsWith("BRUA1-INS-") && track.id.length===14 && [...track.id.slice(-4)].every(ch=>ch>="0"&&ch<="9"), "Missing stable product ID");
   assert.equal(track.listing_status, "licensing_inquiry_only", "Unexpected sale-enabled track");
   assert.equal(track.inventory_status, "private_master_uploaded", "Master not verified in inventory");
   assert(!Object.keys(track).some(key => /private|r2_object|download_token|secret|api_key|master_key/i.test(key)),
@@ -30,7 +30,7 @@ for (const track of data.tracks) {
     const u = new URL(track.preview);
     assert(track.preview.startsWith(expectedPreviewBase), "Unrecognized preview host");
     const tagged = u.pathname.endsWith("_TAGGED_PREVIEW.mp3");
-    const short = /^\\/store-previews\\/BRUA1-INS-\\d{4}\\.mp3$/.test(u.pathname);
+    const short = u.pathname.startsWith("/store-previews/BRUA1-INS-") && u.pathname === "/store-previews/" + track.id + ".mp3";
     assert(tagged || short, "Only tagged or numbered public short-preview URLs are allowed");
     if(short) assert.equal(u.pathname, "/store-previews/" + track.id + ".mp3", "Short preview must match product ID");
     assert(!decodeURIComponent(u.pathname).toLowerCase().includes("untagged"), "Untagged master exposed");
