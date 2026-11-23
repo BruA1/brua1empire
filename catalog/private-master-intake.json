@@ -1,0 +1,434 @@
+{
+  "schema_version": 1,
+  "origin": "Successful GitHub Actions BruA1 Drive to Private R2 Masters run #5, November 23 2026",
+  "workflow_url": "https://github.com/BruA1/brua1-media-sync/actions/runs/45141695592",
+  "environment": "staging_only",
+  "r2_bucket": "brua1-instrumentals-masters",
+  "files_verified": 74,
+  "files_newly_uploaded": 72,
+  "files_preserved": 2,
+  "notes": "Private source inventory only. R2 objects verified by byte size; independent audio/license QA and storefront publishing are separate gates. Never expose clean masters publicly or enable purchases automatically. Titles and file spellings preserved.",
+  "tracks": [
+    {
+      "title": "108 in the Shade",
+      "mp3_keys": [
+        "BruA1 - 108 in the Shade - Untagged.mp3"
+      ],
+      "wav_keys": [
+        "BruA1 - 108 in the Shade - Master.wav"
+      ],
+      "qa_status": "pending",
+      "storefront_sale_enabled": false
+    },
+    {
+      "title": "Anxiety",
+      "mp3_keys": [
+        "BruA1 - Anxiety - Untagged.mp3"
+      ],
+      "wav_keys": [
+        "BruA1 - Anxiety - Master.wav"
+      ],
+      "qa_status": "pending",
+      "storefront_sale_enabled": false
+    },
+    {
+      "title": "Blaze",
+      "mp3_keys": [
+        "BruA1 - Blaze - Untagged.mp3"
+      ],
+      "wav_keys": [
+        "BruA1 - Blaze - Master.wav"
+      ],
+      "qa_status": "pending",
+      "storefront_sale_enabled": false
+    },
+    {
+      "title": "Chopan",
+      "mp3_keys": [
+        "BruA1 - Chopan - Untagged.mp3"
+      ],
+      "wav_keys": [],
+      "qa_status": "pending",
+      "storefront_sale_enabled": false
+    },
+    {
+      "title": "Cypher",
+      "mp3_keys": [
+        "BruA1 - Cypher - Untagged.mp3"
+      ],
+      "wav_keys": [
+        "BruA1 - Cypher - Master.wav"
+      ],
+      "qa_status": "pending",
+      "storefront_sale_enabled": false
+    },
+    {
+      "title": "Dallar and a Dream",
+      "mp3_keys": [
+        "BruA1 - Dallar and a Dream - Untagged.mp3"
+      ],
+      "wav_keys": [
+        "BruA1 - Dallar and a Dream - Master.wav"
+      ],
+      "qa_status": "pending",
+      "storefront_sale_enabled": false
+    },
+    {
+      "title": "Danger",
+      "mp3_keys": [
+        "BruA1 - Danger - Untagged.mp3"
+      ],
+      "wav_keys": [
+        "BruA1 - Danger - Master.wav"
+      ],
+      "qa_status": "pending",
+      "storefront_sale_enabled": false
+    },
+    {
+      "title": "decater",
+      "mp3_keys": [
+        "BruA1 - decater - Utagged.mp3"
+      ],
+      "wav_keys": [
+        "BruA1 - decater - Master.wav"
+      ],
+      "qa_status": "pending",
+      "storefront_sale_enabled": false
+    },
+    {
+      "title": "Drawdown",
+      "mp3_keys": [
+        "BruA1 - Drawdown - Untagged.mp3"
+      ],
+      "wav_keys": [
+        "BruA1 - Drawdown - Master.wav"
+      ],
+      "qa_status": "pending",
+      "storefront_sale_enabled": false
+    },
+    {
+      "title": "DreSlide",
+      "mp3_keys": [
+        "BruA1 - DreSlide - Untagged.mp3"
+      ],
+      "wav_keys": [
+        "BruA1 - DreSlide - Master.wav"
+      ],
+      "qa_status": "pending",
+      "storefront_sale_enabled": false
+    },
+    {
+      "title": "DrPepperFlavoredListerineJ",
+      "mp3_keys": [
+        "BruA1 - DrPepperFlavoredListerineJ - Untagged.mp3"
+      ],
+      "wav_keys": [
+        "BruA1 - DrPepperFlavoredListerineJ - Master.wav"
+      ],
+      "qa_status": "pending",
+      "storefront_sale_enabled": false
+    },
+    {
+      "title": "Elon Free",
+      "mp3_keys": [
+        "BruA1 - Elon Free - Untagged.mp3"
+      ],
+      "wav_keys": [
+        "BruA1 - Elon Free - Master.wav"
+      ],
+      "qa_status": "pending",
+      "storefront_sale_enabled": false
+    },
+    {
+      "title": "Fck Stress",
+      "mp3_keys": [
+        "BruA1 - Fck Stress - Untagged.mp3"
+      ],
+      "wav_keys": [
+        "BruA1 - Fck Stress - Master.wav"
+      ],
+      "qa_status": "pending",
+      "storefront_sale_enabled": false
+    },
+    {
+      "title": "Get Em",
+      "mp3_keys": [
+        "BruA1 - Get Em - Untagged.mp3"
+      ],
+      "wav_keys": [
+        "BruA1 - Get Em - Master.wav"
+      ],
+      "qa_status": "pending",
+      "storefront_sale_enabled": false
+    },
+    {
+      "title": "Ginu",
+      "mp3_keys": [
+        "BruA1 - Ginu - Untqgged.mp3"
+      ],
+      "wav_keys": [
+        "BruA1 - Ginu - Master.wav"
+      ],
+      "qa_status": "pending",
+      "storefront_sale_enabled": false
+    },
+    {
+      "title": "Gnosis",
+      "mp3_keys": [
+        "BruA1 - Gnosis - Untagged.mp3"
+      ],
+      "wav_keys": [
+        "BruA1 - Gnosis - Master.wav"
+      ],
+      "qa_status": "pending",
+      "storefront_sale_enabled": false
+    },
+    {
+      "title": "JRSHIT2",
+      "mp3_keys": [
+        "BruA1 - JRSHIT2 - Untagged.mp3"
+      ],
+      "wav_keys": [
+        "BruA1 - JRSHIT2 - Master.wav"
+      ],
+      "qa_status": "pending",
+      "storefront_sale_enabled": false
+    },
+    {
+      "title": "Just2Inspire",
+      "mp3_keys": [
+        "BruA1 - Just2Inspire - Untagged.mp3"
+      ],
+      "wav_keys": [
+        "BruA1 - Just2Inspire - Master.wav"
+      ],
+      "qa_status": "pending",
+      "storefront_sale_enabled": false
+    },
+    {
+      "title": "LaidBackNLitty",
+      "mp3_keys": [
+        "BruA1 - LaidBackNLitty - Untagged.mp3"
+      ],
+      "wav_keys": [],
+      "qa_status": "pending",
+      "storefront_sale_enabled": false
+    },
+    {
+      "title": "Litty",
+      "mp3_keys": [
+        "BruA1 - Litty - Untagged.mp3"
+      ],
+      "wav_keys": [
+        "BruA1 - Litty - Master.wav"
+      ],
+      "qa_status": "pending",
+      "storefront_sale_enabled": false
+    },
+    {
+      "title": "LovinU",
+      "mp3_keys": [
+        "BruA1 - LovinU - Untagged.mp3"
+      ],
+      "wav_keys": [],
+      "qa_status": "pending",
+      "storefront_sale_enabled": false
+    },
+    {
+      "title": "LuvinU",
+      "mp3_keys": [],
+      "wav_keys": [
+        "BruA1 - LuvinU - Master.wav"
+      ],
+      "qa_status": "pending",
+      "storefront_sale_enabled": false
+    },
+    {
+      "title": "Mailvoi",
+      "mp3_keys": [
+        "BruA1 - Mailvoi - Untagged.mp3"
+      ],
+      "wav_keys": [
+        "BruA1 - Mailvoi - Master.wav"
+      ],
+      "qa_status": "pending",
+      "storefront_sale_enabled": false
+    },
+    {
+      "title": "Messy",
+      "mp3_keys": [
+        "BruA1 - Messy - Untagged.mp3"
+      ],
+      "wav_keys": [
+        "BruA1 - Messy - Master.wav"
+      ],
+      "qa_status": "pending",
+      "storefront_sale_enabled": false
+    },
+    {
+      "title": "Morf",
+      "mp3_keys": [
+        "BruA1 - Morf - Untagged.mp3"
+      ],
+      "wav_keys": [
+        "BruA1 - Morf - Master.wav"
+      ],
+      "qa_status": "pending",
+      "storefront_sale_enabled": false
+    },
+    {
+      "title": "Nawlins",
+      "mp3_keys": [
+        "BruA1 - Nawlins - Untagged.mp3"
+      ],
+      "wav_keys": [
+        "BruA1 - Nawlins - Master.wav"
+      ],
+      "qa_status": "pending",
+      "storefront_sale_enabled": false
+    },
+    {
+      "title": "Phareal",
+      "mp3_keys": [
+        "BruA1 - Phareal - Untagged.mp3"
+      ],
+      "wav_keys": [
+        "BruA1 - Phareal - Master.wav"
+      ],
+      "qa_status": "pending",
+      "storefront_sale_enabled": false
+    },
+    {
+      "title": "realfocus_2",
+      "mp3_keys": [
+        "BruA1 - realfocus_2 - Untagged.mp3"
+      ],
+      "wav_keys": [
+        "BruA1 - realfocus_2 - Master.wav"
+      ],
+      "qa_status": "pending",
+      "storefront_sale_enabled": false
+    },
+    {
+      "title": "Ride With Me",
+      "mp3_keys": [
+        "BruA1 - Ride With Me - Untagged.mp3"
+      ],
+      "wav_keys": [
+        "BruA1 - Ride With Me - Master.wav"
+      ],
+      "qa_status": "pending",
+      "storefront_sale_enabled": false
+    },
+    {
+      "title": "Shake it like",
+      "mp3_keys": [
+        "BruA1 - Shake it like - Untagged.mp3"
+      ],
+      "wav_keys": [
+        "BruA1 - Shake it like - Master.wav"
+      ],
+      "qa_status": "pending",
+      "storefront_sale_enabled": false
+    },
+    {
+      "title": "Shop Open",
+      "mp3_keys": [
+        "BruA1 - Shop Open - Untagged.mp3"
+      ],
+      "wav_keys": [
+        "BruA1 - Shop Open - Master.wav"
+      ],
+      "qa_status": "pending",
+      "storefront_sale_enabled": false
+    },
+    {
+      "title": "SpaceX",
+      "mp3_keys": [
+        "BruA1 - SpaceX - Untagged.mp3"
+      ],
+      "wav_keys": [
+        "BruA1 - SpaceX - Master.wav"
+      ],
+      "qa_status": "pending",
+      "storefront_sale_enabled": false
+    },
+    {
+      "title": "Steel",
+      "mp3_keys": [
+        "BruA1 - Steel - Untagged.mp3"
+      ],
+      "wav_keys": [
+        "BruA1 - Steel - Master.wav"
+      ],
+      "qa_status": "pending",
+      "storefront_sale_enabled": false
+    },
+    {
+      "title": "Stranger",
+      "mp3_keys": [
+        "BruA1 - Stranger - Untagged.mp3"
+      ],
+      "wav_keys": [
+        "BruA1 - Stranger - Master.wav"
+      ],
+      "qa_status": "pending",
+      "storefront_sale_enabled": false
+    },
+    {
+      "title": "Street Dreams",
+      "mp3_keys": [
+        "BruA1 - Street Dreams - Untagged.mp3"
+      ],
+      "wav_keys": [
+        "BruA1 - Street Dreams - Master.wav"
+      ],
+      "qa_status": "pending",
+      "storefront_sale_enabled": false
+    },
+    {
+      "title": "The Flu",
+      "mp3_keys": [
+        "BruA1 - The Flu - Untagged.mp3"
+      ],
+      "wav_keys": [
+        "BruA1 - The Flu - Master.wav"
+      ],
+      "qa_status": "pending",
+      "storefront_sale_enabled": false
+    },
+    {
+      "title": "Whoa Naa",
+      "mp3_keys": [
+        "BruA1 - Whoa Naa - Untagged.mp3"
+      ],
+      "wav_keys": [
+        "BruA1 - Whoa Naa - Master.wav"
+      ],
+      "qa_status": "pending",
+      "storefront_sale_enabled": false
+    },
+    {
+      "title": "Worse",
+      "mp3_keys": [
+        "BruA1 - Worse - Untagged.mp3"
+      ],
+      "wav_keys": [
+        "BruA1 - Worse - Master.wav"
+      ],
+      "qa_status": "pending",
+      "storefront_sale_enabled": false
+    },
+    {
+      "title": "Zayoo",
+      "mp3_keys": [
+        "BruA1 - Zayoo - Untagged.mp3"
+      ],
+      "wav_keys": [
+        "BruA1 - Zayoo - Master.wav"
+      ],
+      "qa_status": "pending",
+      "storefront_sale_enabled": false
+    }
+  ]
+}
