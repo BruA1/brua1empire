@@ -1,0 +1,10 @@
+# Public-website allowlist: private source/config should not be deployed as web assets.
+*
+!index.html
+!instrumentals.html
+!style.css
+!script.js
+!catalog/
+!catalog/instrumentals.json
+!assets/
+!assets/*.png

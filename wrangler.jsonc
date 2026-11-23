@@ -1,0 +1,8 @@
+{
+  "$schema": "https://unpkg.com/wrangler@4/config-schema.json",
+  "name": "brua1empire",
+  "compatibility_date": "2026-11-23",
+  "assets": {
+    "directory": "./"
+  }
+}
