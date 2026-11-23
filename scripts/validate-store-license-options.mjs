@@ -20,7 +20,7 @@ assert.equal(publicCatalog.tracks.length,39);
 assert(page.includes('fetch("catalog/instrumentals.json"'));
 assert(page.includes('fetch("catalog/public-license-options.json"'));
 assert(page.includes('audio.controls=true'),"Playback controls must remain on each track");
-assert(page.includes("Request "+'"'+licenseText[option.tier]+" license"'),"Inquiries must be track/tier specific");
+assert(page.includes('action.textContent="Request "+licenseText[option.tier]+" license"'),"Inquiries must be track/tier specific");
 assert(page.includes("PayPal checkout coming soon"),"Live checkout must remain disabled");
 assert(!page.includes("api-m.paypal.com"),"No production payment client embedded");
 const c=new Map(publicCatalog.tracks.map(t=>[t.id,t]));
