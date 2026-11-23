@@ -89,8 +89,11 @@ test("every tier is priced server-side and requires its particular formats",()=>
 });
 test("licenses cannot be issued under draft; valid audit record includes binding version",()=>{
  const f=fixture();
- assert.throws(()=>createLicenseRecord({order:f.order,acceptedTerms:f.acceptance,issueAt:"2026-11-23T22:00:00Z",licenseId:"LICENSE123",documentHash:hash,config:{...f.config,agreement_status:"DRAFT"}}));
- const yes=createLicenseRecord({order:f.order,acceptedTerms:f.acceptance,issueAt:"2026-11-23T22:00:00Z",licenseId:"LICENSE123",documentHash:hash,config:f.config});
+ const decision=fulfillmentDecision(f);
+ assert.equal(decision.allowed,true);
+ assert.throws(()=>createLicenseRecord({order:f.order,acceptedTerms:f.acceptance,issueAt:"2026-11-23T22:00:00Z",licenseId:"LICENSE123",documentHash:hash,config:{...f.config,agreement_status:"DRAFT"},decision}));
+ assert.throws(()=>createLicenseRecord({order:f.order,acceptedTerms:f.acceptance,issueAt:"2026-11-23T22:00:00Z",licenseId:"LICENSE123",documentHash:hash,config:f.config}));
+ const yes=createLicenseRecord({order:f.order,acceptedTerms:f.acceptance,issueAt:"2026-11-23T22:00:00Z",licenseId:"LICENSE123",documentHash:hash,config:f.config,decision});
  assert.equal(yes.agreement_version,version);
  assert.deepEqual(yes.permitted_formats,["mp3"]);
  assert.equal(yes.legal_document_delivery_required,true);
