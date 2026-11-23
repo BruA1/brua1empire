@@ -1,0 +1,20 @@
+# Dedicated TEST-ONLY checkout Worker. Never add production PayPal credentials.
+# No route on brua1.com, no private-master R2 binding, and no live checkout.
+name = "brua1-checkout-sandbox"
+main = "index.mjs"
+compatibility_date = "2026-11-23"
+workers_dev = true
+
+[vars]
+PAYPAL_ENVIRONMENT = "sandbox"
+
+[[d1_databases]]
+binding = "ORDERS_DB"
+database_name = "brua1-orders-sandbox"
+database_id = "7e9532d6-857d-4ecf-ac4b-6de92424fcc3"
+
+# Required Cloudflare Worker secrets (never commit these):
+# PAYPAL_CLIENT_ID — PayPal SANDBOX app only
+# PAYPAL_CLIENT_SECRET — PayPal SANDBOX secret only
+# CHECKOUT_TEST_KEY — long random private sandbox tester key
+# Explicitly NO [[r2_buckets]] and NO route to a public live storefront.

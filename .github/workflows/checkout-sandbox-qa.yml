@@ -1,0 +1,36 @@
+name: BruA1 PayPal Sandbox Security QA
+on:
+  push:
+    branches: [feature/secure-checkout-sandbox-20261123]
+    paths:
+      - "workers/brua1-checkout-sandbox/**"
+      - "tests/checkout-sandbox.test.mjs"
+      - ".github/workflows/checkout-sandbox-qa.yml"
+  pull_request:
+    paths:
+      - "workers/brua1-checkout-sandbox/**"
+      - "tests/checkout-sandbox.test.mjs"
+      - ".github/workflows/checkout-sandbox-qa.yml"
+permissions:
+  contents: read
+jobs:
+  test-sandbox-only:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify JavaScript parses
+        run: node --check workers/brua1-checkout-sandbox/index.mjs
+      - name: Run isolated sandbox API test suite (mock PayPal and D1)
+        run: node --test tests/checkout-sandbox.test.mjs
+      - name: Block private-master bindings or live PayPal API
+        run: |
+          grep -Fq 'https://api-m.sandbox.paypal.com' workers/brua1-checkout-sandbox/index.mjs
+          ! grep -Fq 'https://api-m.paypal.com' workers/brua1-checkout-sandbox/index.mjs
+          ! grep -Eq '^\[\[r2_buckets\]\]|^route\s*=' workers/brua1-checkout-sandbox/wrangler.toml
+          ! grep -Fq 'env.INSTRUMENTAL_MASTERS' workers/brua1-checkout-sandbox/index.mjs
+          grep -Fq 'PAYPAL_ENVIRONMENT = "sandbox"' workers/brua1-checkout-sandbox/wrangler.toml
+          echo 'PASS: isolated, non-live checkout; no private audio bucket'
