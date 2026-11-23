@@ -46,5 +46,9 @@
     "test_merchant_only": "sandbox until all gates pass"
   },
   "review_document": "https://docs.google.com/document/d/1FXSI0LqcTe9GjUAoo1xLytNduT206yKtxMLCtPeICkw/edit",
-  "notes": "This record tracks evidence and blockers. Never interpret a mocked integration test or owner commercial price delegation as a legal opinion, verified real payment, or readiness for live charge capture."
+  "notes": "CEO selected BruA1 as public-facing seller/checkout/contract branding on November 23, 2026. This does NOT verify that BruA1 is a legally registered seller/DBA. This record tracks evidence and blockers. Never interpret a mocked integration test or owner commercial price delegation as a legal opinion, verified real payment, or readiness for live charge capture.",
+  "customer_facing_seller_brand": "BruA1",
+  "brand_preference_confirmed_on": "2026-11-23",
+  "legal_seller_entity_name": null,
+  "legal_seller_identity_status": "NOT_VERIFIED__CUSTOMER_BRAND_ONLY"
 }
