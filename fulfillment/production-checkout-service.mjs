@@ -84,10 +84,12 @@ export function createCheckoutService(env,{transport=fetch}={}){
    assert(a&&a.product_id===r.product_id&&a.license_tier===r.tier&&a.terms_sha256===r.terms_hash&&a.affirmatively_accepted===1&&b&&b.product_id===r.product_id&&b.schedule_version===r.schedule_version&&b.schedule_sha256===r.schedule_hash,"Acceptance mismatch");
    let payment;
    if(r.status==="CREATED"&&order.status==="CREATED"){
+    const ready=await paypal.reconcile(r.paypal_order_id,selection(r));
+    assert(ready.completed||ready.status==="APPROVED","Buyer approval not yet verified");
     const claim=await stmt(db,"UPDATE commerce_orders SET status='CAPTURING' WHERE paypal_order_id=? AND status='CREATED' AND revoked_at IS NULL AND refunded_at IS NULL AND chargeback_at IS NULL",r.paypal_order_id).run();
     assert(changes(claim)===1,"Capture already claimed; reconcile");
     await stmt(db,"UPDATE commerce_checkout_sessions SET status='CAPTURING' WHERE session_id=? AND status='CREATED'",r.session_id).run();
-    payment=await paypal.capture(r.paypal_order_id,selection(r),"capture-"+r.session_id,true);
+    payment=ready.completed?ready.payment:await paypal.capture(r.paypal_order_id,selection(r),"capture-"+r.session_id,true);
    }else{
     const result=await paypal.reconcile(r.paypal_order_id,selection(r));
     assert(result.completed,"Capture outcome unresolved; do not recapture");
