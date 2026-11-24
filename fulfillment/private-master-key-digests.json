@@ -1,0 +1,366 @@
+{
+  "source": "private owner inventory; SHA-256 object-key digests only",
+  "count": 72,
+  "assets": [
+    {
+      "product_id": "BRUA1-INS-0001",
+      "format": "mp3",
+      "key_sha256": "6db32550c4c9fcf6ca46db49dfcee00c67dd9e55b30686dd126f7591499ce275"
+    },
+    {
+      "product_id": "BRUA1-INS-0001",
+      "format": "wav",
+      "key_sha256": "41ef36dd5edca34b80c9cc758a0075d685382aa45ecd074ef192281bf5dc5ae4"
+    },
+    {
+      "product_id": "BRUA1-INS-0002",
+      "format": "mp3",
+      "key_sha256": "1d95cf570a1b3fe85ef2e37ef1d2a90b9703fb393d486fd1a45082f7a4d05dfa"
+    },
+    {
+      "product_id": "BRUA1-INS-0002",
+      "format": "wav",
+      "key_sha256": "bfc73d2914c6483ecbef8802197286ba0ddfa77097f92c9ad35277839e34f1e0"
+    },
+    {
+      "product_id": "BRUA1-INS-0003",
+      "format": "mp3",
+      "key_sha256": "0346cc2d0424975a55c295b7a29e176156afc47c354e884da33521bf7a79c0e7"
+    },
+    {
+      "product_id": "BRUA1-INS-0003",
+      "format": "wav",
+      "key_sha256": "141d73dd2d62b6e2b6c734534b21c624ed25d73711ecbeb84ca4447ab32b7d8d"
+    },
+    {
+      "product_id": "BRUA1-INS-0005",
+      "format": "mp3",
+      "key_sha256": "cdfdc8b328aa7491d1b45ddbcf1b7663114cf8ee43695ab3e1d7a65a20c9006a"
+    },
+    {
+      "product_id": "BRUA1-INS-0005",
+      "format": "wav",
+      "key_sha256": "d9ac20db079f2f411c7dfb5667452bbb4ed563844b0ef10942ee6316bdb4da84"
+    },
+    {
+      "product_id": "BRUA1-INS-0006",
+      "format": "mp3",
+      "key_sha256": "6cb302ccc9a0d2fa7d12bf8dd5dfc180b39b03e4a199e074def97942750a0ada"
+    },
+    {
+      "product_id": "BRUA1-INS-0006",
+      "format": "wav",
+      "key_sha256": "d1694e087ba94c4ae5d09762da51e9dfebb464ee8b5f43264aa61e40c6e15b90"
+    },
+    {
+      "product_id": "BRUA1-INS-0007",
+      "format": "mp3",
+      "key_sha256": "c12b8d3dfc5ca2d05438b01b33cdc6a66359a5c00b9556d25e4c2ae530889c86"
+    },
+    {
+      "product_id": "BRUA1-INS-0007",
+      "format": "wav",
+      "key_sha256": "b9170f25cba7f2314e8ff69eba8e0662b6611e8e77e06b39a6025b0ed760b064"
+    },
+    {
+      "product_id": "BRUA1-INS-0008",
+      "format": "mp3",
+      "key_sha256": "f954b7369c91ad9b4d1283b7ba391eb8efa29e5c0a1d5d65af4d2a9a40fc9922"
+    },
+    {
+      "product_id": "BRUA1-INS-0008",
+      "format": "wav",
+      "key_sha256": "3bbdc05fa99b40f85cd37e52457794f22173dd4d759dbf7b15caf468bb573682"
+    },
+    {
+      "product_id": "BRUA1-INS-0009",
+      "format": "mp3",
+      "key_sha256": "ec1e126fb97a9ccdd1e83156988a43ce274aa122b85cf1171bb2cd0b7bb7360d"
+    },
+    {
+      "product_id": "BRUA1-INS-0009",
+      "format": "wav",
+      "key_sha256": "6e8e2614967321ee363ca7d6027ff806ee9459e74bfdde7560c6c6ed0129bb46"
+    },
+    {
+      "product_id": "BRUA1-INS-0010",
+      "format": "mp3",
+      "key_sha256": "01e9d843689ddbaa14e60c3d0ef81ab3ff1af5da320540063085519c4797c104"
+    },
+    {
+      "product_id": "BRUA1-INS-0010",
+      "format": "wav",
+      "key_sha256": "8f600d1c92bdd4f90665bee7e3b9ec693ee1162132c553b300da8cb06aaa467a"
+    },
+    {
+      "product_id": "BRUA1-INS-0011",
+      "format": "mp3",
+      "key_sha256": "de463ae74376a20d5e379e5791402e5e29565d742a8261672bddb8f320432296"
+    },
+    {
+      "product_id": "BRUA1-INS-0011",
+      "format": "wav",
+      "key_sha256": "713e968100e4a85ffadec8b5e396a4bfada88208a6bb0540738f94f90e8c952c"
+    },
+    {
+      "product_id": "BRUA1-INS-0012",
+      "format": "mp3",
+      "key_sha256": "8f4e1cf16c56786829203cf333f55a6aa2b44f33742522e444318bd399461cf5"
+    },
+    {
+      "product_id": "BRUA1-INS-0012",
+      "format": "wav",
+      "key_sha256": "07b862ef3f6d33cd9045b96ad84c7af6d5c7ac8a17b9efae86bf1e192f27d08b"
+    },
+    {
+      "product_id": "BRUA1-INS-0013",
+      "format": "mp3",
+      "key_sha256": "378ec9031f218547e29deefe63ec4decab6809cba61a0b7f1d2481de7ef6d795"
+    },
+    {
+      "product_id": "BRUA1-INS-0013",
+      "format": "wav",
+      "key_sha256": "b1150b0e8f70481ddc0ac7db9461a0ea48cfac55b0957fd7404f94d4d996a34c"
+    },
+    {
+      "product_id": "BRUA1-INS-0014",
+      "format": "mp3",
+      "key_sha256": "fd234e19c83dc630deba7890ccdf9999dea447da85fecf88c7603ce0ef70aeed"
+    },
+    {
+      "product_id": "BRUA1-INS-0014",
+      "format": "wav",
+      "key_sha256": "b3b92ebaff99731925dbe598a49a155df9b55701dc3d30413ff8072d677f1de5"
+    },
+    {
+      "product_id": "BRUA1-INS-0015",
+      "format": "mp3",
+      "key_sha256": "08fe19f5927ec19e8accea491a82726a2b1cec8fa94cf8fe7fe58f376bcf7c28"
+    },
+    {
+      "product_id": "BRUA1-INS-0015",
+      "format": "wav",
+      "key_sha256": "580fa9668b8b06e0e2ad7a2d4f60ecdeb898a434ddb8c1a1f4e0ad0287f55133"
+    },
+    {
+      "product_id": "BRUA1-INS-0016",
+      "format": "mp3",
+      "key_sha256": "9f0e964ecf11c1b4b4efe27e672e1b41959e40b7311f48cea21850e016c54280"
+    },
+    {
+      "product_id": "BRUA1-INS-0016",
+      "format": "wav",
+      "key_sha256": "344b0cec80b259734ecca89b3a6ca955716b34fb52170caed9c91d856eb952ff"
+    },
+    {
+      "product_id": "BRUA1-INS-0017",
+      "format": "mp3",
+      "key_sha256": "1056515045d9c84a2321fcebf4494df1e7ab69160281e06f1161e2c6c864c032"
+    },
+    {
+      "product_id": "BRUA1-INS-0017",
+      "format": "wav",
+      "key_sha256": "67abb26a7217864d3eaae59c60ea92bff515d09110b3c2ce03a02c590d5b5202"
+    },
+    {
+      "product_id": "BRUA1-INS-0018",
+      "format": "mp3",
+      "key_sha256": "18b9452bc880c97606579affa52fe16f6dd5ec7ee700e7b57029b428fb9b248c"
+    },
+    {
+      "product_id": "BRUA1-INS-0018",
+      "format": "wav",
+      "key_sha256": "cf2ca3e0d5898f5b5c6b579110d4a6e59cec1269afd3168abafa2497625bbe13"
+    },
+    {
+      "product_id": "BRUA1-INS-0020",
+      "format": "mp3",
+      "key_sha256": "0503a43e5f6be2a10bf0aea4bc7412a56e7e4a6402ca89e6b95576875039462a"
+    },
+    {
+      "product_id": "BRUA1-INS-0020",
+      "format": "wav",
+      "key_sha256": "75e1148cc5ea8d0a06a8938e0a9962fac4c502ae46e345704fed4095c7d252ba"
+    },
+    {
+      "product_id": "BRUA1-INS-0021",
+      "format": "mp3",
+      "key_sha256": "67696e5d87b8c063e7b2495e10bfc07eaa4770c1c3c0f36d4b48043834a6fd72"
+    },
+    {
+      "product_id": "BRUA1-INS-0021",
+      "format": "wav",
+      "key_sha256": "0fcaf7701bfcfccf66e0ac3f9441ec754219423118b1b1999613c55632a7b11b"
+    },
+    {
+      "product_id": "BRUA1-INS-0022",
+      "format": "mp3",
+      "key_sha256": "def971f5a4cb110067f97759e33fd72dfaf07517a35b0fe07df245a3bc06d3b2"
+    },
+    {
+      "product_id": "BRUA1-INS-0022",
+      "format": "wav",
+      "key_sha256": "eea256eaa3a37b69ab99268c28d4c45b496bb60378c93da078935d63130b15d7"
+    },
+    {
+      "product_id": "BRUA1-INS-0023",
+      "format": "mp3",
+      "key_sha256": "90c4bcedee7b3f61f88fc6d3ea4980af84ea91d9abf12ba7b4be551b5f5223e1"
+    },
+    {
+      "product_id": "BRUA1-INS-0023",
+      "format": "wav",
+      "key_sha256": "980925c3adaf9aa22da37e6245946b9835767cee93eac7b750a0431b979af103"
+    },
+    {
+      "product_id": "BRUA1-INS-0024",
+      "format": "mp3",
+      "key_sha256": "57d049f403a7ca76c8a81cbadd59271e857911aab5a955ec438026739b2c1de9"
+    },
+    {
+      "product_id": "BRUA1-INS-0024",
+      "format": "wav",
+      "key_sha256": "07d903d5341fb017b987f9c1a182f31001a0078e3b6e8e2fb3a732d3427375b5"
+    },
+    {
+      "product_id": "BRUA1-INS-0025",
+      "format": "mp3",
+      "key_sha256": "32da01c382b6cd21412cadcbe04da02c9591a2a80ed44c3d711a36cf04c12b34"
+    },
+    {
+      "product_id": "BRUA1-INS-0025",
+      "format": "wav",
+      "key_sha256": "0cfe166dba3519c7fe00d0f0298f7999c28cab8ac376088303bf2e865994e8b8"
+    },
+    {
+      "product_id": "BRUA1-INS-0027",
+      "format": "mp3",
+      "key_sha256": "29f8838a69371aac1654f641abd6de29400f590303f8f9f9afe0975d908036e0"
+    },
+    {
+      "product_id": "BRUA1-INS-0027",
+      "format": "wav",
+      "key_sha256": "153df375a9c82edd14ee33e7f81cb2f6291cd99d58ca8ee4cb722f4c623b8e8a"
+    },
+    {
+      "product_id": "BRUA1-INS-0028",
+      "format": "mp3",
+      "key_sha256": "6cede6d0c75a80641113a73fe034831c73b27f6c468e166201a6c5379cf0cdeb"
+    },
+    {
+      "product_id": "BRUA1-INS-0028",
+      "format": "wav",
+      "key_sha256": "ed936a520ae57afb27d0a0d1e30493465edcd90cf7621aa24184532986d3188e"
+    },
+    {
+      "product_id": "BRUA1-INS-0029",
+      "format": "mp3",
+      "key_sha256": "32d359a81008d5181bbf6f11f1d390d3a4c225a9a8056fe393d1a0c619be98c6"
+    },
+    {
+      "product_id": "BRUA1-INS-0029",
+      "format": "wav",
+      "key_sha256": "62932fddf6fca095ec780628797d0c870f38ef31f36adaa0a209b7358a9669ba"
+    },
+    {
+      "product_id": "BRUA1-INS-0030",
+      "format": "mp3",
+      "key_sha256": "2b5da38a32a65de7a8600a6c9727a4858f7bfe18c54d242d42939c403bc1dd64"
+    },
+    {
+      "product_id": "BRUA1-INS-0030",
+      "format": "wav",
+      "key_sha256": "9965b18c6d2133df840a884a1657e639d7c9c9a8a71a13bac76d48fe184409ee"
+    },
+    {
+      "product_id": "BRUA1-INS-0031",
+      "format": "mp3",
+      "key_sha256": "7c91903212083abf1a071b327b1e32badb49a2935449ee478d0dadb82f07f3e3"
+    },
+    {
+      "product_id": "BRUA1-INS-0031",
+      "format": "wav",
+      "key_sha256": "7a66d32452d20ef9bda5aaffc85e0d83815d20e9d7892d9acb4ee0bf5e83fd65"
+    },
+    {
+      "product_id": "BRUA1-INS-0032",
+      "format": "mp3",
+      "key_sha256": "67c9d390ece84ef99316de1bc960399f51539d0881e24f1e169d54f5fac688ae"
+    },
+    {
+      "product_id": "BRUA1-INS-0032",
+      "format": "wav",
+      "key_sha256": "9a117b0420fe17cff8ee15ed86fce1eb5439fd871ca3321719e637e860bffe38"
+    },
+    {
+      "product_id": "BRUA1-INS-0033",
+      "format": "mp3",
+      "key_sha256": "c1b84177fdd5a8a134506d6bcbee366dc31ad49eecc66278739c1206731d4933"
+    },
+    {
+      "product_id": "BRUA1-INS-0033",
+      "format": "wav",
+      "key_sha256": "94bb1bfbb3909e3b45966abc6f874c802845b37747a7845be7a2b32e321502a2"
+    },
+    {
+      "product_id": "BRUA1-INS-0034",
+      "format": "mp3",
+      "key_sha256": "1c361eaaa8c4ea927214f084b8c3b882a95b45b8fde48a713040b8944ca735d4"
+    },
+    {
+      "product_id": "BRUA1-INS-0034",
+      "format": "wav",
+      "key_sha256": "ac321b50790f4a76651b938f54251292be98b58548161aec1b278d4fc8f56cb8"
+    },
+    {
+      "product_id": "BRUA1-INS-0035",
+      "format": "mp3",
+      "key_sha256": "ba1105f8790e325c0dbb2aea9ff7618c9b2497fbf19716aafa0d7d28970d43cd"
+    },
+    {
+      "product_id": "BRUA1-INS-0035",
+      "format": "wav",
+      "key_sha256": "c0076070d96bfd501f0dc4fef01d788e7959808a6a9cf5e9c6b8938bd0a4fdbe"
+    },
+    {
+      "product_id": "BRUA1-INS-0036",
+      "format": "mp3",
+      "key_sha256": "26205a7da9327d17aacee32aadde73b04385bbb9150337da2bcc112373399a1d"
+    },
+    {
+      "product_id": "BRUA1-INS-0036",
+      "format": "wav",
+      "key_sha256": "ce9a3099ab9db0e0ca24493c5d27a6af2b21f7401588f2bf9f574ced49663f45"
+    },
+    {
+      "product_id": "BRUA1-INS-0037",
+      "format": "mp3",
+      "key_sha256": "13d01b437db7c34f93db12f168fe834232c61d110c8f540e1165eaf51f07ac7f"
+    },
+    {
+      "product_id": "BRUA1-INS-0037",
+      "format": "wav",
+      "key_sha256": "4ee83437f3aca3888d461050d6623f700d1c9564d26706c933cb41bd1c33616a"
+    },
+    {
+      "product_id": "BRUA1-INS-0038",
+      "format": "mp3",
+      "key_sha256": "cdb41ac8998092f37c1e10e43426bf0993faeac8f8ccd682f14306fb9ecd0399"
+    },
+    {
+      "product_id": "BRUA1-INS-0038",
+      "format": "wav",
+      "key_sha256": "b9adc2d02ea87515bdab9dcd4d4175849def5d9f6b33146477c1398097518438"
+    },
+    {
+      "product_id": "BRUA1-INS-0039",
+      "format": "mp3",
+      "key_sha256": "446fb780f19e46032e03d54e5797fb201ca21649088cc708ca64a2165dab8624"
+    },
+    {
+      "product_id": "BRUA1-INS-0039",
+      "format": "wav",
+      "key_sha256": "0ede465969c5c367f96e19fa4e35266115cdf2c732773540bc54c390fffd4656"
+    }
+  ]
+}
