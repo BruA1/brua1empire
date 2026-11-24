@@ -1,0 +1,110 @@
+name: BruA1 36-Track Launch Preflight — Mock Only, No Real Charges
+on:
+  pull_request:
+    paths:
+      - "tests/**"
+      - "fulfillment/**"
+      - "catalog/store-skus-staging.json"
+      - "contracts/instrumental-terms-draft-v2.json"
+      - "workers/brua1-checkout-sandbox/**"
+      - "workers/brua1-licensed-delivery/**"
+      - "workers/brua1-checkout-production/**"
+      - "scripts/prepare-disabled-commerce-seed.mjs"
+      - ".github/workflows/brua1-launch-preflight.yml"
+  push:
+    branches: [main]
+    paths:
+      - "tests/**"
+      - "fulfillment/**"
+      - "catalog/store-skus-staging.json"
+      - "contracts/instrumental-terms-draft-v2.json"
+      - "workers/brua1-checkout-sandbox/**"
+      - "workers/brua1-licensed-delivery/**"
+      - "workers/brua1-checkout-production/**"
+      - "scripts/prepare-disabled-commerce-seed.mjs"
+      - ".github/workflows/brua1-launch-preflight.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  independent-mock-preflight:
+    name: Test all checkout, legal gates, private files and DB in isolation
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      BRUA1_NO_NETWORK_PAYMENT: "true"
+      NODE_ENV: test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check every commerce module syntax
+        run: |
+          node --check fulfillment/core.mjs
+          node --check fulfillment/paypal-payment-gates.mjs
+          node --check fulfillment/private-delivery.mjs
+          node --check fulfillment/secure-issuance.mjs
+          node --check workers/brua1-checkout-production/index.mjs
+          node --check workers/brua1-licensed-delivery/index.mjs
+          node --check workers/brua1-checkout-sandbox/index.mjs
+      - name: All isolated payment, catalog, license, refund, webhook and protected-delivery tests
+        run: node --test tests/*.test.mjs
+      - name: Prepare 36 disabled products in isolated in-memory SQLite
+        run: |
+          node scripts/prepare-disabled-commerce-seed.mjs > /tmp/brua1-inactive-36.sql
+          python3 - <<'PY'
+          import pathlib,sqlite3
+          db=sqlite3.connect(":memory:")
+          db.executescript(pathlib.Path("fulfillment/commerce-schema-staging.sql").read_text())
+          db.executescript(pathlib.Path("/tmp/brua1-inactive-36.sql").read_text())
+          assert db.execute("SELECT COUNT(*) FROM commerce_products").fetchone()[0]==36
+          assert db.execute("SELECT COUNT(*) FROM commerce_audio_assets").fetchone()[0]==0
+          assert db.execute("SELECT COUNT(*) FROM commerce_orders").fetchone()[0]==0
+          assert db.execute("SELECT COUNT(*) FROM commerce_licenses").fetchone()[0]==0
+          assert db.execute("SELECT COUNT(*) FROM commerce_products WHERE sale_enabled=1 OR rights_cleared=1 OR independent_qa_pass=1").fetchone()[0]==0
+          assert db.execute("SELECT COUNT(*) FROM commerce_products WHERE product_id IN ('BRUA1-INS-0004','BRUA1-INS-0019','BRUA1-INS-0026')").fetchone()[0]==0
+          db.executescript(pathlib.Path("/tmp/brua1-inactive-36.sql").read_text())
+          assert db.execute("SELECT COUNT(*) FROM commerce_products").fetchone()[0]==36
+          print("PASS: 36 disabled products, zero paid orders/assets/licenses, no held tracks; idempotent")
+          PY
+      - name: Hard stop on unapproved license release, live payments, and private R2
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from "node:fs";
+          const status=JSON.parse(fs.readFileSync("fulfillment/launch-approval-status.json","utf8"));
+          const agreement=JSON.parse(fs.readFileSync("contracts/instrumental-terms-draft-v2.json","utf8"));
+          const catalog=JSON.parse(fs.readFileSync("catalog/store-skus-staging.json","utf8"));
+          const fail=(m)=>{throw new Error(m)};
+          if(status.payments_live!==false||status.automatic_full_master_delivery_live!==false)fail("Live activity must remain OFF");
+          if(Object.values(status.launch_gates).some(x=>x!==false))fail("Release gate incorrectly marked true");
+          if(!agreement.not_live||agreement.public_license_issuance_enabled!==false)fail("Draft agreement treated as issued");
+          if(catalog.skus.length!==108||new Set(catalog.skus.map(x=>x.product_id)).size!==36)fail("Catalog matrix changed");
+          if(catalog.skus.some(x=>x.checkout_enabled||x.fulfillment_enabled||x.rights_cleared))fail("Unapproved track marked live");
+          for(const [path,label] of [
+            ["workers/brua1-checkout-production/wrangler.toml","production"],
+            ["workers/brua1-licensed-delivery/wrangler.toml","delivery"]
+          ]){
+            const c=fs.readFileSync(path,"utf8");
+            if(/^\[\[(r2_buckets|d1_databases)\]\]/m.test(c)||/^route\s*=/m.test(c))fail(label+" unexpectedly bound to storage or public route");
+          }
+          if(!fs.readFileSync("workers/brua1-checkout-production/wrangler.toml","utf8").includes('LIVE_CHECKOUT_ENABLED = "false"'))fail("Live checkout not locked");
+          if(!fs.readFileSync("workers/brua1-licensed-delivery/wrangler.toml","utf8").includes('LIVE_DELIVERY_ENABLED = "false"'))fail("Private delivery not locked");
+          console.log("PASS: all real charges, licenses, and private R2 releases remain disabled");
+          NODE
+      - name: Write no-secrets preflight report to Actions summary
+        if: always()
+        run: |
+          {
+            echo "## BruA1 36-track checkout launch preflight"
+            echo ""
+            echo "Scope: **mocked / isolated systems only**. No real PayPal order or capture, no database migration, and no private audio access."
+            echo ""
+            echo "Catalog: 36 candidate tracks, 108 Basic/Premium/Unlimited options, 3 held titles excluded."
+            echo ""
+            echo "Owner release status: **NO-GO for live paid sales until merchant, copyright, agreement, refund, delivery and real-order gates pass**."
+            echo ""
+            echo "Never interpret simulated PayPal response fixtures as production merchant/capture verification."
+          } >> "$GITHUB_STEP_SUMMARY"
