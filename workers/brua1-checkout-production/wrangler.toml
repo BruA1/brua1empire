@@ -1,0 +1,22 @@
+# BruA1 isolated LIVE PayPal checkout credentials destination.
+# PRELAUNCH LOCK: no purchase handler, D1/R2 bindings or brua1.com route.
+# Live credentials are configured exclusively through Cloudflare encrypted secrets.
+name = "brua1-checkout-production"
+main = "index.mjs"
+compatibility_date = "2026-11-23"
+workers_dev = true
+keep_vars = true
+
+[vars]
+PAYPAL_ENVIRONMENT = "live"
+LIVE_CHECKOUT_ENABLED = "false"
+LICENSE_ISSUANCE_ENABLED = "false"
+REAL_AUDIO_DELIVERY_ENABLED = "false"
+
+# REQUIRED MANUALLY IN CLOUDFLARE > WORKER > SETTINGS > VARIABLES AND SECRETS:
+# Secret PAYPAL_CLIENT_ID     -- from BruA1's LIVE PayPal REST App
+# Secret PAYPAL_CLIENT_SECRET -- from the SAME LIVE REST App
+# Later, and ONLY after merchant verification: PAYPAL_MERCHANT_ID.
+#
+# Do NOT paste credentials into GitHub source, chats or public site assets.
+# Do NOT reuse sandbox secrets here. No D1, R2, DNS route or payment API active.
