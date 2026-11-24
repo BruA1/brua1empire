@@ -6,6 +6,7 @@ on:
       - "workers/brua1-music-network/**"
       - "tests/music-network.test.mjs"
       - "scripts/bootstrap-music-network.py"
+      - "scripts/install-network-paypal-plans.py"
       - ".github/workflows/deploy-music-network-locked.yml"
   workflow_dispatch:
 permissions:
@@ -37,3 +38,23 @@ jobs:
         run: |
           npx --yes wrangler@4 deploy --config workers/brua1-music-network/wrangler.bound.toml
           curl --fail --silent --show-error --retry 5 --retry-all-errors --retry-delay 3 https://brua1-music-network.a1productions0527.workers.dev/health | python3 -c 'import json,sys;x=json.load(sys.stdin);assert x["databaseReady"] and x["locked"] and not x["billingEnabled"] and not x["memberApiEnabled"] and not x["inviteAuthEnabled"]; print("VERIFIED: community Worker connected to its own database, public registration, member API and billing locked.")'
+      - name: Read verified inactive PayPal plan IDs and install isolated mappings
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_D1_API_TOKEN: ${{ secrets.CLOUDFLARE_D1_API_TOKEN }}
+        run: |
+          set -euo pipefail
+          python3 scripts/generate-locked-storage-config.py checkout
+          NONCE="$(date -u +%s%3N).$(openssl rand -hex 32)"
+          echo "::add-mask::$NONCE"
+          CONFIG=workers/brua1-checkout-production/wrangler.bound.toml
+          printf '%s' "$NONCE" | npx --yes wrangler@4 secret put PAYPAL_VERIFY_NONCE --config "$CONFIG" >/dev/null
+          trap 'printf "y\\n" | npx --yes wrangler@4 secret delete PAYPAL_VERIFY_NONCE --config "$CONFIG" >/dev/null' EXIT
+          for attempt in 1 2 3 4 5 6; do
+            NETWORK_RESULT="$(curl --silent --show-error --max-time 60 -X POST -H "Authorization: Bearer $NONCE" https://brua1-checkout-production.a1productions0527.workers.dev/internal/provision-network-plans)"
+            if ! grep -q NOT_AUTHORIZED <<<"$NETWORK_RESULT"; then break; fi
+            sleep 3
+          done
+          export NETWORK_RESULT
+          python3 scripts/install-network-paypal-plans.py
