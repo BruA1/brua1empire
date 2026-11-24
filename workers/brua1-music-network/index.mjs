@@ -1,5 +1,5 @@
-// Staged API for the separately provisioned community database. No sign-up,
-// session issuance or subscription payment endpoint is exposed by this module.
+import {redeemInvite,login,logout} from "./auth.mjs";
+// Isolated community API; invite authentication and member features remain locked by default.
 const ORIGIN="https://brua1.com";
 const ROLES=new Set(["musician","vocalist","producer","songwriter","ghostwriter","audio_engineer","dj","recording_studio","video_creator","artist"]);
 const tokenRE=/^[a-f0-9]{64}$/;
@@ -29,11 +29,25 @@ const visibility=" AND NOT EXISTS (SELECT 1 FROM network_blocks b WHERE (b.block
 async function channel(db,id,kind){if(!idRE.test(id||""))throw Error("Invalid channel");const row=await first(db,"SELECT id FROM network_channels WHERE id=? AND kind=? AND enabled=1",id,kind);if(!row)throw Error("Unknown channel");}
 export async function networkRoute(request,env){
  const url=new URL(request.url),p=url.pathname,origin=request.headers.get("Origin");
+ if(url.protocol==="https:"&&p==="/health"&&request.method==="GET"){
+  try{
+   const locked=env.NETWORK_MEMBER_API_ENABLED!=="true"&&env.NETWORK_INVITE_AUTH_ENABLED!=="true"&&env.NETWORK_BILLING_ENABLED!=="true";
+   const info=await env.NETWORK_DB?.prepare("SELECT COUNT(*) AS n FROM network_channels").first();
+   return response(info?.n===10?200:503,{service:"brua1-music-network",databaseReady:info?.n===10,memberApiEnabled:env.NETWORK_MEMBER_API_ENABLED==="true",inviteAuthEnabled:env.NETWORK_INVITE_AUTH_ENABLED==="true",billingEnabled:env.NETWORK_BILLING_ENABLED==="true",locked},false);
+  }catch{return response(503,{service:"brua1-music-network",databaseReady:false},false)}
+ }
  if(url.protocol!=="https:"||origin!==ORIGIN)return response(403,{error:"Origin not allowed"},false);
  if(env.NETWORK_MEMBER_API_ENABLED!=="true"||!env.NETWORK_DB)return response(503,{error:"Memberships are not open yet"});
  if(request.method==="OPTIONS")return new Response(null,{status:204,headers:{"Access-Control-Allow-Origin":ORIGIN,"Access-Control-Allow-Methods":"GET, POST, OPTIONS","Access-Control-Allow-Headers":"Authorization, Content-Type","Vary":"Origin"}});
  const db=env.NETWORK_DB,now=epoch();
  try{
+ if(p.startsWith("/api/network/auth/")){
+  if(env.NETWORK_INVITE_AUTH_ENABLED!=="true"||request.method!=="POST")return response(503,{error:"Invitation registration is closed"});
+  if(p==="/api/network/auth/logout"){await logout(db,(request.headers.get("Authorization")||"").replace(/^Bearer /,""),now);return response(200,{loggedOut:true});}
+  const x=await json(request);
+  const result=p==="/api/network/auth/redeem"?await redeemInvite(db,x.invite,now):p==="/api/network/auth/login"?await login(db,x.accessKey,now):null;
+  return result?response(200,result):response(401,{error:"Invalid or unavailable access key"});
+ }
  const who=await member(request,db,now);if(!who)return response(401,{error:"Active membership required"});
  const get=request.method==="GET",post=request.method==="POST";
  if(p==="/api/network/me"&&get)return response(200,{member:who});

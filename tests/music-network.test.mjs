@@ -1,3 +1,4 @@
+import {redeemInvite,login,logout} from "../workers/brua1-music-network/auth.mjs";
 import {networkRoute} from "../workers/brua1-music-network/index.mjs";
 import {createHash} from "node:crypto";
 import test from "node:test";
@@ -33,5 +34,23 @@ test("member API rejects visitors and expired members, persists private chat and
  assert.equal((await (await call("chat?channel=general",tokenB)).json()).messages.length,0);
  assert.equal((await (await call("directory",tokenB)).json()).profiles.length,0);
  assert.equal((await call("posts?thread="+thread.id,tokenB)).status,404);
+ db.close();
+});
+
+test("single-use invitation issues random access key and session; login and logout work; no paid entitlement created",async()=>{
+ const db=new DatabaseSync(":memory:"),now=Math.floor(Date.now()/1000);db.exec(fs.readFileSync("workers/brua1-music-network/schema.sql","utf8"));
+ const raw="d".repeat(64),hash=createHash("sha256").update(raw).digest("hex");
+ db.prepare("INSERT INTO network_members VALUES(?,?,'INVITED',?)").run("invited","Private beta member",now);
+ db.prepare("INSERT INTO network_invites VALUES(?,?,?,NULL)").run(hash,"invited",now+60);
+ const adapter={prepare(sql){return{bind(...args){const s=db.prepare(sql);return{first:async()=>s.get(...args)||null,all:async()=>({results:s.all(...args)}),run:async()=>({meta:{changes:Number(s.run(...args).changes)}})}}}},batch:async statements=>{db.exec("BEGIN");try{const r=[];for(const s of statements)r.push(await s.run());db.exec("COMMIT");return r;}catch(e){db.exec("ROLLBACK");throw e;}}};
+ const result=await redeemInvite(adapter,raw,now);assert.match(result.accessKey,/^[a-f0-9]{64}$/);assert.match(result.sessionToken,/^[a-f0-9]{64}$/);
+ assert.equal(await redeemInvite(adapter,raw,now),null);
+ assert.notEqual(db.prepare("SELECT key_hash FROM network_login_keys").get().key_hash,result.accessKey);
+ assert.equal(db.prepare("SELECT COUNT(*) AS n FROM network_memberships").get().n,0);
+ const next=await login(adapter,result.accessKey,now);assert.notEqual(next.sessionToken,result.sessionToken);
+ await logout(adapter,next.sessionToken,now);assert.equal(db.prepare("SELECT revoked_at FROM network_sessions WHERE token_hash=?").get(createHash("sha256").update(next.sessionToken).digest("hex")).revoked_at,now);
+ const req=new Request("https://network.example/api/network/channels",{headers:{Origin:"https://brua1.com",Authorization:"Bearer "+result.sessionToken}});
+ assert.equal((await networkRoute(req,{NETWORK_DB:adapter,NETWORK_MEMBER_API_ENABLED:"true"})).status,401);
+ assert.equal(await login(adapter,"f".repeat(64),now),null);
  db.close();
 });

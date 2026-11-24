@@ -1,0 +1,8 @@
+name = "brua1-music-network"
+main = "index.mjs"
+compatibility_date = "2026-11-24"
+workers_dev = true
+[vars]
+NETWORK_MEMBER_API_ENABLED = "false"
+NETWORK_INVITE_AUTH_ENABLED = "false"
+NETWORK_BILLING_ENABLED = "false"

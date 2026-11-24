@@ -1,0 +1,39 @@
+name: BruA1 Music Network isolated foundation
+on:
+  push:
+    branches: [main]
+    paths:
+      - "workers/brua1-music-network/**"
+      - "tests/music-network.test.mjs"
+      - "scripts/bootstrap-music-network.py"
+      - ".github/workflows/deploy-music-network-locked.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: brua1-music-network
+  cancel-in-progress: false
+jobs:
+  provision-locked:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Test authentication and membership access controls
+        run: node --test tests/music-network.test.mjs
+      - name: Provision isolated community D1 only
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_D1_API_TOKEN: ${{ secrets.CLOUDFLARE_D1_API_TOKEN }}
+        run: python3 scripts/bootstrap-music-network.py
+      - name: Deploy locked community Worker with no billing credentials
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          npx --yes wrangler@4 deploy --config workers/brua1-music-network/wrangler.bound.toml
+          curl --fail --silent --show-error --retry 5 --retry-all-errors --retry-delay 3 https://brua1-music-network.a1productions0527.workers.dev/health | python3 -c 'import json,sys;x=json.load(sys.stdin);assert x["databaseReady"] and x["locked"] and not x["billingEnabled"] and not x["memberApiEnabled"] and not x["inviteAuthEnabled"]; print("VERIFIED: community Worker connected to its own database, public registration, member API and billing locked.")'

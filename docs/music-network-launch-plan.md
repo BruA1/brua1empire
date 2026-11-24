@@ -12,3 +12,6 @@ Public preview at /music-network.html. Separate network database and separate AP
 7. Founding beta with real approved members, then public launch. No fabricated users or member counts.
 ## Data
 Schema: workers/brua1-music-network/schema.sql. Local isolated prototype test only. No production community database, credentials, registrations or subscriptions activated by this commit.
+
+## Invitation-only beta foundation
+Single-use 256-bit invitation, one-time issued 256-bit login key, 12-hour hashed sessions, logout/revocation and separate active membership enforcement. These are private beta credentials, not a public email/password registration service; a secure invitation distribution/recovery process and email-based identity verification or managed sign-in are still required for wider launch. No account creation or billing enabled by deployment. Separate empty D1 and locked Worker provisioning workflow performs live readback without touching commerce.

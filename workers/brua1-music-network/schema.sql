@@ -16,3 +16,6 @@ CREATE INDEX IF NOT EXISTS network_chat_channel_time ON network_chat_messages(ch
 CREATE INDEX IF NOT EXISTS network_posts_thread_time ON network_posts(thread_id,created_at);
 CREATE INDEX IF NOT EXISTS network_dm_recipient_time ON network_dm(recipient_id,created_at);
 INSERT OR IGNORE INTO network_channels(id,title,kind) VALUES ('general','General','chat'),('producers','Producers','chat'),('musicians','Musicians','chat'),('vocalists','Vocalists','chat'),('songwriters','Songwriters','chat'),('collaborations','Collaborations','forum'),('feedback','Music Feedback','forum'),('opportunities','Opportunities','forum'),('business','Music Business','forum'),('education','Education and Tutorials','forum');
+CREATE TABLE IF NOT EXISTS network_invites(token_hash TEXT PRIMARY KEY CHECK(length(token_hash)=64),member_id TEXT NOT NULL UNIQUE REFERENCES network_members(id),expires_at INTEGER NOT NULL,used_at INTEGER);
+CREATE TABLE IF NOT EXISTS network_login_keys(key_hash TEXT PRIMARY KEY CHECK(length(key_hash)=64),member_id TEXT NOT NULL UNIQUE REFERENCES network_members(id),created_at INTEGER NOT NULL,revoked_at INTEGER);
+CREATE INDEX IF NOT EXISTS network_sessions_member ON network_sessions(member_id);
