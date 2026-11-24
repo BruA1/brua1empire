@@ -1,3 +1,4 @@
+import {verifyLiveMerchant} from "../../fulfillment/paypal-merchant-probe.mjs";
 import {seedPrivateAssets} from "../../fulfillment/seed-private-assets.mjs";
 import {provisionWebhook} from "../../fulfillment/paypal-webhook-provision.mjs";
 import {checkoutRoute} from "./checkout-routes.mjs";
@@ -114,6 +115,13 @@ export default {
       if(!verifyNonce(env.PAYPAL_VERIFY_NONCE,bearer))return respond(401,{verified:false,code:"NOT_AUTHORIZED"});
       try{return respond(200,await seedPrivateAssets(env));}
       catch{return respond(502,{verified:false,code:"ASSET_MAPPING_FAILED"});}
+    }
+    if(url.pathname==="/internal/verify-live-merchant"){
+      if(request.method!=="POST")return respond(405,{verified:false});
+      const bearer=(request.headers.get("Authorization")||"").replace(/^Bearer /,"");
+      if(!verifyNonce(env.PAYPAL_VERIFY_NONCE,bearer))return respond(401,{verified:false,code:"NOT_AUTHORIZED"});
+      try{return respond(200,await verifyLiveMerchant(env,"merchant-check-"+bearer.slice(0,13)));}
+      catch{return respond(502,{verified:false,code:"MERCHANT_VERIFICATION_FAILED"});}
     }
     if(url.pathname==="/internal/provision-paypal-webhook"){
       if(request.method!=="POST")return respond(405,{verified:false});
