@@ -148,7 +148,7 @@ test("verified Premium order -> approved license -> private MP3 and WAV tokens -
    const exhausted=await worker.fetch(buyerRequest(grant.token),s.env);
    assert.equal(exhausted.status,403);
  }
- assert.equal(s.activity.get,8,"Three valid downloads plus an exhausted 4th R2 read per format");
+ assert.equal(s.activity.get,6,"Three valid downloads for each format; exhausted attempts never read R2");
  assert.equal(s.activity.writes,2);
  assert.equal(s.activity.oauth,2);
 });
