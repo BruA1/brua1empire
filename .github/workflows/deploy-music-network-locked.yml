@@ -38,6 +38,23 @@ jobs:
         run: |
           npx --yes wrangler@4 deploy --config workers/brua1-music-network/wrangler.bound.toml
           curl --fail --silent --show-error --retry 5 --retry-all-errors --retry-delay 3 https://brua1-music-network.a1productions0527.workers.dev/health | python3 -c 'import json,sys;x=json.load(sys.stdin);assert x["databaseReady"] and x["locked"] and not x["billingEnabled"] and not x["memberApiEnabled"] and not x["inviteAuthEnabled"]; print("VERIFIED: community Worker connected to its own database, public registration, member API and billing locked.")'
+      - name: Ensure the locked payment broker prerequisite is deployed if service readiness is absent
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_D1_API_TOKEN: ${{ secrets.CLOUDFLARE_D1_API_TOKEN }}
+        run: |
+          set -euo pipefail
+          python3 scripts/generate-locked-storage-config.py checkout
+          if curl --fail --silent --show-error https://brua1-music-network.a1productions0527.workers.dev/health | python3 -c 'import json,sys;x=json.load(sys.stdin);assert x.get("brokerConnected") and x.get("locked")'; then
+            echo "Existing authenticated broker readiness confirmed."
+          else
+            # Both payment surfaces must remain locked. Do not create an order or charge.
+            grep -Fq 'CHECKOUT_ROUTES_ENABLED = "false"' workers/brua1-checkout-production/wrangler.bound.toml
+            grep -Fq 'NETWORK_SUBSCRIPTION_ENROLLMENT_ENABLED = "false"' workers/brua1-checkout-production/wrangler.bound.toml
+            node --test tests/live-paypal-credential-holder.test.mjs tests/network-paypal-broker.test.mjs
+            npx --yes wrangler@4 deploy --config workers/brua1-checkout-production/wrangler.bound.toml
+          fi
       - name: Read verified inactive PayPal plan IDs and install isolated mappings
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
