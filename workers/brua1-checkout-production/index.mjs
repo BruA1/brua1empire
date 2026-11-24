@@ -51,9 +51,21 @@ export async function paypalLiveAuthProbe(env,transport=fetch){
  if(typeof env?.PAYPAL_CLIENT_ID!=="string"||!env.PAYPAL_CLIENT_ID.trim()||
     typeof env?.PAYPAL_CLIENT_SECRET!=="string"||!env.PAYPAL_CLIENT_SECRET.trim())
    return {verified:false,code:"LIVE_CREDENTIAL_MISSING",httpStatus:503};
+ let authorization;
  try{
-   const authorization="Basic "+btoa(env.PAYPAL_CLIENT_ID+":"+env.PAYPAL_CLIENT_SECRET);
-   const response=await transport(OAUTH_URL,{
+   authorization="Basic "+btoa(env.PAYPAL_CLIENT_ID+":"+env.PAYPAL_CLIENT_SECRET);
+ }catch{
+   return {verified:false,code:"PAYPAL_CREDENTIAL_ENCODING_ERROR",httpStatus:502};
+ }
+ let timeoutSignal;
+ try{
+   timeoutSignal=AbortSignal.timeout(15000);
+ }catch{
+   return {verified:false,code:"WORKER_TIMEOUT_UNSUPPORTED",httpStatus:502};
+ }
+ let response;
+ try{
+   response=await transport(OAUTH_URL,{
      method:"POST",redirect:"error",
      headers:{
        Authorization:authorization,
@@ -61,23 +73,26 @@ export async function paypalLiveAuthProbe(env,transport=fetch){
        Accept:"application/json"
      },
      body:"grant_type=client_credentials",
-     signal:AbortSignal.timeout(15000)
+     signal:timeoutSignal
    });
-   if(response.status===401||response.status===403)
-     return {verified:false,code:"PAYPAL_REJECTED_CREDENTIALS",httpStatus:502};
-   if(!response.ok)
-     return {verified:false,code:"PAYPAL_OAUTH_UNAVAILABLE",httpStatus:502};
-   // The access token is validated for presence but NEVER returned, logged or
-   // persisted. This proves API OAuth only, not merchant/payment permissions.
-   const payload=await response.json();
-   if(typeof payload?.access_token!=="string"||!payload.access_token||
-      payload.token_type?.toLowerCase()!=="bearer"||
-      !Number.isFinite(Number(payload.expires_in))||Number(payload.expires_in)<=0)
-     return {verified:false,code:"PAYPAL_OAUTH_INVALID_RESPONSE",httpStatus:502};
-   return {verified:true,code:"PAYPAL_LIVE_OAUTH_ACCEPTED",httpStatus:200};
  }catch{
-   return {verified:false,code:"PAYPAL_CONNECTION_ERROR",httpStatus:502};
+   return {verified:false,code:"PAYPAL_NETWORK_OR_TLS_ERROR",httpStatus:502};
  }
+ if(response.status===401||response.status===403)
+   return {verified:false,code:"PAYPAL_REJECTED_CREDENTIALS",httpStatus:502};
+ if(!response.ok)
+   return {verified:false,code:"PAYPAL_OAUTH_UNAVAILABLE",httpStatus:502};
+ // Never return or persist PayPal's token. Only a non-sensitive yes/no.
+ let payload;
+ try{payload=await response.json();}
+ catch{
+   return {verified:false,code:"PAYPAL_RESPONSE_NOT_JSON",httpStatus:502};
+ }
+ if(typeof payload?.access_token!=="string"||!payload.access_token||
+    typeof payload.token_type!=="string"||payload.token_type.toLowerCase()!=="bearer"||
+    !Number.isFinite(Number(payload.expires_in))||Number(payload.expires_in)<=0)
+   return {verified:false,code:"PAYPAL_OAUTH_INVALID_RESPONSE",httpStatus:502};
+ return {verified:true,code:"PAYPAL_LIVE_OAUTH_ACCEPTED",httpStatus:200};
 }
 
 export default {

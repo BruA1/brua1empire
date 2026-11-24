@@ -40,7 +40,7 @@ test("bad credentials, invalid OAuth and provider failure return safe errors",as
   [async()=>Response.json({error:"unauthorized"},{status:403}),"PAYPAL_REJECTED_CREDENTIALS"],
   [async()=>Response.json({error:"outage"},{status:503}),"PAYPAL_OAUTH_UNAVAILABLE"],
   [async()=>Response.json({access_token:"sensitive",token_type:"Bearer",expires_in:0}),"PAYPAL_OAUTH_INVALID_RESPONSE"],
-  [async()=>{throw Error("network");},"PAYPAL_CONNECTION_ERROR"]
+  [async()=>{throw Error("network");},"PAYPAL_NETWORK_OR_TLS_ERROR"]
  ]){
    const r=await paypalLiveAuthProbe(env,mock);
    assert.equal(r.verified,false);
