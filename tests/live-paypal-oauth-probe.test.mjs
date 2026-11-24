@@ -23,7 +23,7 @@ test("Live PayPal accepts valid credentials via OAuth only; no access token retu
   observed.push({url,method:options.method,redirect:options.redirect,body:options.body});
   assert.equal(url,"https://api-m.paypal.com/v1/oauth2/token");
   assert.equal(options.method,"POST");
-  assert.equal(options.redirect,"error");
+  assert.equal(options.redirect,undefined);
   assert.equal(options.body,"grant_type=client_credentials");
   assert.equal(atob(options.headers.Authorization.slice(6)),env.PAYPAL_CLIENT_ID+":"+secret);
   return Response.json({access_token:"DO-NOT-EXPOSE-ACCESS-TOKEN",

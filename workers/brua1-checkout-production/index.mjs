@@ -42,7 +42,7 @@ function verifyNonce(expected,provided,now=Date.now()){
  if(!Number.isSafeInteger(stamp)||stamp>now||now-stamp>VERIFY_WINDOW_MS)return false;
  return secureCompare(provided,expected);
 }
-export async function paypalLiveAuthProbe(env,transport=fetch){
+export async function paypalLiveAuthProbe(env,transport){
  if(env?.PAYPAL_ENVIRONMENT!=="live"||
     env?.LIVE_CHECKOUT_ENABLED!=="false"||
     env?.LICENSE_ISSUANCE_ENABLED!=="false"||
@@ -57,23 +57,18 @@ export async function paypalLiveAuthProbe(env,transport=fetch){
  }catch{
    return {verified:false,code:"PAYPAL_CREDENTIAL_ENCODING_ERROR",httpStatus:502};
  }
- let timeoutSignal;
- try{
-   timeoutSignal=AbortSignal.timeout(15000);
- }catch{
-   return {verified:false,code:"WORKER_TIMEOUT_UNSUPPORTED",httpStatus:502};
- }
  let response;
  try{
-   response=await transport(OAUTH_URL,{
-     method:"POST",redirect:"error",
+   // Match the minimal request pattern already proven in our PayPal Sandbox
+   // Worker. The global fetch function is invoked in its request context.
+   const doFetch=transport??((url,options)=>fetch(url,options));
+   response=await doFetch(OAUTH_URL,{
+     method:"POST",
      headers:{
        Authorization:authorization,
-       "Content-Type":"application/x-www-form-urlencoded",
-       Accept:"application/json"
+       "Content-Type":"application/x-www-form-urlencoded"
      },
-     body:"grant_type=client_credentials",
-     signal:timeoutSignal
+     body:"grant_type=client_credentials"
    });
  }catch{
    return {verified:false,code:"PAYPAL_NETWORK_OR_TLS_ERROR",httpStatus:502};
