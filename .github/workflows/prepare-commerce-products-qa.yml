@@ -1,0 +1,44 @@
+name: BruA1 Commerce Production Product Seed — No Live Checkout
+on:
+  pull_request:
+    paths:
+      - "scripts/prepare-disabled-commerce-seed.mjs"
+      - "tests/prepare-disabled-commerce-seed.test.mjs"
+      - ".github/workflows/prepare-commerce-products-qa.yml"
+  push:
+    branches: [main]
+    paths:
+      - "scripts/prepare-disabled-commerce-seed.mjs"
+      - "tests/prepare-disabled-commerce-seed.test.mjs"
+      - ".github/workflows/prepare-commerce-products-qa.yml"
+permissions:
+  contents: read
+jobs:
+  independent-seed-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Validate generated 36-title disabled-only seed and SQL escaping
+        run: |
+          node --check scripts/prepare-disabled-commerce-seed.mjs
+          node --test tests/prepare-disabled-commerce-seed.test.mjs
+      - name: Test generated SQL in empty local SQLite using isolated commerce schema
+        run: |
+          node scripts/prepare-disabled-commerce-seed.mjs > /tmp/brua1-products-disabled.sql
+          python3 - <<'PY'
+          import sqlite3,pathlib
+          conn=sqlite3.connect(':memory:')
+          conn.executescript(pathlib.Path('fulfillment/commerce-schema-staging.sql').read_text())
+          conn.executescript(pathlib.Path('/tmp/brua1-products-disabled.sql').read_text())
+          assert conn.execute('select count(*) from commerce_products').fetchone()[0]==36
+          assert conn.execute('select count(*) from commerce_products where sale_enabled!=0 or rights_cleared!=0 or independent_qa_pass!=0').fetchone()[0]==0
+          assert conn.execute("select count(*) from commerce_products where product_id in ('BRUA1-INS-0004','BRUA1-INS-0019','BRUA1-INS-0026')").fetchone()[0]==0
+          assert conn.execute('select count(*) from commerce_audio_assets').fetchone()[0]==0
+          conn.executescript(pathlib.Path('/tmp/brua1-products-disabled.sql').read_text())
+          assert conn.execute('select count(*) from commerce_products').fetchone()[0]==36
+          print('PASS: 36 safe inactive products, no private keys, no held tracks; idempotent')
+          PY
