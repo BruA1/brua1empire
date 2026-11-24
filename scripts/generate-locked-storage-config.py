@@ -16,6 +16,6 @@ assert not re.search(r"^\[\[(?:d1_databases|r2_buckets)\]\]|^route\s*=",config,r
 flags=["LIVE_CHECKOUT_ENABLED","LICENSE_ISSUANCE_ENABLED","REAL_AUDIO_DELIVERY_ENABLED"] if mode=="checkout" else ["LIVE_DELIVERY_ENABLED","OWNER_FINAL_GO_LIVE_SIGNOFF"]
 assert all(f+' = "false"' in config for f in flags)
 config+='\n[[d1_databases]]\nbinding = "ORDERS_DB"\ndatabase_name = "brua1-orders-production"\ndatabase_id = "'+uuid+'"\n'
-if mode=="delivery": config+='\n[[r2_buckets]]\nbinding = "INSTRUMENTAL_MASTERS"\nbucket_name = "brua1-instrumentals-masters"\n'
+if mode in ("checkout","delivery"): config+='\n[[r2_buckets]]\nbinding = "INSTRUMENTAL_MASTERS"\nbucket_name = "brua1-instrumentals-masters"\n'
 path.with_name("wrangler.bound.toml").write_text(config)
 print("Generated locked production storage configuration; no checkout or delivery enabled")

@@ -1,3 +1,4 @@
+import {buyerGrants,buyerDownload} from "../fulfillment/buyer-delivery.mjs";
 import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
@@ -17,7 +18,7 @@ async function fixture(){
  sqlite.prepare("INSERT INTO commerce_approved_terms VALUES(?,?,?,?)").run(version,termsHash,terms,"2026-11-23");
  sqlite.prepare("INSERT INTO commerce_publishing_schedules VALUES(?,?,?,?,?)").run(product,scheduleVersion,scheduleHash,schedule,"2026-11-23");
  const env=Object.fromEntries("CHECKOUT_ROUTES_ENABLED LIVE_CHECKOUT_ENABLED LICENSE_ISSUANCE_ENABLED REAL_AUDIO_DELIVERY_ENABLED MERCHANT_IDENTITY_VERIFIED FINAL_TERMS_PUBLISHED OWNER_FINAL_GO_LIVE_SIGNOFF RIGHTS_REVIEW_COMPLETED DELIVERY_INTEGRATION_QA_PASS PRODUCTION_PAYPAL_QA_PASS WEBHOOK_SIGNATURE_QA_PASS REFUND_AND_DISPUTE_QA_PASS BUYER_RECEIPT_SERVICE_QA_PASS PRIVACY_AND_REFUND_POLICY_APPROVED TAX_CONFIGURATION_VERIFIED".split(" ").map(f=>[f,"true"]));
- Object.assign(env,{PAYPAL_ENVIRONMENT:"live",AGREEMENT_STATUS:"LEGAL_APPROVED",APPROVED_TERMS_VERSION:version,APPROVED_TERMS_SHA256:termsHash,TAX_PRICE_MODE:"VERIFIED_FIXED_TOTAL_USD",PAYPAL_CLIENT_ID:"fake",PAYPAL_CLIENT_SECRET:"fake",PAYPAL_WEBHOOK_ID:"fake",PAYPAL_MERCHANT_ID:merchant,ORDERS_DB:adapter(sqlite)});
+ Object.assign(env,{PAYPAL_ENVIRONMENT:"live",AGREEMENT_STATUS:"LEGAL_APPROVED",APPROVED_TERMS_VERSION:version,APPROVED_TERMS_SHA256:termsHash,TAX_PRICE_MODE:"VERIFIED_FIXED_TOTAL_USD",PAYPAL_CLIENT_ID:"fake",PAYPAL_CLIENT_SECRET:"fake",PAYPAL_WEBHOOK_ID:"fake",PAYPAL_MERCHANT_ID:merchant,ORDERS_DB:adapter(sqlite),BUYER_DELIVERY_ROUTE_VERIFIED:'true',WEBHOOK_RECONCILIATION_VERIFIED:'true',INSTRUMENTAL_MASTERS:{head:async()=>({size:4096}),get:async()=>({size:4096,body:new Response(new Uint8Array(4096)).body})}});
  let captures=0,creates=0;
  const order=status=>({id:orderId,status,links:[{rel:"approve",href:"https://www.paypal.com/checkoutnow?token="+orderId}],purchase_units:[{custom_id:product+":basic:"+version,payee:{merchant_id:merchant},amount:{currency_code:"USD",value:"29.99"},payments:{captures:[{id:captureId,status:"COMPLETED",amount:{currency_code:"USD",value:"29.99"},final_capture:true}]}}]});
  const transport=async(url,opts)=>{
@@ -60,5 +61,21 @@ test("verified webhook is recorded once and does not grant audio or change payme
  await receiveVerifiedWebhook(f.env,headers,event,f.transport);
  assert.equal(f.sqlite.prepare("SELECT count(*) AS n FROM commerce_webhook_inbox").get().n,1);
  assert.equal(f.sqlite.prepare("SELECT count(*) AS n FROM commerce_download_grants").get().n,0);
+ f.sqlite.close();
+});
+
+test("buyer session receives only paid format and cannot reset three-use grant",async()=>{
+ const f=await fixture(),session=await f.service.begin(f.input);
+ await f.service.create(session);
+ await assert.rejects(buyerGrants(f.env,session,f.transport),/No validated/);
+ await f.service.capture(session);
+ await assert.rejects(buyerGrants(f.env,{...session,sessionToken:"0".repeat(64)},f.transport),/No validated/);
+ const a=await buyerGrants(f.env,session,f.transport),b=await buyerGrants(f.env,session,f.transport);
+ assert.equal(a.grants.length,1);assert.equal(a.grants[0].format,"mp3");assert.equal(a.grants[0].token,b.grants[0].token);
+ const request=()=>new Request("https://example.invalid/api/checkout/download",{method:"POST",headers:{Authorization:"Bearer "+a.grants[0].token,Origin:"https://brua1.com"}});
+ for(let i=0;i<3;i++){const res=await buyerDownload(f.env,request());assert.equal(res.status,200);assert.equal((await res.arrayBuffer()).byteLength,4096);}
+ assert.equal((await buyerDownload(f.env,request())).status,403);
+ await assert.rejects(buyerGrants(f.env,session,f.transport),/exhausted/);
+ assert.equal(f.sqlite.prepare("SELECT count(*) AS n FROM commerce_download_grants").get().n,1);
  f.sqlite.close();
 });

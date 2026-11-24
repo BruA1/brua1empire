@@ -33,7 +33,7 @@ const validConfig=config=>config?.enabled===true && config?.owner_signed_off===t
  * Internal-only trusted server call; not an HTTP endpoint.
  * Only returns token and audit metadata; it never exposes R2 object keys.
  */
-export async function issuePurchaseDownloadGrant({env,config,decision,licenseRecord,order,format}) {
+export async function issuePurchaseDownloadGrant({env,config,decision,licenseRecord,order,format,grantToken}) {
   if(!validConfig(config)||!env?.ORDERS_DB||!env?.INSTRUMENTAL_MASTERS)
     throw Error("Approved production fulfillment service not configured");
   if(!decision?.allowed || decision.product_id!==order?.product_id || decision.tier!==order?.license_tier)
@@ -54,9 +54,18 @@ export async function issuePurchaseDownloadGrant({env,config,decision,licenseRec
     asset.private_r2_qa_pass!==1 || typeof asset.r2_object_key!=="string" || !asset.r2_object_key)
     throw Error("Private audio asset has not passed all release gates");
   // Insertion only; does not serve or read the private asset.
-  const token=makeToken();
+  const token=grantToken??makeToken();
+  if(!tokenRe.test(token))throw Error("Invalid server grant token");
   const tokenHash=await sha256(token);
   const expiry=Math.floor(Date.now()/1000)+900;
+  if(grantToken){
+    await env.ORDERS_DB.prepare(
+      "INSERT INTO commerce_download_grants (token_hash,license_id,product_id,format,expires_at_epoch,max_downloads,download_count) SELECT ?,?,?,?,?,3,0 FROM commerce_orders o JOIN commerce_licenses l ON l.paypal_order_id=o.paypal_order_id WHERE o.paypal_order_id=? AND l.license_id=? AND o.status='COMPLETED' AND l.status='ISSUED' AND o.revoked_at IS NULL AND o.refunded_at IS NULL AND o.chargeback_at IS NULL ON CONFLICT(token_hash) DO NOTHING"
+    ).bind(tokenHash,licenseRecord.license_id,order.product_id,format,expiry,order.paypal_order_id,licenseRecord.license_id).run();
+    const saved=await env.ORDERS_DB.prepare("SELECT * FROM commerce_download_grants WHERE token_hash=?").bind(tokenHash).first();
+    if(!saved||saved.license_id!==licenseRecord.license_id||saved.product_id!==order.product_id||saved.format!==format||saved.revoked_at||saved.expires_at_epoch<=Math.floor(Date.now()/1000)||saved.download_count>=saved.max_downloads)throw Error("Grant unavailable or exhausted");
+    return Object.freeze({token,expires_at_epoch:saved.expires_at_epoch,max_downloads:saved.max_downloads,format,license_id:licenseRecord.license_id,delivery_mode:"PRIVATE_R2_PROXY",no_public_object_url:true});
+  }
   await env.ORDERS_DB.prepare(
     "INSERT INTO commerce_download_grants (token_hash,license_id,product_id,format,expires_at_epoch,max_downloads,download_count) VALUES (?,?,?,?,?,3,0)"
   ).bind(tokenHash,licenseRecord.license_id,order.product_id,format,expiry).run();

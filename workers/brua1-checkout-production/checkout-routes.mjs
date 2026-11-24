@@ -1,3 +1,4 @@
+import {buyerGrants,buyerDownload} from "../../fulfillment/buyer-delivery.mjs";
 // Production API adapter. All purchase routes are fail-closed until release.
 import {createCheckoutService,productionCheckoutReady,receiveVerifiedWebhook} from "../../fulfillment/production-checkout-service.mjs";
 const SITE="https://brua1.com";
@@ -18,7 +19,7 @@ async function body(request,limit){
 }
 export async function checkoutRoute(request,env,{transport=fetch,serviceFactory=createCheckoutService,webhook=receiveVerifiedWebhook}={}){
  const url=new URL(request.url),origin=request.headers.get("Origin"),cors=origin===SITE;
- if(!PATHS.has(url.pathname)&&url.pathname!=="/api/paypal/webhook")return null;
+ if(!PATHS.has(url.pathname)&&!["/api/paypal/webhook","/api/checkout/grants","/api/checkout/download"].includes(url.pathname))return null;
  if(url.protocol!=="https:")return reply(403,{error:"HTTPS required"});
  // This additional gate remains false until the buyer receipt/download path
  // and webhook reconciliation (not just inbox persistence) are operational.
@@ -29,8 +30,15 @@ export async function checkoutRoute(request,env,{transport=fetch,serviceFactory=
   catch{return reply(400,{error:"Webhook not accepted"});}
  }
  if(!cors)return reply(403,{error:"Origin not allowed"});
- if(request.method==="OPTIONS")return new Response(null,{status:204,headers:{...headers,"Access-Control-Allow-Origin":SITE,"Access-Control-Allow-Methods":"POST, OPTIONS","Access-Control-Allow-Headers":"Content-Type","Vary":"Origin"}});
+ if(request.method==="OPTIONS")return new Response(null,{status:204,headers:{...headers,"Access-Control-Allow-Origin":SITE,"Access-Control-Allow-Methods":"POST, OPTIONS","Access-Control-Allow-Headers":"Content-Type, Authorization","Vary":"Origin"}});
  if(request.method!=="POST")return reply(405,{error:"POST required"},true);
- try{const input=await body(request,8192);const service=serviceFactory(env,{transport});const result=await service[PATHS.get(url.pathname)](input);return reply(200,result,true);}
+ if(url.pathname==="/api/checkout/download"){
+  const response=await buyerDownload(env,request);
+  const h=new Headers(response.headers);h.set("Access-Control-Allow-Origin",SITE);h.set("Vary","Origin");h.set("Access-Control-Expose-Headers","Content-Disposition");
+  return new Response(response.body,{status:response.status,headers:h});
+ }
+ try{const input=await body(request,8192);
+  if(url.pathname==="/api/checkout/grants")return reply(200,await buyerGrants(env,input,transport),true);
+  const service=serviceFactory(env,{transport});const result=await service[PATHS.get(url.pathname)](input);return reply(200,result,true);}
  catch{return reply(409,{error:"Checkout unavailable or requires reconciliation. Contact support with your order number if charged."},true);}
 }

@@ -31,7 +31,7 @@ export function productionConfigFromEnv(env){
  });
 }
 
-export function productionDeliveryEnabled(env,config=productionConfigFromEnv(env)){
+export function productionDeliveryEnabled(env,config=productionConfigFromEnv(env),internalOnly=true){
  return Boolean(config.enabled===true&&config.owner_signed_off===true&&
    config.environment==="production"&&config.agreement_status==="LEGAL_APPROVED"&&
    config.approved_terms_published===true&&
@@ -45,7 +45,7 @@ export function productionDeliveryEnabled(env,config=productionConfigFromEnv(env
    env?.BUYER_RECEIPT_SERVICE_QA_PASS==="true"&&
    env?.PRIVACY_AND_REFUND_POLICY_APPROVED==="true"&&
    env?.PAYPAL_CLIENT_ID&&env?.PAYPAL_CLIENT_SECRET&&
-   env?.PAYPAL_MERCHANT_ID&&env?.INTERNAL_FULFILLMENT_KEY&&
+   env?.PAYPAL_MERCHANT_ID&&(!internalOnly||env?.INTERNAL_FULFILLMENT_KEY)&&
    env?.ORDERS_DB&&env?.INSTRUMENTAL_MASTERS&&
    config.allowed_origin==="https://brua1.com");
 }
@@ -76,9 +76,9 @@ async function readDatabaseRecord(db,sql,args){
  * approved receipt/delivery service. Never expose this route to a buyer.
  */
 export async function authorizePaidDownload({
- env,orderId,format,transport=fetch,config=productionConfigFromEnv(env)
+ env,orderId,format,transport=fetch,config=productionConfigFromEnv(env),grantToken,internalOnly=true
 }){
- if(!productionDeliveryEnabled(env,config))throw Error("Fulfillment disabled pending final approvals");
+ if(!productionDeliveryEnabled(env,config,internalOnly))throw Error("Fulfillment disabled pending final approvals");
  if(!PAYPAL_ORDER_ID.test(orderId||"")||!["mp3","wav"].includes(format))
   throw Error("Invalid order or delivery format");
  const db=env.ORDERS_DB;
@@ -150,7 +150,7 @@ export async function authorizePaidDownload({
    record_status:"ISSUED_FROM_VERIFIED_ACCEPTANCE",
    legal_document_delivery_required:true};
  const grant=await issuePurchaseDownloadGrant({
-  env,config,decision:dec,licenseRecord:rec,order:orderForDecision,format
+  env,config,decision:dec,licenseRecord:rec,order:orderForDecision,format,grantToken
  });
  // Omit the customer's personal data, private R2 object key and source filename.
  return Object.freeze({...grant,product_id:order.product_id,tier:order.license_tier});
