@@ -49,7 +49,7 @@
     "test_merchant_only": "sandbox until all gates pass"
   },
   "review_document": "https://docs.google.com/document/d/1FXSI0LqcTe9GjUAoo1xLytNduT206yKtxMLCtPeICkw/edit",
-  "notes": "Owner screenshot confirms repository secret name PAYPAL_CLIENT_ID exists, but not its value or Live app identity; PAYPAL_CLIENT_SECRET not shown among repository secrets. GitHub secrets do not automatically populate Worker secrets. CEO reports adding a PayPal repository secret on Nov 23; cannot independently inspect GitHub secret names or values through current GitHub connection. GitHub repository secret does not itself configure deployed Cloudflare Worker. Owner reported creating a distinct PayPal Live REST app and obtaining credentials; these have not yet been saved to, or verified in, Cloudflare. Dedicated brua1-checkout-production locked Worker deployed and its health verified. CEO confirmed an existing PayPal Business account; live developer REST app/merchant ID not verified. Do not reuse sandbox credentials. 2026-11-23 CEO gave explicit launch authorization. This removes the need to seek strategic direction again but does not constitute independent music-rights clearance, final contract acceptance, merchant credential verification, actual integration QA, or activation of the live checkout. New internal-only checkout entitlement and private MP3/WAV delivery service passed 9 mocked integration tests and was deployed disabled without R2 or D1 bindings. Actual customer payment and private-master fulfillment remain blocked. CEO selected BruA1 as public-facing seller/checkout/contract branding on November 23, 2026. This does NOT verify that BruA1 is a legally registered seller/DBA. This record tracks evidence and blockers. Never interpret a mocked integration test or owner commercial price delegation as a legal opinion, verified real payment, or readiness for live charge capture.",
+  "notes": "2026-11-23 CEO screenshot confirms Cloudflare brua1-checkout-production has PAYPAL_CLIENT_ID and PAYPAL_CLIENT_SECRET as encrypted secrets and PAYPAL_ENVIRONMENT=live; this confirms configuration only, NOT OAuth authentication or merchant identity. Previous exposed client secret should be rotated. Owner screenshot confirms repository secret name PAYPAL_CLIENT_ID exists, but not its value or Live app identity; PAYPAL_CLIENT_SECRET not shown among repository secrets. GitHub secrets do not automatically populate Worker secrets. CEO reports adding a PayPal repository secret on Nov 23; cannot independently inspect GitHub secret names or values through current GitHub connection. GitHub repository secret does not itself configure deployed Cloudflare Worker. Owner reported creating a distinct PayPal Live REST app and obtaining credentials; these have not yet been saved to, or verified in, Cloudflare. Dedicated brua1-checkout-production locked Worker deployed and its health verified. CEO confirmed an existing PayPal Business account; live developer REST app/merchant ID not verified. Do not reuse sandbox credentials. 2026-11-23 CEO gave explicit launch authorization. This removes the need to seek strategic direction again but does not constitute independent music-rights clearance, final contract acceptance, merchant credential verification, actual integration QA, or activation of the live checkout. New internal-only checkout entitlement and private MP3/WAV delivery service passed 9 mocked integration tests and was deployed disabled without R2 or D1 bindings. Actual customer payment and private-master fulfillment remain blocked. CEO selected BruA1 as public-facing seller/checkout/contract branding on November 23, 2026. This does NOT verify that BruA1 is a legally registered seller/DBA. This record tracks evidence and blockers. Never interpret a mocked integration test or owner commercial price delegation as a legal opinion, verified real payment, or readiness for live charge capture.",
   "customer_facing_seller_brand": "BruA1",
   "brand_preference_confirmed_on": "2026-11-23",
   "legal_seller_entity_name": null,
@@ -72,7 +72,7 @@
   "paypal_live_rest_app_verified": false,
   "paypal_live_merchant_id_verified": false,
   "paypal_live_rest_app_owner_created": true,
-  "paypal_live_credentials_cloudflare_saved": false,
+  "paypal_live_credentials_cloudflare_saved": true,
   "live_checkout_worker_created": true,
   "live_checkout_worker_url": "https://brua1-checkout-production.a1productions0527.workers.dev/health",
   "live_checkout_worker_status": "PRELAUNCH_LOCKED",
@@ -84,5 +84,6 @@
   "paypal_repository_secret_names_observed": [
     "PAYPAL_CLIENT_ID"
   ],
-  "paypal_repository_client_secret_name_observed": false
+  "paypal_repository_client_secret_name_observed": false,
+  "paypal_live_credentials_cloudflare_names_and_types_verified": true
 }
