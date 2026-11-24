@@ -7,6 +7,11 @@ on:
       - "catalog/instrumentals.json"
       - "catalog/public-license-options.json"
       - "instrumentals.html"
+      - "index.html"
+      - "music-network.html"
+      - "music-network.css"
+      - "music-network.js"
+      - "tests/music-network.test.mjs"
       - "scripts/validate-store-license-options.mjs"
       - ".github/workflows/deploy-public-storefront.yml"
   push:
@@ -17,6 +22,11 @@ on:
       - "catalog/instrumentals.json"
       - "catalog/public-license-options.json"
       - "instrumentals.html"
+      - "index.html"
+      - "music-network.html"
+      - "music-network.css"
+      - "music-network.js"
+      - "tests/music-network.test.mjs"
       - ".github/workflows/deploy-public-storefront.yml"
   workflow_dispatch:
 
@@ -42,6 +52,7 @@ jobs:
           node scripts/validate-store-catalog.mjs
           node scripts/validate-store-license-options.mjs
           node scripts/check-public-previews.mjs
+          node --test tests/music-network.test.mjs
       - name: Verify Cloudflare static assets are allowlisted, no private master keys
         run: |
           node --input-type=module <<'EOF'

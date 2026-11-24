@@ -9,3 +9,6 @@
 !catalog/public-license-options.json
 !assets/
 !assets/*.png
+!music-network.html
+!music-network.css
+!music-network.js
