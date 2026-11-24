@@ -1,0 +1,2218 @@
+{
+  "schema_version": 1,
+  "agreement_version": "BRUA1-RC-V4-2026-11-23",
+  "status": "RELEASE_CANDIDATE_NOT_BINDING",
+  "source_document": "https://docs.google.com/document/d/10yWHnsgafy6vKJs_ArfAUqKL4FJxCuZGn7_dr8PQlP4/edit",
+  "seller_brand": "BruA1",
+  "seller_capacity": "individual sole proprietor; identity owner-confirmed in restricted agreement record; independent merchant match pending",
+  "llc_required_for_launch": false,
+  "agreement_final_sha256": null,
+  "checkout_enabled": false,
+  "issuance_enabled": false,
+  "publishing_split_status": "TRACK_SPECIFIC_OWNER_CONFIRMED__INDIVIDUAL_SCHEDULES_PENDING",
+  "tiers": {
+    "basic": {
+      "price_cents": 2999,
+      "currency": "USD",
+      "duration_years": 5,
+      "formats": [
+        "mp3"
+      ],
+      "paid_unit_limit": 5000,
+      "monetized_audio_stream_limit": 100000,
+      "monetized_music_videos": 1,
+      "non_monetized_music_videos": 2,
+      "monetized_music_video_view_limit": 100000,
+      "exclusive": false
+    },
+    "premium": {
+      "price_cents": 5999,
+      "currency": "USD",
+      "duration_years": 10,
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "paid_unit_limit": 25000,
+      "monetized_audio_stream_limit": 500000,
+      "monetized_music_videos": 2,
+      "non_monetized_music_videos": 5,
+      "monetized_music_video_view_limit": 500000,
+      "exclusive": false
+    },
+    "unlimited": {
+      "price_cents": 9999,
+      "currency": "USD",
+      "duration_years": 10,
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "paid_unit_limit": null,
+      "monetized_audio_stream_limit": null,
+      "monetized_music_videos": null,
+      "non_monetized_music_videos": null,
+      "monetized_music_video_view_limit": null,
+      "exclusive": false
+    },
+    "exclusive": {
+      "price_cents": null,
+      "currency": "USD",
+      "formats": [],
+      "automated_checkout": false,
+      "require_individually_signed_contract": true
+    }
+  },
+  "all_tiers": {
+    "one_new_song_per_license": true,
+    "license_is_nonexclusive": true,
+    "owner_retains_underlying_music_rights": true,
+    "standalone_instrumental_resale": false,
+    "sublicensing": false,
+    "third_party_sync_without_separate_permission": false,
+    "content_id_claim_on_underlying_instrumental": false,
+    "producer_credit": "Prod. by BruA1",
+    "prior_valid_licenses_survive_later_exclusive": true
+  },
+  "held_products": [
+    "BRUA1-INS-0004",
+    "BRUA1-INS-0019",
+    "BRUA1-INS-0026"
+  ],
+  "track_count": 36,
+  "sku_count": 108,
+  "sku_agreement_links": [
+    {
+      "sku": "BRUA1-INS-0001-BASIC",
+      "product_id": "BRUA1-INS-0001",
+      "title": "108 in the Shade",
+      "tier": "basic",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 2999,
+      "currency": "USD",
+      "formats": [
+        "mp3"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0001-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0001-PREMIUM",
+      "product_id": "BRUA1-INS-0001",
+      "title": "108 in the Shade",
+      "tier": "premium",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 5999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0001-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0001-UNLIMITED",
+      "product_id": "BRUA1-INS-0001",
+      "title": "108 in the Shade",
+      "tier": "unlimited",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 9999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0001-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0002-BASIC",
+      "product_id": "BRUA1-INS-0002",
+      "title": "Anxiety",
+      "tier": "basic",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 2999,
+      "currency": "USD",
+      "formats": [
+        "mp3"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0002-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0002-PREMIUM",
+      "product_id": "BRUA1-INS-0002",
+      "title": "Anxiety",
+      "tier": "premium",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 5999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0002-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0002-UNLIMITED",
+      "product_id": "BRUA1-INS-0002",
+      "title": "Anxiety",
+      "tier": "unlimited",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 9999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0002-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0003-BASIC",
+      "product_id": "BRUA1-INS-0003",
+      "title": "Blaze",
+      "tier": "basic",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 2999,
+      "currency": "USD",
+      "formats": [
+        "mp3"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0003-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0003-PREMIUM",
+      "product_id": "BRUA1-INS-0003",
+      "title": "Blaze",
+      "tier": "premium",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 5999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0003-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0003-UNLIMITED",
+      "product_id": "BRUA1-INS-0003",
+      "title": "Blaze",
+      "tier": "unlimited",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 9999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0003-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0005-BASIC",
+      "product_id": "BRUA1-INS-0005",
+      "title": "Cypher",
+      "tier": "basic",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 2999,
+      "currency": "USD",
+      "formats": [
+        "mp3"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0005-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0005-PREMIUM",
+      "product_id": "BRUA1-INS-0005",
+      "title": "Cypher",
+      "tier": "premium",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 5999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0005-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0005-UNLIMITED",
+      "product_id": "BRUA1-INS-0005",
+      "title": "Cypher",
+      "tier": "unlimited",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 9999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0005-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0006-BASIC",
+      "product_id": "BRUA1-INS-0006",
+      "title": "Dallar and a Dream",
+      "tier": "basic",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 2999,
+      "currency": "USD",
+      "formats": [
+        "mp3"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0006-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0006-PREMIUM",
+      "product_id": "BRUA1-INS-0006",
+      "title": "Dallar and a Dream",
+      "tier": "premium",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 5999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0006-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0006-UNLIMITED",
+      "product_id": "BRUA1-INS-0006",
+      "title": "Dallar and a Dream",
+      "tier": "unlimited",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 9999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0006-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0007-BASIC",
+      "product_id": "BRUA1-INS-0007",
+      "title": "Danger",
+      "tier": "basic",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 2999,
+      "currency": "USD",
+      "formats": [
+        "mp3"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0007-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0007-PREMIUM",
+      "product_id": "BRUA1-INS-0007",
+      "title": "Danger",
+      "tier": "premium",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 5999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0007-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0007-UNLIMITED",
+      "product_id": "BRUA1-INS-0007",
+      "title": "Danger",
+      "tier": "unlimited",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 9999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0007-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0008-BASIC",
+      "product_id": "BRUA1-INS-0008",
+      "title": "decater",
+      "tier": "basic",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 2999,
+      "currency": "USD",
+      "formats": [
+        "mp3"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0008-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0008-PREMIUM",
+      "product_id": "BRUA1-INS-0008",
+      "title": "decater",
+      "tier": "premium",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 5999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0008-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0008-UNLIMITED",
+      "product_id": "BRUA1-INS-0008",
+      "title": "decater",
+      "tier": "unlimited",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 9999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0008-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0009-BASIC",
+      "product_id": "BRUA1-INS-0009",
+      "title": "Drawdown",
+      "tier": "basic",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 2999,
+      "currency": "USD",
+      "formats": [
+        "mp3"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0009-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0009-PREMIUM",
+      "product_id": "BRUA1-INS-0009",
+      "title": "Drawdown",
+      "tier": "premium",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 5999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0009-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0009-UNLIMITED",
+      "product_id": "BRUA1-INS-0009",
+      "title": "Drawdown",
+      "tier": "unlimited",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 9999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0009-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0010-BASIC",
+      "product_id": "BRUA1-INS-0010",
+      "title": "DreSlide",
+      "tier": "basic",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 2999,
+      "currency": "USD",
+      "formats": [
+        "mp3"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0010-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0010-PREMIUM",
+      "product_id": "BRUA1-INS-0010",
+      "title": "DreSlide",
+      "tier": "premium",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 5999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0010-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0010-UNLIMITED",
+      "product_id": "BRUA1-INS-0010",
+      "title": "DreSlide",
+      "tier": "unlimited",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 9999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0010-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0011-BASIC",
+      "product_id": "BRUA1-INS-0011",
+      "title": "DrPepperFlavoredListerineJ",
+      "tier": "basic",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 2999,
+      "currency": "USD",
+      "formats": [
+        "mp3"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0011-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0011-PREMIUM",
+      "product_id": "BRUA1-INS-0011",
+      "title": "DrPepperFlavoredListerineJ",
+      "tier": "premium",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 5999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0011-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0011-UNLIMITED",
+      "product_id": "BRUA1-INS-0011",
+      "title": "DrPepperFlavoredListerineJ",
+      "tier": "unlimited",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 9999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0011-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0012-BASIC",
+      "product_id": "BRUA1-INS-0012",
+      "title": "Elon Free",
+      "tier": "basic",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 2999,
+      "currency": "USD",
+      "formats": [
+        "mp3"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0012-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0012-PREMIUM",
+      "product_id": "BRUA1-INS-0012",
+      "title": "Elon Free",
+      "tier": "premium",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 5999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0012-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0012-UNLIMITED",
+      "product_id": "BRUA1-INS-0012",
+      "title": "Elon Free",
+      "tier": "unlimited",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 9999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0012-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0013-BASIC",
+      "product_id": "BRUA1-INS-0013",
+      "title": "Fck Stress",
+      "tier": "basic",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 2999,
+      "currency": "USD",
+      "formats": [
+        "mp3"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0013-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0013-PREMIUM",
+      "product_id": "BRUA1-INS-0013",
+      "title": "Fck Stress",
+      "tier": "premium",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 5999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0013-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0013-UNLIMITED",
+      "product_id": "BRUA1-INS-0013",
+      "title": "Fck Stress",
+      "tier": "unlimited",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 9999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0013-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0014-BASIC",
+      "product_id": "BRUA1-INS-0014",
+      "title": "Get Em",
+      "tier": "basic",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 2999,
+      "currency": "USD",
+      "formats": [
+        "mp3"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0014-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0014-PREMIUM",
+      "product_id": "BRUA1-INS-0014",
+      "title": "Get Em",
+      "tier": "premium",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 5999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0014-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0014-UNLIMITED",
+      "product_id": "BRUA1-INS-0014",
+      "title": "Get Em",
+      "tier": "unlimited",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 9999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0014-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0015-BASIC",
+      "product_id": "BRUA1-INS-0015",
+      "title": "Ginu",
+      "tier": "basic",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 2999,
+      "currency": "USD",
+      "formats": [
+        "mp3"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0015-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0015-PREMIUM",
+      "product_id": "BRUA1-INS-0015",
+      "title": "Ginu",
+      "tier": "premium",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 5999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0015-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0015-UNLIMITED",
+      "product_id": "BRUA1-INS-0015",
+      "title": "Ginu",
+      "tier": "unlimited",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 9999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0015-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0016-BASIC",
+      "product_id": "BRUA1-INS-0016",
+      "title": "Gnosis",
+      "tier": "basic",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 2999,
+      "currency": "USD",
+      "formats": [
+        "mp3"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0016-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0016-PREMIUM",
+      "product_id": "BRUA1-INS-0016",
+      "title": "Gnosis",
+      "tier": "premium",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 5999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0016-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0016-UNLIMITED",
+      "product_id": "BRUA1-INS-0016",
+      "title": "Gnosis",
+      "tier": "unlimited",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 9999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0016-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0017-BASIC",
+      "product_id": "BRUA1-INS-0017",
+      "title": "JRSHIT2",
+      "tier": "basic",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 2999,
+      "currency": "USD",
+      "formats": [
+        "mp3"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0017-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0017-PREMIUM",
+      "product_id": "BRUA1-INS-0017",
+      "title": "JRSHIT2",
+      "tier": "premium",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 5999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0017-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0017-UNLIMITED",
+      "product_id": "BRUA1-INS-0017",
+      "title": "JRSHIT2",
+      "tier": "unlimited",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 9999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0017-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0018-BASIC",
+      "product_id": "BRUA1-INS-0018",
+      "title": "Just2Inspire",
+      "tier": "basic",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 2999,
+      "currency": "USD",
+      "formats": [
+        "mp3"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0018-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0018-PREMIUM",
+      "product_id": "BRUA1-INS-0018",
+      "title": "Just2Inspire",
+      "tier": "premium",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 5999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0018-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0018-UNLIMITED",
+      "product_id": "BRUA1-INS-0018",
+      "title": "Just2Inspire",
+      "tier": "unlimited",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 9999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0018-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0020-BASIC",
+      "product_id": "BRUA1-INS-0020",
+      "title": "Litty",
+      "tier": "basic",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 2999,
+      "currency": "USD",
+      "formats": [
+        "mp3"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0020-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0020-PREMIUM",
+      "product_id": "BRUA1-INS-0020",
+      "title": "Litty",
+      "tier": "premium",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 5999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0020-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0020-UNLIMITED",
+      "product_id": "BRUA1-INS-0020",
+      "title": "Litty",
+      "tier": "unlimited",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 9999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0020-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0021-BASIC",
+      "product_id": "BRUA1-INS-0021",
+      "title": "Loving You",
+      "tier": "basic",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 2999,
+      "currency": "USD",
+      "formats": [
+        "mp3"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0021-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0021-PREMIUM",
+      "product_id": "BRUA1-INS-0021",
+      "title": "Loving You",
+      "tier": "premium",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 5999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0021-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0021-UNLIMITED",
+      "product_id": "BRUA1-INS-0021",
+      "title": "Loving You",
+      "tier": "unlimited",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 9999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0021-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0022-BASIC",
+      "product_id": "BRUA1-INS-0022",
+      "title": "Mailvoi",
+      "tier": "basic",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 2999,
+      "currency": "USD",
+      "formats": [
+        "mp3"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0022-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0022-PREMIUM",
+      "product_id": "BRUA1-INS-0022",
+      "title": "Mailvoi",
+      "tier": "premium",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 5999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0022-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0022-UNLIMITED",
+      "product_id": "BRUA1-INS-0022",
+      "title": "Mailvoi",
+      "tier": "unlimited",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 9999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0022-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0023-BASIC",
+      "product_id": "BRUA1-INS-0023",
+      "title": "Messy",
+      "tier": "basic",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 2999,
+      "currency": "USD",
+      "formats": [
+        "mp3"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0023-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0023-PREMIUM",
+      "product_id": "BRUA1-INS-0023",
+      "title": "Messy",
+      "tier": "premium",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 5999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0023-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0023-UNLIMITED",
+      "product_id": "BRUA1-INS-0023",
+      "title": "Messy",
+      "tier": "unlimited",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 9999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0023-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0024-BASIC",
+      "product_id": "BRUA1-INS-0024",
+      "title": "Morf",
+      "tier": "basic",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 2999,
+      "currency": "USD",
+      "formats": [
+        "mp3"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0024-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0024-PREMIUM",
+      "product_id": "BRUA1-INS-0024",
+      "title": "Morf",
+      "tier": "premium",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 5999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0024-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0024-UNLIMITED",
+      "product_id": "BRUA1-INS-0024",
+      "title": "Morf",
+      "tier": "unlimited",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 9999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0024-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0025-BASIC",
+      "product_id": "BRUA1-INS-0025",
+      "title": "Nawlins",
+      "tier": "basic",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 2999,
+      "currency": "USD",
+      "formats": [
+        "mp3"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0025-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0025-PREMIUM",
+      "product_id": "BRUA1-INS-0025",
+      "title": "Nawlins",
+      "tier": "premium",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 5999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0025-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0025-UNLIMITED",
+      "product_id": "BRUA1-INS-0025",
+      "title": "Nawlins",
+      "tier": "unlimited",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 9999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0025-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0027-BASIC",
+      "product_id": "BRUA1-INS-0027",
+      "title": "Phareal",
+      "tier": "basic",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 2999,
+      "currency": "USD",
+      "formats": [
+        "mp3"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0027-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0027-PREMIUM",
+      "product_id": "BRUA1-INS-0027",
+      "title": "Phareal",
+      "tier": "premium",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 5999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0027-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0027-UNLIMITED",
+      "product_id": "BRUA1-INS-0027",
+      "title": "Phareal",
+      "tier": "unlimited",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 9999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0027-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0028-BASIC",
+      "product_id": "BRUA1-INS-0028",
+      "title": "realfocus_2",
+      "tier": "basic",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 2999,
+      "currency": "USD",
+      "formats": [
+        "mp3"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0028-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0028-PREMIUM",
+      "product_id": "BRUA1-INS-0028",
+      "title": "realfocus_2",
+      "tier": "premium",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 5999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0028-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0028-UNLIMITED",
+      "product_id": "BRUA1-INS-0028",
+      "title": "realfocus_2",
+      "tier": "unlimited",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 9999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0028-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0029-BASIC",
+      "product_id": "BRUA1-INS-0029",
+      "title": "Ride With Me",
+      "tier": "basic",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 2999,
+      "currency": "USD",
+      "formats": [
+        "mp3"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0029-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0029-PREMIUM",
+      "product_id": "BRUA1-INS-0029",
+      "title": "Ride With Me",
+      "tier": "premium",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 5999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0029-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0029-UNLIMITED",
+      "product_id": "BRUA1-INS-0029",
+      "title": "Ride With Me",
+      "tier": "unlimited",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 9999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0029-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0030-BASIC",
+      "product_id": "BRUA1-INS-0030",
+      "title": "Shake it like",
+      "tier": "basic",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 2999,
+      "currency": "USD",
+      "formats": [
+        "mp3"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0030-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0030-PREMIUM",
+      "product_id": "BRUA1-INS-0030",
+      "title": "Shake it like",
+      "tier": "premium",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 5999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0030-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0030-UNLIMITED",
+      "product_id": "BRUA1-INS-0030",
+      "title": "Shake it like",
+      "tier": "unlimited",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 9999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0030-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0031-BASIC",
+      "product_id": "BRUA1-INS-0031",
+      "title": "Shop Open",
+      "tier": "basic",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 2999,
+      "currency": "USD",
+      "formats": [
+        "mp3"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0031-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0031-PREMIUM",
+      "product_id": "BRUA1-INS-0031",
+      "title": "Shop Open",
+      "tier": "premium",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 5999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0031-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0031-UNLIMITED",
+      "product_id": "BRUA1-INS-0031",
+      "title": "Shop Open",
+      "tier": "unlimited",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 9999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0031-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0032-BASIC",
+      "product_id": "BRUA1-INS-0032",
+      "title": "SpaceX",
+      "tier": "basic",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 2999,
+      "currency": "USD",
+      "formats": [
+        "mp3"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0032-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0032-PREMIUM",
+      "product_id": "BRUA1-INS-0032",
+      "title": "SpaceX",
+      "tier": "premium",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 5999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0032-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0032-UNLIMITED",
+      "product_id": "BRUA1-INS-0032",
+      "title": "SpaceX",
+      "tier": "unlimited",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 9999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0032-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0033-BASIC",
+      "product_id": "BRUA1-INS-0033",
+      "title": "Steel",
+      "tier": "basic",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 2999,
+      "currency": "USD",
+      "formats": [
+        "mp3"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0033-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0033-PREMIUM",
+      "product_id": "BRUA1-INS-0033",
+      "title": "Steel",
+      "tier": "premium",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 5999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0033-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0033-UNLIMITED",
+      "product_id": "BRUA1-INS-0033",
+      "title": "Steel",
+      "tier": "unlimited",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 9999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0033-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0034-BASIC",
+      "product_id": "BRUA1-INS-0034",
+      "title": "Stranger",
+      "tier": "basic",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 2999,
+      "currency": "USD",
+      "formats": [
+        "mp3"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0034-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0034-PREMIUM",
+      "product_id": "BRUA1-INS-0034",
+      "title": "Stranger",
+      "tier": "premium",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 5999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0034-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0034-UNLIMITED",
+      "product_id": "BRUA1-INS-0034",
+      "title": "Stranger",
+      "tier": "unlimited",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 9999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0034-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0035-BASIC",
+      "product_id": "BRUA1-INS-0035",
+      "title": "Street Dreams",
+      "tier": "basic",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 2999,
+      "currency": "USD",
+      "formats": [
+        "mp3"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0035-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0035-PREMIUM",
+      "product_id": "BRUA1-INS-0035",
+      "title": "Street Dreams",
+      "tier": "premium",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 5999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0035-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0035-UNLIMITED",
+      "product_id": "BRUA1-INS-0035",
+      "title": "Street Dreams",
+      "tier": "unlimited",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 9999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0035-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0036-BASIC",
+      "product_id": "BRUA1-INS-0036",
+      "title": "The Flu",
+      "tier": "basic",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 2999,
+      "currency": "USD",
+      "formats": [
+        "mp3"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0036-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0036-PREMIUM",
+      "product_id": "BRUA1-INS-0036",
+      "title": "The Flu",
+      "tier": "premium",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 5999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0036-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0036-UNLIMITED",
+      "product_id": "BRUA1-INS-0036",
+      "title": "The Flu",
+      "tier": "unlimited",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 9999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0036-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0037-BASIC",
+      "product_id": "BRUA1-INS-0037",
+      "title": "Whoa Naa",
+      "tier": "basic",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 2999,
+      "currency": "USD",
+      "formats": [
+        "mp3"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0037-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0037-PREMIUM",
+      "product_id": "BRUA1-INS-0037",
+      "title": "Whoa Naa",
+      "tier": "premium",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 5999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0037-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0037-UNLIMITED",
+      "product_id": "BRUA1-INS-0037",
+      "title": "Whoa Naa",
+      "tier": "unlimited",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 9999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0037-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0038-BASIC",
+      "product_id": "BRUA1-INS-0038",
+      "title": "Worse",
+      "tier": "basic",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 2999,
+      "currency": "USD",
+      "formats": [
+        "mp3"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0038-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0038-PREMIUM",
+      "product_id": "BRUA1-INS-0038",
+      "title": "Worse",
+      "tier": "premium",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 5999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0038-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0038-UNLIMITED",
+      "product_id": "BRUA1-INS-0038",
+      "title": "Worse",
+      "tier": "unlimited",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 9999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0038-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0039-BASIC",
+      "product_id": "BRUA1-INS-0039",
+      "title": "Zayoo",
+      "tier": "basic",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 2999,
+      "currency": "USD",
+      "formats": [
+        "mp3"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0039-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0039-PREMIUM",
+      "product_id": "BRUA1-INS-0039",
+      "title": "Zayoo",
+      "tier": "premium",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 5999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0039-PUBLISHING"
+    },
+    {
+      "sku": "BRUA1-INS-0039-UNLIMITED",
+      "product_id": "BRUA1-INS-0039",
+      "title": "Zayoo",
+      "tier": "unlimited",
+      "agreement_version": "BRUA1-RC-V4-2026-11-23",
+      "price_cents": 9999,
+      "currency": "USD",
+      "formats": [
+        "mp3",
+        "wav"
+      ],
+      "issuance_enabled": false,
+      "publishing_schedule_id": "BRUA1-INS-0039-PUBLISHING"
+    }
+  ],
+  "owner_rights_declaration": {
+    "scope": "all 36 candidate compositions and sound recordings",
+    "status": "OWNER_CONFIRMED",
+    "independent_clearance_verified": false
+  },
+  "track_publishing_schedules": [
+    {
+      "product_id": "BRUA1-INS-0001",
+      "title": "108 in the Shade",
+      "schedule_id": "BRUA1-INS-0001-PUBLISHING",
+      "status": "PENDING_AGREEMENT",
+      "writer_shares": null,
+      "publisher_shares": null,
+      "royalty_terms": null,
+      "registration_terms": null,
+      "version": null,
+      "sha256": null,
+      "owner_rights_declared": true,
+      "independent_clearance_verified": false,
+      "checkout_enabled": false
+    },
+    {
+      "product_id": "BRUA1-INS-0002",
+      "title": "Anxiety",
+      "schedule_id": "BRUA1-INS-0002-PUBLISHING",
+      "status": "PENDING_AGREEMENT",
+      "writer_shares": null,
+      "publisher_shares": null,
+      "royalty_terms": null,
+      "registration_terms": null,
+      "version": null,
+      "sha256": null,
+      "owner_rights_declared": true,
+      "independent_clearance_verified": false,
+      "checkout_enabled": false
+    },
+    {
+      "product_id": "BRUA1-INS-0003",
+      "title": "Blaze",
+      "schedule_id": "BRUA1-INS-0003-PUBLISHING",
+      "status": "PENDING_AGREEMENT",
+      "writer_shares": null,
+      "publisher_shares": null,
+      "royalty_terms": null,
+      "registration_terms": null,
+      "version": null,
+      "sha256": null,
+      "owner_rights_declared": true,
+      "independent_clearance_verified": false,
+      "checkout_enabled": false
+    },
+    {
+      "product_id": "BRUA1-INS-0005",
+      "title": "Cypher",
+      "schedule_id": "BRUA1-INS-0005-PUBLISHING",
+      "status": "PENDING_AGREEMENT",
+      "writer_shares": null,
+      "publisher_shares": null,
+      "royalty_terms": null,
+      "registration_terms": null,
+      "version": null,
+      "sha256": null,
+      "owner_rights_declared": true,
+      "independent_clearance_verified": false,
+      "checkout_enabled": false
+    },
+    {
+      "product_id": "BRUA1-INS-0006",
+      "title": "Dallar and a Dream",
+      "schedule_id": "BRUA1-INS-0006-PUBLISHING",
+      "status": "PENDING_AGREEMENT",
+      "writer_shares": null,
+      "publisher_shares": null,
+      "royalty_terms": null,
+      "registration_terms": null,
+      "version": null,
+      "sha256": null,
+      "owner_rights_declared": true,
+      "independent_clearance_verified": false,
+      "checkout_enabled": false
+    },
+    {
+      "product_id": "BRUA1-INS-0007",
+      "title": "Danger",
+      "schedule_id": "BRUA1-INS-0007-PUBLISHING",
+      "status": "PENDING_AGREEMENT",
+      "writer_shares": null,
+      "publisher_shares": null,
+      "royalty_terms": null,
+      "registration_terms": null,
+      "version": null,
+      "sha256": null,
+      "owner_rights_declared": true,
+      "independent_clearance_verified": false,
+      "checkout_enabled": false
+    },
+    {
+      "product_id": "BRUA1-INS-0008",
+      "title": "decater",
+      "schedule_id": "BRUA1-INS-0008-PUBLISHING",
+      "status": "PENDING_AGREEMENT",
+      "writer_shares": null,
+      "publisher_shares": null,
+      "royalty_terms": null,
+      "registration_terms": null,
+      "version": null,
+      "sha256": null,
+      "owner_rights_declared": true,
+      "independent_clearance_verified": false,
+      "checkout_enabled": false
+    },
+    {
+      "product_id": "BRUA1-INS-0009",
+      "title": "Drawdown",
+      "schedule_id": "BRUA1-INS-0009-PUBLISHING",
+      "status": "PENDING_AGREEMENT",
+      "writer_shares": null,
+      "publisher_shares": null,
+      "royalty_terms": null,
+      "registration_terms": null,
+      "version": null,
+      "sha256": null,
+      "owner_rights_declared": true,
+      "independent_clearance_verified": false,
+      "checkout_enabled": false
+    },
+    {
+      "product_id": "BRUA1-INS-0010",
+      "title": "DreSlide",
+      "schedule_id": "BRUA1-INS-0010-PUBLISHING",
+      "status": "PENDING_AGREEMENT",
+      "writer_shares": null,
+      "publisher_shares": null,
+      "royalty_terms": null,
+      "registration_terms": null,
+      "version": null,
+      "sha256": null,
+      "owner_rights_declared": true,
+      "independent_clearance_verified": false,
+      "checkout_enabled": false
+    },
+    {
+      "product_id": "BRUA1-INS-0011",
+      "title": "DrPepperFlavoredListerineJ",
+      "schedule_id": "BRUA1-INS-0011-PUBLISHING",
+      "status": "PENDING_AGREEMENT",
+      "writer_shares": null,
+      "publisher_shares": null,
+      "royalty_terms": null,
+      "registration_terms": null,
+      "version": null,
+      "sha256": null,
+      "owner_rights_declared": true,
+      "independent_clearance_verified": false,
+      "checkout_enabled": false
+    },
+    {
+      "product_id": "BRUA1-INS-0012",
+      "title": "Elon Free",
+      "schedule_id": "BRUA1-INS-0012-PUBLISHING",
+      "status": "PENDING_AGREEMENT",
+      "writer_shares": null,
+      "publisher_shares": null,
+      "royalty_terms": null,
+      "registration_terms": null,
+      "version": null,
+      "sha256": null,
+      "owner_rights_declared": true,
+      "independent_clearance_verified": false,
+      "checkout_enabled": false
+    },
+    {
+      "product_id": "BRUA1-INS-0013",
+      "title": "Fck Stress",
+      "schedule_id": "BRUA1-INS-0013-PUBLISHING",
+      "status": "PENDING_AGREEMENT",
+      "writer_shares": null,
+      "publisher_shares": null,
+      "royalty_terms": null,
+      "registration_terms": null,
+      "version": null,
+      "sha256": null,
+      "owner_rights_declared": true,
+      "independent_clearance_verified": false,
+      "checkout_enabled": false
+    },
+    {
+      "product_id": "BRUA1-INS-0014",
+      "title": "Get Em",
+      "schedule_id": "BRUA1-INS-0014-PUBLISHING",
+      "status": "PENDING_AGREEMENT",
+      "writer_shares": null,
+      "publisher_shares": null,
+      "royalty_terms": null,
+      "registration_terms": null,
+      "version": null,
+      "sha256": null,
+      "owner_rights_declared": true,
+      "independent_clearance_verified": false,
+      "checkout_enabled": false
+    },
+    {
+      "product_id": "BRUA1-INS-0015",
+      "title": "Ginu",
+      "schedule_id": "BRUA1-INS-0015-PUBLISHING",
+      "status": "PENDING_AGREEMENT",
+      "writer_shares": null,
+      "publisher_shares": null,
+      "royalty_terms": null,
+      "registration_terms": null,
+      "version": null,
+      "sha256": null,
+      "owner_rights_declared": true,
+      "independent_clearance_verified": false,
+      "checkout_enabled": false
+    },
+    {
+      "product_id": "BRUA1-INS-0016",
+      "title": "Gnosis",
+      "schedule_id": "BRUA1-INS-0016-PUBLISHING",
+      "status": "PENDING_AGREEMENT",
+      "writer_shares": null,
+      "publisher_shares": null,
+      "royalty_terms": null,
+      "registration_terms": null,
+      "version": null,
+      "sha256": null,
+      "owner_rights_declared": true,
+      "independent_clearance_verified": false,
+      "checkout_enabled": false
+    },
+    {
+      "product_id": "BRUA1-INS-0017",
+      "title": "JRSHIT2",
+      "schedule_id": "BRUA1-INS-0017-PUBLISHING",
+      "status": "PENDING_AGREEMENT",
+      "writer_shares": null,
+      "publisher_shares": null,
+      "royalty_terms": null,
+      "registration_terms": null,
+      "version": null,
+      "sha256": null,
+      "owner_rights_declared": true,
+      "independent_clearance_verified": false,
+      "checkout_enabled": false
+    },
+    {
+      "product_id": "BRUA1-INS-0018",
+      "title": "Just2Inspire",
+      "schedule_id": "BRUA1-INS-0018-PUBLISHING",
+      "status": "PENDING_AGREEMENT",
+      "writer_shares": null,
+      "publisher_shares": null,
+      "royalty_terms": null,
+      "registration_terms": null,
+      "version": null,
+      "sha256": null,
+      "owner_rights_declared": true,
+      "independent_clearance_verified": false,
+      "checkout_enabled": false
+    },
+    {
+      "product_id": "BRUA1-INS-0020",
+      "title": "Litty",
+      "schedule_id": "BRUA1-INS-0020-PUBLISHING",
+      "status": "PENDING_AGREEMENT",
+      "writer_shares": null,
+      "publisher_shares": null,
+      "royalty_terms": null,
+      "registration_terms": null,
+      "version": null,
+      "sha256": null,
+      "owner_rights_declared": true,
+      "independent_clearance_verified": false,
+      "checkout_enabled": false
+    },
+    {
+      "product_id": "BRUA1-INS-0021",
+      "title": "Loving You",
+      "schedule_id": "BRUA1-INS-0021-PUBLISHING",
+      "status": "PENDING_AGREEMENT",
+      "writer_shares": null,
+      "publisher_shares": null,
+      "royalty_terms": null,
+      "registration_terms": null,
+      "version": null,
+      "sha256": null,
+      "owner_rights_declared": true,
+      "independent_clearance_verified": false,
+      "checkout_enabled": false
+    },
+    {
+      "product_id": "BRUA1-INS-0022",
+      "title": "Mailvoi",
+      "schedule_id": "BRUA1-INS-0022-PUBLISHING",
+      "status": "PENDING_AGREEMENT",
+      "writer_shares": null,
+      "publisher_shares": null,
+      "royalty_terms": null,
+      "registration_terms": null,
+      "version": null,
+      "sha256": null,
+      "owner_rights_declared": true,
+      "independent_clearance_verified": false,
+      "checkout_enabled": false
+    },
+    {
+      "product_id": "BRUA1-INS-0023",
+      "title": "Messy",
+      "schedule_id": "BRUA1-INS-0023-PUBLISHING",
+      "status": "PENDING_AGREEMENT",
+      "writer_shares": null,
+      "publisher_shares": null,
+      "royalty_terms": null,
+      "registration_terms": null,
+      "version": null,
+      "sha256": null,
+      "owner_rights_declared": true,
+      "independent_clearance_verified": false,
+      "checkout_enabled": false
+    },
+    {
+      "product_id": "BRUA1-INS-0024",
+      "title": "Morf",
+      "schedule_id": "BRUA1-INS-0024-PUBLISHING",
+      "status": "PENDING_AGREEMENT",
+      "writer_shares": null,
+      "publisher_shares": null,
+      "royalty_terms": null,
+      "registration_terms": null,
+      "version": null,
+      "sha256": null,
+      "owner_rights_declared": true,
+      "independent_clearance_verified": false,
+      "checkout_enabled": false
+    },
+    {
+      "product_id": "BRUA1-INS-0025",
+      "title": "Nawlins",
+      "schedule_id": "BRUA1-INS-0025-PUBLISHING",
+      "status": "PENDING_AGREEMENT",
+      "writer_shares": null,
+      "publisher_shares": null,
+      "royalty_terms": null,
+      "registration_terms": null,
+      "version": null,
+      "sha256": null,
+      "owner_rights_declared": true,
+      "independent_clearance_verified": false,
+      "checkout_enabled": false
+    },
+    {
+      "product_id": "BRUA1-INS-0027",
+      "title": "Phareal",
+      "schedule_id": "BRUA1-INS-0027-PUBLISHING",
+      "status": "PENDING_AGREEMENT",
+      "writer_shares": null,
+      "publisher_shares": null,
+      "royalty_terms": null,
+      "registration_terms": null,
+      "version": null,
+      "sha256": null,
+      "owner_rights_declared": true,
+      "independent_clearance_verified": false,
+      "checkout_enabled": false
+    },
+    {
+      "product_id": "BRUA1-INS-0028",
+      "title": "realfocus_2",
+      "schedule_id": "BRUA1-INS-0028-PUBLISHING",
+      "status": "PENDING_AGREEMENT",
+      "writer_shares": null,
+      "publisher_shares": null,
+      "royalty_terms": null,
+      "registration_terms": null,
+      "version": null,
+      "sha256": null,
+      "owner_rights_declared": true,
+      "independent_clearance_verified": false,
+      "checkout_enabled": false
+    },
+    {
+      "product_id": "BRUA1-INS-0029",
+      "title": "Ride With Me",
+      "schedule_id": "BRUA1-INS-0029-PUBLISHING",
+      "status": "PENDING_AGREEMENT",
+      "writer_shares": null,
+      "publisher_shares": null,
+      "royalty_terms": null,
+      "registration_terms": null,
+      "version": null,
+      "sha256": null,
+      "owner_rights_declared": true,
+      "independent_clearance_verified": false,
+      "checkout_enabled": false
+    },
+    {
+      "product_id": "BRUA1-INS-0030",
+      "title": "Shake it like",
+      "schedule_id": "BRUA1-INS-0030-PUBLISHING",
+      "status": "PENDING_AGREEMENT",
+      "writer_shares": null,
+      "publisher_shares": null,
+      "royalty_terms": null,
+      "registration_terms": null,
+      "version": null,
+      "sha256": null,
+      "owner_rights_declared": true,
+      "independent_clearance_verified": false,
+      "checkout_enabled": false
+    },
+    {
+      "product_id": "BRUA1-INS-0031",
+      "title": "Shop Open",
+      "schedule_id": "BRUA1-INS-0031-PUBLISHING",
+      "status": "PENDING_AGREEMENT",
+      "writer_shares": null,
+      "publisher_shares": null,
+      "royalty_terms": null,
+      "registration_terms": null,
+      "version": null,
+      "sha256": null,
+      "owner_rights_declared": true,
+      "independent_clearance_verified": false,
+      "checkout_enabled": false
+    },
+    {
+      "product_id": "BRUA1-INS-0032",
+      "title": "SpaceX",
+      "schedule_id": "BRUA1-INS-0032-PUBLISHING",
+      "status": "PENDING_AGREEMENT",
+      "writer_shares": null,
+      "publisher_shares": null,
+      "royalty_terms": null,
+      "registration_terms": null,
+      "version": null,
+      "sha256": null,
+      "owner_rights_declared": true,
+      "independent_clearance_verified": false,
+      "checkout_enabled": false
+    },
+    {
+      "product_id": "BRUA1-INS-0033",
+      "title": "Steel",
+      "schedule_id": "BRUA1-INS-0033-PUBLISHING",
+      "status": "PENDING_AGREEMENT",
+      "writer_shares": null,
+      "publisher_shares": null,
+      "royalty_terms": null,
+      "registration_terms": null,
+      "version": null,
+      "sha256": null,
+      "owner_rights_declared": true,
+      "independent_clearance_verified": false,
+      "checkout_enabled": false
+    },
+    {
+      "product_id": "BRUA1-INS-0034",
+      "title": "Stranger",
+      "schedule_id": "BRUA1-INS-0034-PUBLISHING",
+      "status": "PENDING_AGREEMENT",
+      "writer_shares": null,
+      "publisher_shares": null,
+      "royalty_terms": null,
+      "registration_terms": null,
+      "version": null,
+      "sha256": null,
+      "owner_rights_declared": true,
+      "independent_clearance_verified": false,
+      "checkout_enabled": false
+    },
+    {
+      "product_id": "BRUA1-INS-0035",
+      "title": "Street Dreams",
+      "schedule_id": "BRUA1-INS-0035-PUBLISHING",
+      "status": "PENDING_AGREEMENT",
+      "writer_shares": null,
+      "publisher_shares": null,
+      "royalty_terms": null,
+      "registration_terms": null,
+      "version": null,
+      "sha256": null,
+      "owner_rights_declared": true,
+      "independent_clearance_verified": false,
+      "checkout_enabled": false
+    },
+    {
+      "product_id": "BRUA1-INS-0036",
+      "title": "The Flu",
+      "schedule_id": "BRUA1-INS-0036-PUBLISHING",
+      "status": "PENDING_AGREEMENT",
+      "writer_shares": null,
+      "publisher_shares": null,
+      "royalty_terms": null,
+      "registration_terms": null,
+      "version": null,
+      "sha256": null,
+      "owner_rights_declared": true,
+      "independent_clearance_verified": false,
+      "checkout_enabled": false
+    },
+    {
+      "product_id": "BRUA1-INS-0037",
+      "title": "Whoa Naa",
+      "schedule_id": "BRUA1-INS-0037-PUBLISHING",
+      "status": "PENDING_AGREEMENT",
+      "writer_shares": null,
+      "publisher_shares": null,
+      "royalty_terms": null,
+      "registration_terms": null,
+      "version": null,
+      "sha256": null,
+      "owner_rights_declared": true,
+      "independent_clearance_verified": false,
+      "checkout_enabled": false
+    },
+    {
+      "product_id": "BRUA1-INS-0038",
+      "title": "Worse",
+      "schedule_id": "BRUA1-INS-0038-PUBLISHING",
+      "status": "PENDING_AGREEMENT",
+      "writer_shares": null,
+      "publisher_shares": null,
+      "royalty_terms": null,
+      "registration_terms": null,
+      "version": null,
+      "sha256": null,
+      "owner_rights_declared": true,
+      "independent_clearance_verified": false,
+      "checkout_enabled": false
+    },
+    {
+      "product_id": "BRUA1-INS-0039",
+      "title": "Zayoo",
+      "schedule_id": "BRUA1-INS-0039-PUBLISHING",
+      "status": "PENDING_AGREEMENT",
+      "writer_shares": null,
+      "publisher_shares": null,
+      "royalty_terms": null,
+      "registration_terms": null,
+      "version": null,
+      "sha256": null,
+      "owner_rights_declared": true,
+      "independent_clearance_verified": false,
+      "checkout_enabled": false
+    }
+  ],
+  "supersedes_candidate": "BRUA1-RC-V3-2026-11-23"
+}

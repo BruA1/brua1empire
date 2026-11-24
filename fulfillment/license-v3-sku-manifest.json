@@ -2213,5 +2213,7 @@
       "independent_clearance_verified": false,
       "checkout_enabled": false
     }
-  ]
+  ],
+  "superseded_by_candidate": "BRUA1-RC-V4-2026-11-23",
+  "source_document_note": "Linked working document now contains RC v4; V3 remains a historical staging mapping, not a contract."
 }
