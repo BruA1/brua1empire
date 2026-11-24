@@ -26,7 +26,7 @@ test("refuse invented product, extra SKU, changed price or rights flag",()=>{
  assert.throws(()=>prepareDisabledProductSeed(changed));
  const release=broken();release.skus[0].rights_cleared=true;
  assert.throws(()=>prepareDisabledProductSeed(release));
- const duplicate=broken();duplicate.skus[0].tier="premium";
+ const duplicate=broken();duplicate.skus[0].tier="premium";duplicate.skus[0].price_cents=5999;
  assert.throws(()=>prepareDisabledProductSeed(duplicate),/Duplicate/);
 });
 test("escape apostrophes in titles without constructing executable SQL",()=>{
