@@ -42,8 +42,9 @@ export function productionPayPalClient(env,transport=fetch){
    checkSelection(selection);
    if(accepted!==true)throw Error("Recorded agreement and publishing acceptance required");
    const body=makePayPalOrderRequest(selection,"https://brua1.com");
-   // The storefront does not yet implement the return/cancel routes. This
-   // transport is intentionally not exposed until they and the ledger exist.
+   // Return to the existing static storefront, in the same browser session.
+   body.payment_source.paypal.experience_context.return_url="https://brua1.com/instrumentals.html?checkout=return";
+   body.payment_source.paypal.experience_context.cancel_url="https://brua1.com/instrumentals.html?checkout=cancel";
    const o=await request("/v2/checkout/orders","POST",body,requestId);
    checkOrderId(o.id);checkOrder(o,o.id,selection);
    const approval=o.links?.find(x=>x.rel==="payer-action"||x.rel==="approve")?.href;
