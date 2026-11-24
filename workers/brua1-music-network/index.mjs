@@ -40,7 +40,7 @@ export async function networkRoute(request,env){
   try{
    const locked=env.NETWORK_MEMBER_API_ENABLED!=="true"&&env.NETWORK_INVITE_AUTH_ENABLED!=="true"&&env.NETWORK_BILLING_ENABLED!=="true";
    const info=await env.NETWORK_DB?.prepare("SELECT COUNT(*) AS n FROM network_channels").first();
-   return response(info?.n===10?200:503,{service:"brua1-music-network",databaseReady:info?.n===10,memberApiEnabled:env.NETWORK_MEMBER_API_ENABLED==="true",inviteAuthEnabled:env.NETWORK_INVITE_AUTH_ENABLED==="true",billingEnabled:env.NETWORK_BILLING_ENABLED==="true",locked},false);
+   return response(info?.n===10?200:503,{service:"brua1-music-network",databaseReady:info?.n===10,memberApiEnabled:env.NETWORK_MEMBER_API_ENABLED==="true",inviteAuthEnabled:env.NETWORK_INVITE_AUTH_ENABLED==="true",billingEnabled:env.NETWORK_BILLING_ENABLED==="true",locked},origin===ORIGIN);
   }catch{return response(503,{service:"brua1-music-network",databaseReady:false},false)}
  }
  if(url.protocol!=="https:"||origin!==ORIGIN)return response(403,{error:"Origin not allowed"},false);
@@ -55,6 +55,7 @@ export async function networkRoute(request,env){
   const result=p==="/api/network/auth/redeem"?await redeemInvite(db,x.invite,now):p==="/api/network/auth/login"?await login(db,x.accessKey,now):null;
   return result?response(200,result):response(401,{error:"Invalid or unavailable access key"});
  }
+ if(p==="/api/network/billing/config"&&request.method==="GET"){if(env.NETWORK_BILLING_ENABLED!=="true"||!env.NETWORK_TERMS_VERSION||!env.NETWORK_PAYPAL_SERVICE)return response(503,{error:"Enrollment closed"});const rows=await all(db,"SELECT cycle,price_cents,currency FROM network_billing_plans WHERE enrollment_enabled=1");return response(200,{termsVersion:env.NETWORK_TERMS_VERSION,plans:rows,termsUrl:"https://brua1.com/membership-terms.html"});}
  if(p.startsWith("/api/network/billing/")){
   if(env.NETWORK_BILLING_ENABLED!=="true"||!env.NETWORK_PAYPAL_SERVICE||!env.NETWORK_TERMS_VERSION)return response(503,{error:"Subscription enrollment is closed"});
   const account=await signedIn(request,db,now);if(!account)return response(401,{error:"Sign in required"});
