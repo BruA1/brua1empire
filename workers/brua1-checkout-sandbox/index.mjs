@@ -1,3 +1,4 @@
+import {matrixHtml,matrixJs,handleMatrixApi} from "./sandbox-matrix.mjs";
 // BruA1 PayPal Checkout TEST-ONLY Worker. Never attach private-master R2 here.
 // Live payments and real audio downloads are deliberately not implemented.
 const PAYPAL_BASE = "https://api-m.sandbox.paypal.com";
@@ -202,6 +203,8 @@ export default {
     if (path === "/health" && request.method === "GET")
       return json({ service: "brua1-checkout-sandbox", mode: "sandbox", livePayments: false, realAudioDelivery: false });
     if (path === "/test" && request.method === "GET") return htmlResponse();
+    if (path === "/matrix" && request.method === "GET") return matrixHtml();
+    if (path === "/matrix.js" && request.method === "GET") return matrixJs();
     if (path === "/test.js" && request.method === "GET")
       return new Response(JS, { headers: { ...HEADERS, "Content-Type": "text/javascript; charset=utf-8" } });
     if (!path.startsWith("/api/")) return json({ error: "Not found" }, 404);
@@ -216,6 +219,7 @@ export default {
     const data = await parseBody(request);
     if (!data) return json({ error: "Invalid request body" }, 400);
     try {
+      if (path.startsWith("/api/matrix/")) return await handleMatrixApi({env,path,data,origin:url.origin});
       if (path === "/api/create-order") {
         if (data.productId !== PILOT.id || data.tier !== PILOT.tier || data.sandboxAcknowledged !== true)
           return json({ error: "Unsupported sandbox product or missing test acknowledgement" }, 400);
