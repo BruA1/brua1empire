@@ -1,3 +1,4 @@
+import {probeStorage} from "../../fulfillment/storage-probe.mjs";
 /**
  * BruA1 dedicated LIVE PayPal checkout identity holder — PRELAUNCH LOCK.
  *
@@ -93,6 +94,7 @@ export async function paypalLiveAuthProbe(env,transport){
 export default {
   async fetch(request,env) {
     const url = new URL(request.url);
+    if(url.pathname==="/internal/verify-storage")return probeStorage(request,env,false);
     if(url.pathname==="/internal/verify-live-oauth"){
       if(request.method!=="POST")return respond(405,{verified:false,code:"METHOD_NOT_ALLOWED"});
       const header=request.headers.get("Authorization")||"";

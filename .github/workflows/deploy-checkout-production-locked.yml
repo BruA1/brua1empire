@@ -28,7 +28,7 @@ jobs:
       - name: Verify live checkout Worker is hard-locked and contains no secrets
         run: |
           node --check workers/brua1-checkout-production/index.mjs
-          node --test tests/live-paypal-credential-holder.test.mjs tests/live-paypal-oauth-probe.test.mjs
+          node --test tests/live-paypal-credential-holder.test.mjs tests/live-paypal-oauth-probe.test.mjs tests/storage-probe.test.mjs
           ! grep -Eq '^\[\[(d1_databases|r2_buckets)\]\]|^route\s*=' workers/brua1-checkout-production/wrangler.toml
           grep -Fq 'LIVE_CHECKOUT_ENABLED = "false"' workers/brua1-checkout-production/wrangler.toml
   deploy-locked-only:
@@ -43,6 +43,11 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
+      - name: Resolve exact production D1 and generate locked storage bindings
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_D1_API_TOKEN: ${{ secrets.CLOUDFLARE_D1_API_TOKEN }}
+        run: python3 scripts/generate-locked-storage-config.py checkout
       - name: Publish locked-down Live credential destination only — no charges
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -50,7 +55,13 @@ jobs:
         run: |
           test -n "$CLOUDFLARE_API_TOKEN"
           test -n "$CLOUDFLARE_ACCOUNT_ID"
-          npx --yes wrangler@4 deploy --config workers/brua1-checkout-production/wrangler.toml
+          npx --yes wrangler@4 deploy --config workers/brua1-checkout-production/wrangler.bound.toml
+
+      - name: Verify real bound storage without exposing audio or enabling sales
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: bash scripts/probe-locked-storage.sh checkout
 
       - name: One-time verify PayPal LIVE OAuth without charging or revealing tokens
         env:
@@ -67,7 +78,7 @@ jobs:
             local status=$?
             trap - EXIT
             if [ "$key_installed" = 1 ]; then
-              if ! (printf 'y\n' | npx --yes wrangler@4 secret delete PAYPAL_VERIFY_NONCE --config workers/brua1-checkout-production/wrangler.toml >/dev/null); then
+              if ! (printf 'y\n' | npx --yes wrangler@4 secret delete PAYPAL_VERIFY_NONCE --config workers/brua1-checkout-production/wrangler.bound.toml >/dev/null); then
                 echo "::error::Temporary verification key cleanup failed; it expires automatically after 10 minutes."
                 status=1
               fi
@@ -75,7 +86,7 @@ jobs:
             exit "$status"
           }
           trap cleanup EXIT
-          printf '%s' "$PROBE_TOKEN" | npx --yes wrangler@4 secret put PAYPAL_VERIFY_NONCE --config workers/brua1-checkout-production/wrangler.toml >/dev/null
+          printf '%s' "$PROBE_TOKEN" | npx --yes wrangler@4 secret put PAYPAL_VERIFY_NONCE --config workers/brua1-checkout-production/wrangler.bound.toml >/dev/null
           key_installed=1
           # No orders, captures, refunds, file delivery or database writes.
           # A newly deployed Worker secret may take a few seconds to reach the

@@ -1,3 +1,4 @@
+import {probeStorage} from "../../fulfillment/storage-probe.mjs";
 // BruA1 isolated license-delivery Worker. No live routes or payment capture.
 // Deployment defaults OFF. Enabling requires separately audited production D1,
 // private R2, verified LIVE PayPal, final buyer license and explicit CEO signoff.
@@ -34,6 +35,7 @@ function fromTrustedOrigin(response,origin,config){
 export default {
  async fetch(request,env){
   const url=new URL(request.url),path=url.pathname;
+  if(path==="/internal/verify-storage")return probeStorage(request,env,true);
   const config=productionConfigFromEnv(env);
   const ready=productionDeliveryEnabled(env,config);
   if(path==="/health"&&request.method==="GET")
