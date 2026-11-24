@@ -3,7 +3,7 @@
   "as_of": "2026-11-23",
   "launch_batch": "36 instrumentals / 108 tier SKUs",
   "public_site": "https://brua1.com/instrumentals.html",
-  "status": "PREPRODUCTION_BLOCKED__INTERNAL_DELIVERY_WORKER_DEPLOYED_DISABLED",
+  "status": "CEO_LAUNCH_AUTHORIZED__PRODUCTION_STILL_BLOCKED_PENDING_VERIFICATION",
   "payments_live": false,
   "automatic_full_master_delivery_live": false,
   "inquiries_live": true,
@@ -49,7 +49,7 @@
     "test_merchant_only": "sandbox until all gates pass"
   },
   "review_document": "https://docs.google.com/document/d/1FXSI0LqcTe9GjUAoo1xLytNduT206yKtxMLCtPeICkw/edit",
-  "notes": "New internal-only checkout entitlement and private MP3/WAV delivery service passed 9 mocked integration tests and was deployed disabled without R2 or D1 bindings. Actual customer payment and private-master fulfillment remain blocked. CEO selected BruA1 as public-facing seller/checkout/contract branding on November 23, 2026. This does NOT verify that BruA1 is a legally registered seller/DBA. This record tracks evidence and blockers. Never interpret a mocked integration test or owner commercial price delegation as a legal opinion, verified real payment, or readiness for live charge capture.",
+  "notes": "2026-11-23 CEO gave explicit launch authorization. This removes the need to seek strategic direction again but does not constitute independent music-rights clearance, final contract acceptance, merchant credential verification, actual integration QA, or activation of the live checkout. New internal-only checkout entitlement and private MP3/WAV delivery service passed 9 mocked integration tests and was deployed disabled without R2 or D1 bindings. Actual customer payment and private-master fulfillment remain blocked. CEO selected BruA1 as public-facing seller/checkout/contract branding on November 23, 2026. This does NOT verify that BruA1 is a legally registered seller/DBA. This record tracks evidence and blockers. Never interpret a mocked integration test or owner commercial price delegation as a legal opinion, verified real payment, or readiness for live charge capture.",
   "customer_facing_seller_brand": "BruA1",
   "brand_preference_confirmed_on": "2026-11-23",
   "legal_seller_entity_name": null,
@@ -59,5 +59,12 @@
   "planned_legal_entity": "BruA1 LLC (planned, subject to name approval and legal formation)",
   "planned_business_bank_account": true,
   "staging_delivery_url": "https://brua1-licensed-delivery-stage.a1productions0527.workers.dev/health",
-  "staging_delivery_qa": "https://github.com/BruA1/brua1empire/actions/runs/45307725662"
+  "staging_delivery_qa": "https://github.com/BruA1/brua1empire/actions/runs/45307725662",
+  "owner_directive": {
+    "authorization_received": true,
+    "authorization_date": "2026-11-23",
+    "authorization_scope": "Launch BruA1.com commercial automated purchases once essential legal, rights, payment and delivery requirements verified",
+    "intent": "PROCEED_TO_LAUNCH_AS_SOON_AS_GATES_PASS",
+    "remaining_release_gates_not_waived": true
+  }
 }
