@@ -12,7 +12,7 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: brua1-music-network
+  group: brua1-shared-paypal-production
   cancel-in-progress: false
 jobs:
   provision-locked:
@@ -69,3 +69,6 @@ jobs:
           printf '%s' "$KEY" | npx --yes wrangler@4 secret put NETWORK_BROKER_KEY --config workers/brua1-checkout-production/wrangler.bound.toml >/dev/null
           printf '%s' "$KEY" | npx --yes wrangler@4 secret put NETWORK_BROKER_KEY --config workers/brua1-music-network/wrangler.bound.toml >/dev/null
           echo "Broker credentials installed; payment enrollment still locked."
+      - name: Verify actual authenticated service bridge with billing disabled
+        run: |
+          curl --fail --silent --show-error --retry 5 --retry-all-errors --retry-delay 3 https://brua1-music-network.a1productions0527.workers.dev/health | python3 -c 'import json,sys;x=json.load(sys.stdin);assert x["databaseReady"] and x["locked"] and x["brokerConnected"] and not x["billingEnabled"];print("VERIFIED: authenticated production community-to-PayPal service bridge; no charge, enrollment closed.")'

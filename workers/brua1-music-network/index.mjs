@@ -38,9 +38,11 @@ export async function networkRoute(request,env){
  const url=new URL(request.url),p=url.pathname,origin=request.headers.get("Origin");
  if(url.protocol==="https:"&&p==="/health"&&request.method==="GET"){
   try{
+   let brokerConnected=false;
+   try{const probe=await networkBroker(env).readiness();brokerConnected=probe.authenticated===true;}catch{}
    const locked=env.NETWORK_MEMBER_API_ENABLED!=="true"&&env.NETWORK_INVITE_AUTH_ENABLED!=="true"&&env.NETWORK_BILLING_ENABLED!=="true";
    const info=await env.NETWORK_DB?.prepare("SELECT COUNT(*) AS n FROM network_channels").first();
-   return response(info?.n===10?200:503,{service:"brua1-music-network",databaseReady:info?.n===10,memberApiEnabled:env.NETWORK_MEMBER_API_ENABLED==="true",inviteAuthEnabled:env.NETWORK_INVITE_AUTH_ENABLED==="true",billingEnabled:env.NETWORK_BILLING_ENABLED==="true",locked},origin===ORIGIN);
+   return response(info?.n===10?200:503,{service:"brua1-music-network",databaseReady:info?.n===10,brokerConnected,memberApiEnabled:env.NETWORK_MEMBER_API_ENABLED==="true",inviteAuthEnabled:env.NETWORK_INVITE_AUTH_ENABLED==="true",billingEnabled:env.NETWORK_BILLING_ENABLED==="true",locked},origin===ORIGIN);
   }catch{return response(503,{service:"brua1-music-network",databaseReady:false},false)}
  }
  if(url.protocol!=="https:"||origin!==ORIGIN)return response(403,{error:"Origin not allowed"},false);

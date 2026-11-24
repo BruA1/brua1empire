@@ -5,5 +5,11 @@ export function networkBroker(env){
   const r=await env.NETWORK_PAYPAL_SERVICE.fetch("https://internal.invalid/internal/network-billing",{method:"POST",headers:{"Content-Type":"application/json","X-Network-Broker-Key":env.NETWORK_BROKER_KEY},body:JSON.stringify({...fields,action})});
   if(!r.ok)throw Error("Provider operation unavailable");return r.json();
  }
- return {createSubscription:x=>call("create",x),readSubscription:x=>call("read",x),cancelSubscription:x=>call("cancel",x)};
+ async function readiness(){
+  const r=await env.NETWORK_PAYPAL_SERVICE.fetch("https://internal.invalid/internal/network-billing",{method:"POST",headers:{"X-Network-Broker-Key":env.NETWORK_BROKER_KEY,"X-Network-Broker-Probe":"readiness"}});
+  if(!r.ok)throw Error("Provider bridge unavailable");
+  const data=await r.json();if(data.authenticated!==true)throw Error("Provider bridge unavailable");
+  return data;
+ }
+ return {readiness,createSubscription:x=>call("create",x),readSubscription:x=>call("read",x),cancelSubscription:x=>call("cancel",x)};
 }

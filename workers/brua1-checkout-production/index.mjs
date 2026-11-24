@@ -130,6 +130,7 @@ export default {
       if(request.method!=="POST")return respond(405,{error:"Method not allowed"});
       const key=env.NETWORK_BROKER_KEY;
       if(typeof key!=="string"||!/^[a-f0-9]{64}$/.test(key)||!secureCompare(key,request.headers.get("X-Network-Broker-Key")))return respond(403,{error:"Unauthorized"});
+      if(request.headers.get("X-Network-Broker-Probe")==="readiness")return respond(200,{authenticated:true,billingEnabled:env.NETWORK_SUBSCRIPTION_ENROLLMENT_ENABLED==="true"});
       if(env.NETWORK_SUBSCRIPTION_ENROLLMENT_ENABLED!=="true")return respond(503,{error:"Billing closed"});
       try{const body=await request.text();if(body.length>4096)throw Error("Invalid input");const x=JSON.parse(body);return respond(200,await networkProviderOperation(env,x.action,x));}catch{return respond(502,{error:"Provider operation unavailable"});}
     }
