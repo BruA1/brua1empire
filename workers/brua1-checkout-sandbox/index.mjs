@@ -1,3 +1,4 @@
+import {handleNetworkSandbox,networkTestHtml,networkTestJs} from "./network-test.mjs";
 import {matrixHtml,matrixJs,handleMatrixApi} from "./sandbox-matrix.mjs";
 // BruA1 PayPal Checkout TEST-ONLY Worker. Never attach private-master R2 here.
 // Live payments and real audio downloads are deliberately not implemented.
@@ -202,6 +203,8 @@ export default {
     const url = new URL(request.url), path = url.pathname;
     if (path === "/health" && request.method === "GET")
       return json({ service: "brua1-checkout-sandbox", mode: "sandbox", livePayments: false, realAudioDelivery: false });
+    if (path === "/network-test" && request.method === "GET") return networkTestHtml();
+    if (path === "/network-test.js" && request.method === "GET") return networkTestJs();
     if (path === "/test" && request.method === "GET") return htmlResponse();
     if (path === "/matrix" && request.method === "GET") return matrixHtml();
     if (path === "/matrix.js" && request.method === "GET") return matrixJs();
@@ -219,6 +222,7 @@ export default {
     const data = await parseBody(request);
     if (!data) return json({ error: "Invalid request body" }, 400);
     try {
+      if (path.startsWith("/api/network-test/")) return await handleNetworkSandbox({env,path,data,origin:url.origin,paypal:(p,m,b,k)=>paypal(env,p,m,b,k)});
       if (path.startsWith("/api/matrix/")) return await handleMatrixApi({env,path,data,origin:url.origin});
       if (path === "/api/create-order") {
         if (data.productId !== PILOT.id || data.tier !== PILOT.tier || data.sandboxAcknowledged !== true)

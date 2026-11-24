@@ -5,9 +5,9 @@ const planRE=/^P-[A-Z0-9]{24}$/;
 const subRE=/^I-[A-Z0-9]{8,32}$/;
 const ids=()=>crypto.randomUUID();
 const expected={monthly:499,annual:4999};
-function safeApproval(url){
+function safeApproval(url,sandbox=false){
  const u=new URL(url);
- if(u.protocol!=="https:"||u.hostname!=="www.paypal.com"||u.username||u.password||u.port||u.pathname!=="/webapps/billing/subscriptions")throw Error("Unexpected provider approval URL");
+ if(u.protocol!=="https:"||u.hostname!==(sandbox?"www.sandbox.paypal.com":"www.paypal.com")||u.username||u.password||u.port||u.pathname!=="/webapps/billing/subscriptions")throw Error("Unexpected provider approval URL");
  return u.href;
 }
 // Broker is a trusted server-side capability, never a client-supplied URL.
@@ -21,12 +21,12 @@ export async function beginEnrollment(db,broker,memberId,input,termsVersion,now)
  await stmt(db,"INSERT INTO network_enrollments(id,member_id,cycle,provider_plan_id,custom_id,terms_version,created_at,status) VALUES(?,?,?,?,?,?,?,'PENDING') ON CONFLICT(member_id) DO NOTHING",id,memberId,input.cycle,plan.provider_plan_id,custom,termsVersion,now).run();
  const row=await first(db,"SELECT * FROM network_enrollments WHERE member_id=?",memberId);
  if(row.cycle!==input.cycle||row.terms_version!==termsVersion||row.provider_plan_id!==plan.provider_plan_id||!["PENDING","APPROVAL_PENDING"].includes(row.status))throw Error("Existing enrollment requires review");
- if(row.provider_subscription_id&&row.approval_url)return {approvalUrl:safeApproval(row.approval_url),status:"APPROVAL_PENDING"};
+ if(row.provider_subscription_id&&row.approval_url)return {approvalUrl:safeApproval(row.approval_url,broker.sandbox===true),status:"APPROVAL_PENDING"};
  // Stable provider idempotency ID. Do not retry indefinitely after provider idempotency window.
  if(now-row.created_at>3600)throw Error("Enrollment expired; review required");
  const result=await broker.createSubscription({planId:row.provider_plan_id,customId:row.custom_id,requestId:row.id});
  if(!subRE.test(result.id||"")||result.plan_id!==row.provider_plan_id||result.custom_id!==row.custom_id||result.status!=="APPROVAL_PENDING")throw Error("Unexpected provider subscription");
- const approval=safeApproval(result.links?.find(l=>l.rel==="approve")?.href||"");
+ const approval=safeApproval(result.links?.find(l=>l.rel==="approve")?.href||"",broker.sandbox===true);
  const write=await stmt(db,"UPDATE network_enrollments SET provider_subscription_id=?,approval_url=?,status='APPROVAL_PENDING' WHERE id=? AND status='PENDING' AND provider_subscription_id IS NULL",result.id,approval,row.id).run();
  if(write.meta?.changes!==1){const old=await first(db,"SELECT provider_subscription_id FROM network_enrollments WHERE id=?",row.id);if(old?.provider_subscription_id!==result.id)throw Error("Enrollment conflict");}
  return {approvalUrl:approval,status:"APPROVAL_PENDING"};

@@ -6,6 +6,8 @@ on:
     branches: [main]
     paths:
       - "workers/brua1-checkout-sandbox/index.mjs"
+      - "workers/brua1-checkout-sandbox/network-test.mjs"
+      - "workers/brua1-music-network/schema.sql"
       - "workers/brua1-checkout-sandbox/sandbox-matrix.mjs"
       - "workers/brua1-checkout-sandbox/sandbox-skus.mjs"
       - "workers/brua1-checkout-sandbox/schema-matrix.sql"
@@ -39,6 +41,7 @@ jobs:
       - name: Verify test-only sandbox source and no private-master delivery
         run: |
           node --check workers/brua1-checkout-sandbox/index.mjs
+          node --check workers/brua1-checkout-sandbox/network-test.mjs
           node --check workers/brua1-checkout-sandbox/sandbox-matrix.mjs
           node --check workers/brua1-checkout-sandbox/sandbox-skus.mjs
           node --test tests/checkout-sandbox.test.mjs tests/checkout-sandbox-matrix.test.mjs
@@ -84,6 +87,7 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
           npx --yes wrangler@4 d1 execute brua1-orders-sandbox --remote --file=workers/brua1-checkout-sandbox/schema-matrix.sql --config workers/brua1-checkout-sandbox/wrangler.toml
+          npx --yes wrangler@4 d1 execute brua1-orders-sandbox --remote --file=workers/brua1-music-network/schema.sql --config workers/brua1-checkout-sandbox/wrangler.toml
 
       - name: Deploy isolated Workers.dev sandbox only
         env:
