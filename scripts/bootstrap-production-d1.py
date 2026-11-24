@@ -2,7 +2,7 @@
 import json, os, pathlib, sqlite3, urllib.request, urllib.error, re, sys
 NAME="brua1-orders-production"
 PREFIX="aaf4b1d0-7d1b-437a"
-EXPECTED={"commerce_products","commerce_audio_assets","commerce_orders","commerce_terms_acceptance","commerce_licenses","commerce_download_grants","commerce_publishing_schedules","commerce_publishing_acceptance"}
+EXPECTED={"commerce_products","commerce_audio_assets","commerce_orders","commerce_terms_acceptance","commerce_licenses","commerce_download_grants","commerce_publishing_schedules","commerce_publishing_acceptance","commerce_approved_terms","commerce_checkout_sessions","commerce_license_documents","commerce_webhook_inbox"}
 account=os.environ.get("CLOUDFLARE_ACCOUNT_ID","")
 token=os.environ.get("CLOUDFLARE_D1_API_TOKEN","")
 if not account or not token: sys.exit("Missing scoped Cloudflare account/D1 credentials")
@@ -53,7 +53,7 @@ assert len(products)==36 and len(catalog["skus"])==108
 if "commerce_products" in existing:
     for row in query("SELECT product_id,title FROM commerce_products"):
         if products.get(row["product_id"])!=row["title"]: sys.exit("Unexpected existing product; refusing bootstrap")
-for path in ("fulfillment/commerce-schema-staging.sql","fulfillment/publishing-schedules-staging.sql"):
+for path in ("fulfillment/commerce-schema-staging.sql","fulfillment/publishing-schedules-staging.sql","fulfillment/checkout-ledger-staging.sql"):
     for sql in statements(path):
         if not sql.upper().startswith(("CREATE TABLE IF NOT EXISTS","CREATE INDEX IF NOT EXISTS","CREATE TRIGGER IF NOT EXISTS")): sys.exit("Unexpected migration SQL")
         query(sql)
@@ -68,5 +68,5 @@ assert actual==products
 assert query("SELECT COUNT(*) AS n FROM commerce_products WHERE sale_enabled<>0 OR rights_cleared<>0 OR independent_qa_pass<>0")[0]["n"]==0
 assert all(count(t)==0 for t in EXPECTED-{"commerce_products"})
 triggers={r["name"] for r in query("SELECT name FROM sqlite_master WHERE type='trigger'")}
-assert {"commerce_publishing_acceptance_product_guard","commerce_publishing_acceptance_immutable","commerce_publishing_schedule_immutable"}.issubset(triggers)
-print("VERIFIED: brua1-orders-production; 8 commerce tables, 36 disabled products, 0 orders/licenses/assets/grants, publishing guards installed. Sandbox untouched; no live payments.")
+assert {"commerce_publishing_acceptance_product_guard","commerce_publishing_acceptance_immutable","commerce_publishing_schedule_immutable","commerce_checkout_acceptance_immutable","commerce_approved_terms_immutable","commerce_license_document_immutable"}.issubset(triggers)
+print("VERIFIED: brua1-orders-production; 12 commerce tables, 36 disabled products, 0 orders/licenses/assets/grants, publishing guards installed. Sandbox untouched; no live payments.")

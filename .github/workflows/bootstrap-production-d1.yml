@@ -4,6 +4,8 @@ on:
     branches: [main]
     paths:
       - ".github/workflows/bootstrap-production-d1.yml"
+      - "scripts/bootstrap-production-d1.py"
+      - "fulfillment/checkout-ledger-staging.sql"
   workflow_dispatch:
 permissions:
   contents: read
@@ -23,7 +25,7 @@ jobs:
       - name: Verify schema, staging catalog and release locks before remote migration
         run: |
           python3 -m py_compile scripts/bootstrap-production-d1.py
-          node --test tests/prepare-disabled-commerce-seed.test.mjs tests/license-v3-publishing-manifest.test.mjs tests/publishing-schedule-schema.test.mjs
+          node --test tests/prepare-disabled-commerce-seed.test.mjs tests/license-v3-publishing-manifest.test.mjs tests/publishing-schedule-schema.test.mjs tests/production-checkout-service.test.mjs tests/production-checkout-ledger.integration.test.mjs
           node --input-type=module -e 'import fs from "node:fs"; const s=JSON.parse(fs.readFileSync("fulfillment/launch-approval-status.json")); if(s.payments_live!==false||s.automatic_full_master_delivery_live!==false)process.exit(1)'
       - name: Initialize and verify only the owner-created production database
         env:
