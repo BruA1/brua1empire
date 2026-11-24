@@ -23,12 +23,13 @@ export async function checkoutRoute(request,env,{transport=fetch,serviceFactory=
  if(url.protocol!=="https:")return reply(403,{error:"HTTPS required"});
  // This additional gate remains false until the buyer receipt/download path
  // and webhook reconciliation (not just inbox persistence) are operational.
- if(!productionCheckoutReady(env)||env.BUYER_DELIVERY_ROUTE_VERIFIED!=="true"||env.WEBHOOK_RECONCILIATION_VERIFIED!=="true")return reply(503,{error:"BruA1 live checkout is not yet enabled."},cors);
- if(url.pathname==="/api/paypal/webhook"){
+ if(url.pathname==="/api/paypal/webhook"&&env.PAYPAL_WEBHOOK_ID&&env.WEBHOOK_INBOX_ENABLED==="true"){
   if(request.method!=="POST"||origin)return reply(405,{error:"Webhook POST required"});
   try{const event=await body(request,131072);await webhook(env,request.headers,event,transport);return reply(200,{accepted:true});}
   catch{return reply(400,{error:"Webhook not accepted"});}
  }
+ if(!productionCheckoutReady(env)||env.BUYER_DELIVERY_ROUTE_VERIFIED!=="true"||env.WEBHOOK_RECONCILIATION_VERIFIED!=="true")return reply(503,{error:"BruA1 live checkout is not yet enabled."},cors);
+ if(url.pathname==="/api/paypal/webhook")return reply(503,{error:"Webhook inbox not configured"});
  if(!cors)return reply(403,{error:"Origin not allowed"});
  if(request.method==="OPTIONS")return new Response(null,{status:204,headers:{...headers,"Access-Control-Allow-Origin":SITE,"Access-Control-Allow-Methods":"POST, OPTIONS","Access-Control-Allow-Headers":"Content-Type, Authorization","Vary":"Origin"}});
  if(request.method!=="POST")return reply(405,{error:"POST required"},true);

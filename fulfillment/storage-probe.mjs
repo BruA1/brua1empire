@@ -18,8 +18,8 @@ export async function probeStorage(request,env,delivery){
   const row=await env.ORDERS_DB.prepare("SELECT COUNT(*) AS total, SUM(CASE WHEN sale_enabled=0 THEN 1 ELSE 0 END) AS disabled FROM commerce_products").first();
   const db=Number(row?.total)===36&&Number(row?.disabled)===36;
   let r2=null;
-  if(delivery){const listing=await env.INSTRUMENTAL_MASTERS.list({limit:1});r2=Array.isArray(listing.objects)&&listing.objects.length>0;}
-  const verified=db&&(!delivery||r2===true);
+  if(delivery||env.INSTRUMENTAL_MASTERS){const listing=await env.INSTRUMENTAL_MASTERS.list({limit:1});r2=Array.isArray(listing.objects)&&listing.objects.length>0;}
+  const verified=db&&(!delivery&&!env.INSTRUMENTAL_MASTERS||r2===true);
   return reply(verified?200:503,{verified,databaseVerified:db,privateBucketReachable:r2,paymentsEnabled:false,deliveryEnabled:false});
  }catch{return reply(503,{verified:false,code:"STORAGE_UNAVAILABLE"});}
 }
