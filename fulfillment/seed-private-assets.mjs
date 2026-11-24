@@ -1,6 +1,6 @@
 // Link private inventory in D1; never return keys, promote rights, or enable a sale.
 import {sha256} from "./production-checkout-service.mjs";
-import manifest from "./private-master-key-digests.json";
+import manifest from "./private-master-key-digests.json" with {type:"json"};
 export async function seedPrivateAssets(env){
  if(env.LIVE_CHECKOUT_ENABLED!=="false"||env.REAL_AUDIO_DELIVERY_ENABLED!=="false"||env.CHECKOUT_ROUTES_ENABLED!=="false")throw Error("Checkout lock required");
  const db=env.ORDERS_DB,bucket=env.INSTRUMENTAL_MASTERS;

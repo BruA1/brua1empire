@@ -3,12 +3,18 @@ on:
   pull_request:
     paths:
       - "workers/brua1-checkout-production/**"
+      - "fulfillment/seed-private-assets.mjs"
+      - "fulfillment/private-master-key-digests.json"
+      - "fulfillment/production-paypal-client.mjs"
       - "tests/live-paypal-credential-holder.test.mjs"
       - ".github/workflows/deploy-checkout-production-locked.yml"
   push:
     branches: [main]
     paths:
       - "workers/brua1-checkout-production/**"
+      - "fulfillment/seed-private-assets.mjs"
+      - "fulfillment/private-master-key-digests.json"
+      - "fulfillment/production-paypal-client.mjs"
       - "tests/live-paypal-credential-holder.test.mjs"
       - ".github/workflows/deploy-checkout-production-locked.yml"
 permissions:
