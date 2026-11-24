@@ -1,0 +1,53 @@
+name: BruA1 Live PayPal Credential Holder — Locked Prelaunch QA
+on:
+  pull_request:
+    paths:
+      - "workers/brua1-checkout-production/**"
+      - "tests/live-paypal-credential-holder.test.mjs"
+      - ".github/workflows/deploy-checkout-production-locked.yml"
+  push:
+    branches: [main]
+    paths:
+      - "workers/brua1-checkout-production/**"
+      - "tests/live-paypal-credential-holder.test.mjs"
+      - ".github/workflows/deploy-checkout-production-locked.yml"
+permissions:
+  contents: read
+concurrency:
+  group: brua1-checkout-production-locked
+  cancel-in-progress: false
+jobs:
+  qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Verify live checkout Worker is hard-locked and contains no secrets
+        run: |
+          node --check workers/brua1-checkout-production/index.mjs
+          node --test tests/live-paypal-credential-holder.test.mjs
+          ! grep -Eq '^\[\[(d1_databases|r2_buckets)\]\]|^route\s*=' workers/brua1-checkout-production/wrangler.toml
+          grep -Fq 'LIVE_CHECKOUT_ENABLED = "false"' workers/brua1-checkout-production/wrangler.toml
+  deploy-locked-only:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: qa
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Publish locked-down Live credential destination only — no charges
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          test -n "$CLOUDFLARE_API_TOKEN"
+          test -n "$CLOUDFLARE_ACCOUNT_ID"
+          npx --yes wrangler@4 deploy --config workers/brua1-checkout-production/wrangler.toml
