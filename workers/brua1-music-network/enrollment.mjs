@@ -50,3 +50,15 @@ export async function refreshEnrollment(db,broker,memberId,now){
  if(results[0]?.meta?.changes!==1||results[1]?.meta?.changes!==1)throw Error("Concurrent or conflicting membership refresh");
  return {status:d.status,accessUntil:d.accessUntil};
 }
+
+export async function cancelEnrollment(db,broker,memberId,now){
+ const row=await first(db,"SELECT * FROM network_enrollments WHERE member_id=? AND provider_subscription_id IS NOT NULL",memberId);
+ if(!row)throw Error("Subscription not found");
+ const binding={subscriptionId:row.provider_subscription_id,planId:row.provider_plan_id,customId:row.custom_id};
+ await broker.cancelSubscription(binding);
+ // Confirm cancellation from the provider, not merely the POST acknowledgment.
+ const read=await broker.readSubscription(binding);
+ if(!["CANCELLED","EXPIRED"].includes(read.subscription?.status))return {cancellationConfirmed:false};
+ const entitlement=await refreshEnrollment(db,broker,memberId,now);
+ return {cancellationConfirmed:true,...entitlement};
+}

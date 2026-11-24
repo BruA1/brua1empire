@@ -1,5 +1,5 @@
 import {networkBroker} from "./paypal-broker-client.mjs";
-import {beginEnrollment,refreshEnrollment} from "./enrollment.mjs";
+import {beginEnrollment,refreshEnrollment,cancelEnrollment} from "./enrollment.mjs";
 import {redeemInvite,login,logout} from "./auth.mjs";
 // Isolated community API; invite authentication and member features remain locked by default.
 const ORIGIN="https://brua1.com";
@@ -65,6 +65,7 @@ export async function networkRoute(request,env){
   const x=await json(request);
   if(p==="/api/network/billing/begin")return response(200,await beginEnrollment(db,networkBroker(env),account.id,x,env.NETWORK_TERMS_VERSION,now));
   if(p==="/api/network/billing/refresh")return response(200,await refreshEnrollment(db,networkBroker(env),account.id,now));
+  if(p==="/api/network/billing/cancel"){if(x.confirm!==true)return response(400,{error:"Cancellation confirmation required"});return response(200,await cancelEnrollment(db,networkBroker(env),account.id,now));}
   return response(404,{error:"Not found"});
  }
  const who=await member(request,db,now);if(!who)return response(401,{error:"Active membership required"});

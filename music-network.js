@@ -31,7 +31,7 @@ for(const name of Object.keys(channels)){const b=node("button","# "+name);b.type
   await checkAccess();
  }
  async function afterLogin(){
-  by("refresh-subscription").hidden=!config;by("logout-member").hidden=false;by("billing-consent").hidden=!config;
+  by("refresh-subscription").hidden=!config;by("cancel-subscription").hidden=!config;by("logout-member").hidden=false;by("billing-consent").hidden=!config;
   for(const c of ["monthly","annual"])by("subscribe-"+c).disabled=!config?.plans.some(p=>p.cycle===c);
   await checkAccess();
  }
@@ -45,6 +45,13 @@ for(const name of Object.keys(channels)){const b=node("button","# "+name);b.type
    by("account-controls").append(a,action("Sign in",async()=>{const r=await api("auth/login",{accessKey:access.value},false);access.value="";setToken(r.sessionToken);await afterLogin()}),b,action("Redeem invitation",async()=>{const r=await api("auth/redeem",{invite:invite.value},false);invite.value="";setToken(r.sessionToken);await afterLogin();const reveal=node("p","Save your access key now: "+r.accessKey);reveal.className="notice";by("account-controls").append(reveal,action("Hide key",async()=>reveal.remove()));}));
   }
   by("refresh-subscription").addEventListener("click",()=>refresh().catch(e=>setStatus(e.message)));
+  by("cancel-subscription").addEventListener("click",async()=>{
+   if(!window.confirm("Cancel future recurring payments? Your verified paid access can continue through the paid period."))return;
+   const b=by("cancel-subscription");b.disabled=true;
+   try{const r=await api("billing/cancel",{confirm:true});await checkAccess();setStatus(r.cancellationConfirmed?"PayPal confirms cancellation. No future renewal is scheduled.":"Cancellation has not yet been confirmed. Check PayPal automatic payments.");}
+   catch{setStatus("Cancellation could not be confirmed here. Use PayPal automatic payments to stop future charges or contact support.");}
+   finally{b.disabled=false;}
+  });
   by("logout-member").addEventListener("click",async()=>{try{await api("auth/logout",{});}finally{token="";sessionStorage.removeItem("brua1_network_session");location.replace(location.pathname+"#membership");}});
   for(const cycle of ["monthly","annual"])by("subscribe-"+cycle).addEventListener("click",async()=>{
    const b=by("subscribe-"+cycle);b.disabled=true;
