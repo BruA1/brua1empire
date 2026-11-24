@@ -37,6 +37,6 @@ jobs:
           const c=JSON.parse(fs.readFileSync("contracts/instrumental-terms-draft-v2.json","utf8"));
           const s=JSON.parse(fs.readFileSync("catalog/store-skus-staging.json","utf8"));
           const g=JSON.parse(fs.readFileSync("fulfillment/launch-approval-status.json","utf8"));
-          if(!c.not_live||c.public_license_issuance_enabled||!s.skus.every(x=>!x.checkout_enabled&&!x.fulfillment_enabled)||g.payments_live||g.automatic_full_master_delivery_live||Object.entries(g.launch_gates).some(([k,v])=>v!==false&&!(v===true&&((k==="songwriter_publishing_split_policy_finalized"&&g.completed.production_publishing_schedules_36_verified)||(k==="paypal_live_merchant_credentials_configured"&&g.completed.paypal_merchant_id_encrypted_configured)))))process.exit(1);
+          if(!c.not_live||c.public_license_issuance_enabled||!s.skus.every(x=>!x.checkout_enabled&&!x.fulfillment_enabled)||g.payments_live||g.automatic_full_master_delivery_live||Object.entries(g.launch_gates).some(([k,v])=>v!==false&&!(v===true&&((k==="songwriter_publishing_split_policy_finalized"&&g.completed.production_publishing_schedules_36_verified)||(k==="paypal_live_merchant_credentials_configured"&&g.completed.paypal_merchant_id_encrypted_configured)||(k==="owner_final_go_live_signoff"&&g.completed.owner_final_business_launch_authorization_received)))))process.exit(1);
           console.log("PASS: production purchasing, license issuance and clean audio delivery remain disabled");
           EOF

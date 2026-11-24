@@ -79,10 +79,11 @@ jobs:
           const catalog=JSON.parse(fs.readFileSync("catalog/store-skus-staging.json","utf8"));
           const fail=(m)=>{throw new Error(m)};
           if(status.payments_live!==false||status.automatic_full_master_delivery_live!==false)fail("Live activity must remain OFF");
-          const evidenced=new Set(["songwriter_publishing_split_policy_finalized","paypal_live_merchant_credentials_configured"]);
+          const evidenced=new Set(["songwriter_publishing_split_policy_finalized","paypal_live_merchant_credentials_configured","owner_final_go_live_signoff"]);
           if(Object.entries(status.launch_gates).some(([k,v])=>v!==false&&!(v===true&&evidenced.has(k))))fail("Unverified release gate marked true");
           if(status.launch_gates.songwriter_publishing_split_policy_finalized&&!status.completed.production_publishing_schedules_36_verified)fail("Publishing evidence missing");
           if(status.launch_gates.paypal_live_merchant_credentials_configured&&!status.completed.paypal_merchant_id_encrypted_configured)fail("Merchant evidence missing");
+          if(status.launch_gates.owner_final_go_live_signoff&&!status.completed.owner_final_business_launch_authorization_received)fail("Owner authorization evidence missing");
           if(!agreement.not_live||agreement.public_license_issuance_enabled!==false)fail("Draft agreement treated as issued");
           if(catalog.skus.length!==108||new Set(catalog.skus.map(x=>x.product_id)).size!==36)fail("Catalog matrix changed");
           if(catalog.skus.some(x=>x.checkout_enabled||x.fulfillment_enabled||x.rights_cleared))fail("Unapproved track marked live");
