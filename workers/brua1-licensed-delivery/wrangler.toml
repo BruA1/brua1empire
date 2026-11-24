@@ -1,0 +1,18 @@
+# Isolated, DISABLED-BY-DEFAULT buyer delivery gateway.
+# No public route or D1/R2 bindings pending independent approval.
+name = "brua1-licensed-delivery-stage"
+main = "index.mjs"
+compatibility_date = "2026-11-23"
+workers_dev = true
+keep_vars = true
+
+[vars]
+PAYPAL_ENVIRONMENT = "sandbox"
+LIVE_DELIVERY_ENABLED = "false"
+OWNER_FINAL_GO_LIVE_SIGNOFF = "false"
+AGREEMENT_STATUS = "DRAFT"
+FINAL_TERMS_PUBLISHED = "false"
+MERCHANT_IDENTITY_VERIFIED = "false"
+ALLOWED_ORIGIN = "https://brua1.com"
+
+# No production PayPal credentials and no R2/D1 bindings.

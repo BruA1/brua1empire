@@ -1,0 +1,64 @@
+name: BruA1 Licensed Delivery Stage — QA and Safe Disabled Deployment
+on:
+  pull_request:
+    paths:
+      - "fulfillment/secure-issuance.mjs"
+      - "workers/brua1-licensed-delivery/**"
+      - "tests/licensed-delivery-service.test.mjs"
+      - ".github/workflows/fulfillment-service-stage-qa.yml"
+  push:
+    branches: [main]
+    paths:
+      - "fulfillment/secure-issuance.mjs"
+      - "workers/brua1-licensed-delivery/**"
+      - "tests/licensed-delivery-service.test.mjs"
+      - ".github/workflows/fulfillment-service-stage-qa.yml"
+permissions:
+  contents: read
+concurrency:
+  group: brua1-licensed-delivery-stage
+  cancel-in-progress: false
+jobs:
+  qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Verify exact launch gate and Worker syntax
+        run: |
+          node --check fulfillment/secure-issuance.mjs
+          node --check workers/brua1-licensed-delivery/index.mjs
+          node --check fulfillment/private-delivery.mjs
+      - name: Test PayPal capture, accepted terms, license entitlement and private MP3/WAV token delivery
+        run: node --test tests/licensed-delivery-service.test.mjs
+      - name: Require disabled staging, no private bindings, no custom domain
+        run: |
+          grep -Fq 'LIVE_DELIVERY_ENABLED = "false"' workers/brua1-licensed-delivery/wrangler.toml
+          grep -Fq 'PAYPAL_ENVIRONMENT = "sandbox"' workers/brua1-licensed-delivery/wrangler.toml
+          grep -Fq 'OWNER_FINAL_GO_LIVE_SIGNOFF = "false"' workers/brua1-licensed-delivery/wrangler.toml
+          ! grep -Eq '^\[\[(r2_buckets|d1_databases)\]\]|^route\s*=' workers/brua1-licensed-delivery/wrangler.toml
+          ! grep -Eq 'PAYPAL_CLIENT_(ID|SECRET)\s*=' workers/brua1-licensed-delivery/wrangler.toml
+          echo "PASS: zero R2/D1 bindings; disabled by default, no live PayPal secrets or custom domain"
+  deploy-disabled-stage:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: qa
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Deploy DISABLED isolated prelaunch delivery service only
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          test -n "$CLOUDFLARE_API_TOKEN"
+          test -n "$CLOUDFLARE_ACCOUNT_ID"
+          npx --yes wrangler@4 deploy --config workers/brua1-licensed-delivery/wrangler.toml
