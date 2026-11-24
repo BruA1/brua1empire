@@ -28,7 +28,7 @@ jobs:
       - name: Verify live checkout Worker is hard-locked and contains no secrets
         run: |
           node --check workers/brua1-checkout-production/index.mjs
-          node --test tests/live-paypal-credential-holder.test.mjs tests/live-paypal-oauth-probe.test.mjs tests/storage-probe.test.mjs tests/production-checkout-routes.test.mjs tests/production-checkout-service.test.mjs tests/production-checkout-ledger.integration.test.mjs
+          node --test tests/live-paypal-credential-holder.test.mjs tests/live-paypal-oauth-probe.test.mjs tests/storage-probe.test.mjs tests/production-checkout-routes.test.mjs tests/production-checkout-service.test.mjs tests/production-checkout-ledger.integration.test.mjs tests/paypal-webhook-provision.test.mjs
           ! grep -Eq '^\[\[(d1_databases|r2_buckets)\]\]|^route\s*=' workers/brua1-checkout-production/wrangler.toml
           grep -Fq 'CHECKOUT_ROUTES_ENABLED = "false"' workers/brua1-checkout-production/wrangler.toml
           grep -Fq 'LIVE_CHECKOUT_ENABLED = "false"' workers/brua1-checkout-production/wrangler.toml
@@ -124,6 +124,9 @@ jobs:
               print("BruA1 PayPal LIVE OAuth: NOT VERIFIED (INVALID_RESULT)")
               sys.exit(1)
           PY
+          # Resolve the 72 approved-candidate key digests inside private R2.
+          ASSET_RESULT="$(curl --silent --show-error --max-time 60 -X POST -H "Authorization: Bearer $PROBE_TOKEN" "https://brua1-checkout-production.a1productions0527.workers.dev/internal/seed-private-assets")"
+          ASSET_RESULT="$ASSET_RESULT" python3 -c 'import os,json; x=json.loads(os.environ["ASSET_RESULT"]); assert x.get("verified") is True and x.get("assets")==72 and x.get("tracks")==36 and x.get("paymentsEnabled") is False and x.get("deliveryEnabled") is False; print("VERIFIED: 36 MP3 + 36 WAV private asset mappings installed in production D1; no sales or downloads activated.")'
           # Register only this app's payment notification subscription, then read it back.
           WEBHOOK_RESULT="$(curl --silent --show-error --max-time 30 -X POST -H "Authorization: Bearer $PROBE_TOKEN" "https://brua1-checkout-production.a1productions0527.workers.dev/internal/provision-paypal-webhook")"
           WEBHOOK_ID="$(WEBHOOK_RESULT="$WEBHOOK_RESULT" python3 -c 'import json,os,re; x=json.loads(os.environ["WEBHOOK_RESULT"]); assert x.get("verified") is True and x.get("registeredEvents")==4 and x.get("paymentsEnabled") is False; i=x["webhookId"]; assert re.fullmatch("[A-Z0-9]{8,50}",i); print(i)')"

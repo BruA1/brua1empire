@@ -1,3 +1,4 @@
+import {seedPrivateAssets} from "../../fulfillment/seed-private-assets.mjs";
 import {provisionWebhook} from "../../fulfillment/paypal-webhook-provision.mjs";
 import {checkoutRoute} from "./checkout-routes.mjs";
 import {probeStorage} from "../../fulfillment/storage-probe.mjs";
@@ -106,6 +107,13 @@ export default {
       // details ever appear in this response.
       return respond(report.httpStatus,{verified:report.verified,code:report.code,
         check:"paypal-live-oauth",paymentsEnabled:false});
+    }
+    if(url.pathname==="/internal/seed-private-assets"){
+      if(request.method!=="POST")return respond(405,{verified:false});
+      const bearer=(request.headers.get("Authorization")||"").replace(/^Bearer /,"");
+      if(!verifyNonce(env.PAYPAL_VERIFY_NONCE,bearer))return respond(401,{verified:false,code:"NOT_AUTHORIZED"});
+      try{return respond(200,await seedPrivateAssets(env));}
+      catch{return respond(502,{verified:false,code:"ASSET_MAPPING_FAILED"});}
     }
     if(url.pathname==="/internal/provision-paypal-webhook"){
       if(request.method!=="POST")return respond(405,{verified:false});
