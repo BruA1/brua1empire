@@ -16,14 +16,20 @@ export async function provisionNetworkPlans(env,transport=fetch){
  async function request(path,{method="GET",body,requestId,allow404=false}={}){
   const r=await transport(BASE+path,{method,headers:{Authorization:"Bearer "+token,Accept:"application/json","Content-Type":"application/json",Prefer:"return=representation",...(requestId?{"PayPal-Request-Id":requestId}:{})},...(body?{body:JSON.stringify(body)}:{})});
   if(allow404&&r.status===404)return null;
-  if(!r.ok)throw Error("PayPal plan operation failed: "+r.status);
+  if(!r.ok){
+   const err=await r.json().catch(()=>({}));
+   const label=path.startsWith("/v1/catalogs/products")?"PRODUCT":path.startsWith("/v1/billing/plans")?(method==="POST"?"PLAN_CREATE":path.includes("?")?"PLAN_LIST":"PLAN_READ"):"OTHER";
+   const safe=x=>typeof x==="string"&&/^[A-Z0-9_./-]{1,100}$/.test(x)?x:"UNKNOWN";
+   const detail=(err.details||[]).slice(0,3).map(d=>safe(d.issue)+":"+safe(d.field)).join(",");
+   throw Error("NETWORK_PAYPAL_"+label+"_"+r.status+"_"+safe(err.name)+(detail?"_"+detail:""));
+  }
   return r.json();
  }
  let product=await request("/v1/catalogs/products/"+PRODUCT,{allow404:true});
  if(!product)product=await request("/v1/catalogs/products",{method:"POST",requestId:"brua1-network-product-v1",body:{id:PRODUCT,name:NAME,type:"SERVICE",description:"Membership access to music industry directory and online community."}});
  product=await request("/v1/catalogs/products/"+PRODUCT);
  if(product.id!==PRODUCT||product.name!==NAME||product.type!=="SERVICE")throw Error("Product mismatch");
- const listed=await request("/v1/billing/plans?product_id="+PRODUCT+"&page_size=20&total_required=true");
+ const listed=await request("/v1/billing/plans?product_id="+PRODUCT+"&page_size=20&page=1&total_required=true");
  if(!Array.isArray(listed.plans)||listed.total_pages>1||listed.links?.some(l=>l.rel==="next"))throw Error("Unexpected plan list");
  const results=[];
  for(const spec of PLANS){

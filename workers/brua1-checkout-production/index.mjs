@@ -130,7 +130,7 @@ export default {
       const bearer=(request.headers.get("Authorization")||"").replace(/^Bearer /,"");
       if(!verifyNonce(env.PAYPAL_VERIFY_NONCE,bearer))return respond(401,{verified:false,code:"NOT_AUTHORIZED"});
       try{return respond(200,await provisionNetworkPlans(env));}
-      catch(e){return respond(502,{verified:false,code:/^PayPal plan operation failed: [0-9]{3}$/.test(e.message)?e.message:"NETWORK_PLAN_SETUP_FAILED"});}
+      catch(e){return respond(502,{verified:false,code:/^NETWORK_PAYPAL_[A-Z0-9_./:,\-]{1,500}$/.test(e.message)?e.message:"NETWORK_PLAN_SETUP_FAILED"});}
     }
     if(url.pathname==="/internal/verify-live-merchant"){
       if(request.method!=="POST")return respond(405,{verified:false});
