@@ -28,8 +28,9 @@ jobs:
       - name: Verify live checkout Worker is hard-locked and contains no secrets
         run: |
           node --check workers/brua1-checkout-production/index.mjs
-          node --test tests/live-paypal-credential-holder.test.mjs tests/live-paypal-oauth-probe.test.mjs tests/storage-probe.test.mjs
+          node --test tests/live-paypal-credential-holder.test.mjs tests/live-paypal-oauth-probe.test.mjs tests/storage-probe.test.mjs tests/production-checkout-routes.test.mjs tests/production-checkout-service.test.mjs tests/production-checkout-ledger.integration.test.mjs
           ! grep -Eq '^\[\[(d1_databases|r2_buckets)\]\]|^route\s*=' workers/brua1-checkout-production/wrangler.toml
+          grep -Fq 'CHECKOUT_ROUTES_ENABLED = "false"' workers/brua1-checkout-production/wrangler.toml
           grep -Fq 'LIVE_CHECKOUT_ENABLED = "false"' workers/brua1-checkout-production/wrangler.toml
   deploy-locked-only:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'

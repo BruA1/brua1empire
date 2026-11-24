@@ -1,15 +1,14 @@
+import {checkoutRoute} from "./checkout-routes.mjs";
 import {probeStorage} from "../../fulfillment/storage-probe.mjs";
 /**
  * BruA1 dedicated LIVE PayPal checkout identity holder — PRELAUNCH LOCK.
  *
- * This Worker deliberately cannot take real-money payments or deliver masters.
+ * This Worker has gated payment routes; deployed prelaunch flags prevent real-money payments or delivery.
  * It is separate from the operational brua1-checkout-sandbox Worker.
  * Live credentials must ONLY be entered through Cloudflare encrypted Worker
  * secrets; never GitHub repository contents or a browser chat.
  *
- * This is a credential-configuration destination, NOT a checkout release.
- * The handler must be replaced by independently QA-approved production code
- * before any purchase endpoints can be enabled.
+ * This remains a prelaunch deployment, NOT an active checkout release.
  */
 const DEFAULT_HEADERS = Object.freeze({
   "Cache-Control":"no-store",
@@ -118,6 +117,8 @@ export default {
         sandboxUnaffected:true
       });
     }
+    const routed=await checkoutRoute(request,env);
+    if(routed)return routed;
     if(url.pathname.startsWith("/api/") || url.pathname.startsWith("/checkout")) {
       return respond(503,{error:"BruA1 live checkout is not yet enabled."});
     }

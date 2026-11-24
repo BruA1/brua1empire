@@ -47,6 +47,18 @@ export function createCheckoutService(env,{transport=fetch}={}){
  assert(productionCheckoutReady(env),"Production checkout locked");
  const db=env.ORDERS_DB, paypal=productionPayPalClient(env,transport);
  return Object.freeze({
+  async offer(input){
+   const row={product_id:input.productId,tier:input.tier,price_cents:EXPECTED_PRICE_CENTS[input.tier],terms_version:env.APPROVED_TERMS_VERSION,terms_hash:env.APPROVED_TERMS_SHA256};
+   const product=await checkProduct(db,row);
+   // Until version selection is explicitly configured, multiple approved
+   // schedules for one track require operator review rather than guessing.
+   const schedules=await stmt(db,"SELECT schedule_version,schedule_sha256 FROM commerce_publishing_schedules WHERE product_id=? LIMIT 2",row.product_id).all();
+   assert(schedules.results?.length===1,"Track publishing schedule unavailable");
+   row.schedule_version=schedules.results[0].schedule_version;
+   row.schedule_hash=schedules.results[0].schedule_sha256;
+   const docs=await verifyTerms(db,row,env);
+   return {productId:row.product_id,title:product.title,tier:row.tier,priceCents:row.price_cents,currency:"USD",termsVersion:row.terms_version,termsHash:row.terms_hash,scheduleVersion:row.schedule_version,scheduleHash:row.schedule_hash,agreement:docs.terms,publishingSchedule:docs.schedule};
+  },
   async begin(input){
    assert(input?.accepted===true&&input?.publishingAccepted===true,"Affirmative agreement and publishing acceptance required");
    const buyer=String(input.buyerEmail||"").trim();
