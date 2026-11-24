@@ -5,6 +5,8 @@ on:
       - "workers/brua1-checkout-production/**"
       - "fulfillment/seed-private-assets.mjs"
       - "fulfillment/audit-private-audio.mjs"
+      - "fulfillment/network-paypal-plans.mjs"
+      - "tests/network-paypal-plans.test.mjs"
       - "fulfillment/private-master-key-digests.json"
       - "fulfillment/production-paypal-client.mjs"
       - "fulfillment/production-checkout-service.mjs"
@@ -18,6 +20,8 @@ on:
       - "workers/brua1-checkout-production/**"
       - "fulfillment/seed-private-assets.mjs"
       - "fulfillment/audit-private-audio.mjs"
+      - "fulfillment/network-paypal-plans.mjs"
+      - "tests/network-paypal-plans.test.mjs"
       - "fulfillment/private-master-key-digests.json"
       - "fulfillment/production-paypal-client.mjs"
       - "fulfillment/production-checkout-service.mjs"
@@ -42,7 +46,7 @@ jobs:
       - name: Verify live checkout Worker is hard-locked and contains no secrets
         run: |
           node --check workers/brua1-checkout-production/index.mjs
-          node --test tests/live-paypal-credential-holder.test.mjs tests/live-paypal-oauth-probe.test.mjs tests/storage-probe.test.mjs tests/production-checkout-routes.test.mjs tests/production-checkout-service.test.mjs tests/production-checkout-ledger.integration.test.mjs tests/paypal-webhook-provision.test.mjs tests/paypal-merchant-probe.test.mjs tests/private-audio-header.test.mjs
+          node --test tests/live-paypal-credential-holder.test.mjs tests/live-paypal-oauth-probe.test.mjs tests/storage-probe.test.mjs tests/production-checkout-routes.test.mjs tests/production-checkout-service.test.mjs tests/production-checkout-ledger.integration.test.mjs tests/paypal-webhook-provision.test.mjs tests/paypal-merchant-probe.test.mjs tests/private-audio-header.test.mjs tests/network-paypal-plans.test.mjs
           ! grep -Eq '^\[\[(d1_databases|r2_buckets)\]\]|^route\s*=' workers/brua1-checkout-production/wrangler.toml
           grep -Fq 'CHECKOUT_ROUTES_ENABLED = "false"' workers/brua1-checkout-production/wrangler.toml
           grep -Fq 'LIVE_CHECKOUT_ENABLED = "false"' workers/brua1-checkout-production/wrangler.toml
@@ -155,3 +159,6 @@ jobs:
           echo "::add-mask::$MERCHANT_ID"
           printf '%s' "$MERCHANT_ID" | npx --yes wrangler@4 secret put PAYPAL_MERCHANT_ID --config workers/brua1-checkout-production/wrangler.bound.toml >/dev/null
           echo "VERIFIED: PayPal default Live merchant matches owner screenshot; ID configured as encrypted Worker secret. No payment captured."
+          # Define both recurring plans in PayPal LIVE, with CREATED status: cannot enroll.
+          NETWORK_RESULT="$(curl --silent --show-error --max-time 90 -X POST -H "Authorization: Bearer $PROBE_TOKEN" "https://brua1-checkout-production.a1productions0527.workers.dev/internal/provision-network-plans")"
+          NETWORK_RESULT="$NETWORK_RESULT" python3 -c 'import os,json; x=json.loads(os.environ["NETWORK_RESULT"]); assert x.get("verified") is True, x.get("code","UNKNOWN"); assert x.get("enrollmentEnabled") is False and x.get("chargesCreated") is False; assert len(x["plans"])==2 and all(p["status"] in ["CREATED","INACTIVE"] for p in x["plans"]); assert {p["key"]:p["amount"] for p in x["plans"]}=={"monthly":"4.99","annual":"49.99"}; print("VERIFIED: PayPal LIVE Music Network monthly USD 4.99 and annual USD 49.99 plans created/read back, enrollment disabled; zero subscriptions or charges.")'
