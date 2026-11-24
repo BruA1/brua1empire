@@ -32,7 +32,7 @@ export function productionConfigFromEnv(env){
 }
 
 export function productionDeliveryEnabled(env,config=productionConfigFromEnv(env)){
- return config.enabled===true&&config.owner_signed_off===true&&
+ return Boolean(config.enabled===true&&config.owner_signed_off===true&&
    config.environment==="production"&&config.agreement_status==="LEGAL_APPROVED"&&
    config.approved_terms_published===true&&
    /^BRUA1-LEGAL-APPROVED-[A-Z0-9_-]+$/.test(config.approved_terms_version||"")&&
@@ -47,7 +47,7 @@ export function productionDeliveryEnabled(env,config=productionConfigFromEnv(env
    env?.PAYPAL_CLIENT_ID&&env?.PAYPAL_CLIENT_SECRET&&
    env?.PAYPAL_MERCHANT_ID&&env?.INTERNAL_FULFILLMENT_KEY&&
    env?.ORDERS_DB&&env?.INSTRUMENTAL_MASTERS&&
-   config.allowed_origin==="https://brua1.com";
+   config.allowed_origin==="https://brua1.com");
 }
 
 async function paypalGetVerifiedOrder(env,orderId,transport){
