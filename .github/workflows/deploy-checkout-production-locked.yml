@@ -101,7 +101,8 @@ jobs:
                         and r.get("paymentsEnabled") is False)
               allowed={"PAYPAL_LIVE_OAUTH_ACCEPTED","LIVE_CREDENTIAL_MISSING","PAYPAL_REJECTED_CREDENTIALS",
                        "PAYPAL_OAUTH_UNAVAILABLE","PAYPAL_OAUTH_INVALID_RESPONSE",
-                       "PAYPAL_CONNECTION_ERROR","PRELAUNCH_GATE_NOT_LOCKED","NOT_AUTHORIZED"}
+                       "PAYPAL_NETWORK_OR_TLS_ERROR","PAYPAL_CREDENTIAL_ENCODING_ERROR",
+                       "WORKER_TIMEOUT_UNSUPPORTED","PAYPAL_RESPONSE_NOT_JSON","PRELAUNCH_GATE_NOT_LOCKED","NOT_AUTHORIZED"}
               code=r.get("code","UNRECOGNIZED_RESPONSE")
               if code not in allowed: code="UNRECOGNIZED_RESPONSE"
               print("BruA1 PayPal LIVE OAuth: "+("PASS" if accepted else "NOT VERIFIED")+" ("+code+")")
