@@ -4,7 +4,8 @@ test("creates and reads back two non-enrollable plans, idempotent rerun; no subs
  let product=null;const plans=[];const calls=[];
  async function transport(url,opts){const path=new URL(url).pathname;calls.push(path);const data=opts.body?.startsWith("{")?JSON.parse(opts.body):null;
  if(path.endsWith("/token"))return Response.json({access_token:"fixture"});
- if(path==="/v1/catalogs/products"&&opts.method==="POST"){product=data;return Response.json(product)}
+ if(path==="/v1/catalogs/products"&&opts.method==="GET")return Response.json({products:product?[product]:[],total_pages:1});
+ if(path==="/v1/catalogs/products"&&opts.method==="POST"){assert.equal(data.id,undefined,"PayPal must generate the reserved product ID");product={...data,id:"PROD-123456789ABCDEFGH"};return Response.json(product)}
  if(path.startsWith("/v1/catalogs/products/"))return product?Response.json(product):new Response(null,{status:404});
  if(path==="/v1/billing/plans"&&opts.method==="GET")return Response.json({plans,total_pages:1});
  if(path==="/v1/billing/plans"&&opts.method==="POST"){const plan={...data,id:"P-"+String(plans.length+1).padStart(24,"A")};plans.push(plan);return Response.json(plan)}
