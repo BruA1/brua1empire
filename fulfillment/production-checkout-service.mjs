@@ -1,3 +1,4 @@
+import {reconcileVerifiedEvent} from "./paypal-event-reconciliation.mjs";
 // Server-side checkout orchestration. No route may be enabled before final release.
 import {productionPayPalClient} from "./production-paypal-client.mjs";
 import {HELD_PRODUCTS,EXPECTED_PRICE_CENTS,EXPECTED_FORMATS,verifyPayPalWebhook} from "./paypal-payment-gates.mjs";
@@ -141,5 +142,9 @@ export async function receiveVerifiedWebhook(env,headers,event,transport=fetch){
  assert(typeof verified.event_id==="string"&&verified.event_id.length<=128,"Invalid event ID");
  const resource=typeof event.resource?.id==="string"&&event.resource.id.length<=128?event.resource.id:null;
  await stmt(env.ORDERS_DB,"INSERT INTO commerce_webhook_inbox(event_id,event_type,resource_id,received_at) VALUES(?,?,?,?) ON CONFLICT(event_id) DO NOTHING",verified.event_id,verified.type,resource,now()).run();
+ if(env.WEBHOOK_RECONCILIATION_ENABLED==="true"){
+  const result=await reconcileVerifiedEvent(env,event,verified,accessToken,transport);
+  return {accepted:true,reconciliationRequired:result.status==="MANUAL_REVIEW"};
+ }
  return {accepted:true,reconciliationRequired:true};
 }

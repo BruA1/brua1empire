@@ -1,3 +1,4 @@
+import {reconcileVerifiedEvent} from "../fulfillment/paypal-event-reconciliation.mjs";
 import {buyerGrants,buyerDownload} from "../fulfillment/buyer-delivery.mjs";
 import test from "node:test";
 import assert from "node:assert/strict";
@@ -77,5 +78,27 @@ test("buyer session receives only paid format and cannot reset three-use grant",
  assert.equal((await buyerDownload(f.env,request())).status,403);
  await assert.rejects(buyerGrants(f.env,session,f.transport),/exhausted/);
  assert.equal(f.sqlite.prepare("SELECT count(*) AS n FROM commerce_download_grants").get().n,1);
+ f.sqlite.close();
+});
+
+test("verified full refund blocks delivery, revokes license, deduplicates reconciliation",async()=>{
+ const f=await fixture(),session=await f.service.begin(f.input);
+ await f.service.create(session);await f.service.capture(session);
+ const grant=await buyerGrants(f.env,session,f.transport);
+ const event={id:"EVENT-REFUND-1",event_type:"PAYMENT.CAPTURE.REFUNDED",resource:{id:"REFUND123"}};
+ const verification={verified:true,event_id:event.id,type:event.event_type};
+ f.sqlite.prepare("INSERT INTO commerce_webhook_inbox(event_id,event_type,resource_id,received_at) VALUES(?,?,?,?)").run(event.id,event.event_type,"REFUND123","2026-11-24");
+ const transport=async url=>{
+  if(url.endsWith("/refunds/REFUND123"))return Response.json({id:"REFUND123",status:"COMPLETED",supplementary_data:{related_ids:{capture_id:captureId}}});
+  if(url.endsWith("/captures/"+captureId))return Response.json({id:captureId,status:"REFUNDED",amount:{currency_code:"USD",value:"29.99"},supplementary_data:{related_ids:{order_id:orderId}}});
+  return f.transport(url,{method:"GET"});
+ };
+ assert.equal((await reconcileVerifiedEvent(f.env,event,verification,"fake",transport)).status,"REFUND_RECONCILED");
+ assert.equal(f.sqlite.prepare("SELECT status FROM commerce_orders").get().status,"REFUNDED");
+ assert.equal(f.sqlite.prepare("SELECT status FROM commerce_licenses").get().status,"REVOKED");
+ assert.ok(f.sqlite.prepare("SELECT revoked_at FROM commerce_download_grants").get().revoked_at);
+ const req=new Request("https://example.invalid/api/checkout/download",{method:"POST",headers:{Authorization:"Bearer "+grant.grants[0].token,Origin:"https://brua1.com"}});
+ assert.equal((await buyerDownload(f.env,req)).status,403);
+ assert.equal((await reconcileVerifiedEvent(f.env,event,verification,"fake",()=>{throw Error("duplicate must not call provider")})).status,"REFUND_RECONCILED");
  f.sqlite.close();
 });
