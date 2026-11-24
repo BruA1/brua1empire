@@ -24,11 +24,11 @@ def query(sql):
  r=call(base+"/"+uuid+"/query",{"sql":sql})
  assert all(x["success"] for x in r)
  return r[-1].get("results",[])
-expected=set("network_members network_memberships network_sessions network_profiles network_roles network_channels network_threads network_posts network_chat_messages network_blocks network_reports network_dm network_invites network_login_keys".split())
+expected=set("network_members network_memberships network_sessions network_profiles network_roles network_channels network_threads network_posts network_chat_messages network_blocks network_reports network_dm network_invites network_login_keys network_billing_plans network_enrollments network_subscription_ledger".split())
 def tables():
  return {r["name"] for r in query("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%' AND name NOT LIKE '_cf_%'")}
 assert not (tables()-expected)
-for t in tables()-{"network_channels"}:
+for t in tables()-{"network_channels","network_billing_plans"}:
  assert query("SELECT COUNT(*) AS n FROM "+t)[0]["n"]==0
 path=pathlib.Path("workers/brua1-music-network/schema.sql")
 buf=""
@@ -41,11 +41,11 @@ for line in path.read_text().splitlines():
   assert s.upper().startswith(("CREATE TABLE IF NOT EXISTS NETWORK_","CREATE INDEX IF NOT EXISTS NETWORK_","INSERT OR IGNORE INTO NETWORK_CHANNELS"))
   query(s)
 assert tables()==expected
-assert all(query("SELECT COUNT(*) AS n FROM "+t)[0]["n"]==0 for t in expected-{"network_channels"})
+assert all(query("SELECT COUNT(*) AS n FROM "+t)[0]["n"]==0 for t in expected-{"network_channels","network_billing_plans"})
 assert query("SELECT COUNT(*) AS n FROM network_channels")[0]["n"]==10
 p=pathlib.Path("workers/brua1-music-network/wrangler.toml")
 conf=p.read_text()
 assert all(f+' = "false"' in conf for f in ["NETWORK_MEMBER_API_ENABLED","NETWORK_INVITE_AUTH_ENABLED","NETWORK_BILLING_ENABLED"])
 assert "[[d1_databases]]" not in conf and "[[r2_buckets]]" not in conf
 p.with_name("wrangler.bound.toml").write_text(conf+'\n[[d1_databases]]\nbinding = "NETWORK_DB"\ndatabase_name = "'+name+'"\ndatabase_id = "'+uuid+'"\n')
-print("VERIFIED: separate Music Network D1, 14 tables, 10 channels, zero members or subscriptions. Commerce database untouched.")
+print("VERIFIED: separate Music Network D1, 17 tables, 10 channels, zero members or subscriptions. Commerce database untouched.")

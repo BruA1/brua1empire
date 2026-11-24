@@ -1,3 +1,4 @@
+import {beginEnrollment,refreshEnrollment} from "./enrollment.mjs";
 import {redeemInvite,login,logout} from "./auth.mjs";
 // Isolated community API; invite authentication and member features remain locked by default.
 const ORIGIN="https://brua1.com";
@@ -11,6 +12,11 @@ const all=async(db,sql,...p)=>(await stmt(db,sql,...p).all()).results;
 const sha256=async t=>Array.from(new Uint8Array(await crypto.subtle.digest("SHA-256",new TextEncoder().encode(t))),b=>b.toString(16).padStart(2,"0")).join("");
 const bounded=(x,n,required=false)=>{if(typeof x!=="string"||x.length>n||(required&&!x.trim()))throw Error("Invalid text");return x.trim();};
 const active="m.status='ACTIVE' AND sub.status IN ('ACTIVE','TRIAL','CANCELED') AND sub.access_until>?";
+async function signedIn(request,db,now){
+ const token=(request.headers.get("Authorization")||"").replace(/^Bearer /,"");
+ if(!tokenRE.test(token))return null;
+ return first(db,"SELECT m.id,m.display_name FROM network_sessions s JOIN network_members m ON m.id=s.member_id WHERE s.token_hash=? AND s.revoked_at IS NULL AND s.expires_at>? AND m.status='ACTIVE'",await sha256(token),now);
+}
 async function member(request,db,now){
  const token=(request.headers.get("Authorization")||"").replace(/^Bearer /,"");
  if(!tokenRE.test(token))return null;
@@ -47,6 +53,15 @@ export async function networkRoute(request,env){
   const x=await json(request);
   const result=p==="/api/network/auth/redeem"?await redeemInvite(db,x.invite,now):p==="/api/network/auth/login"?await login(db,x.accessKey,now):null;
   return result?response(200,result):response(401,{error:"Invalid or unavailable access key"});
+ }
+ if(p.startsWith("/api/network/billing/")){
+  if(env.NETWORK_BILLING_ENABLED!=="true"||!env.NETWORK_PAYPAL_BROKER||!env.NETWORK_TERMS_VERSION)return response(503,{error:"Subscription enrollment is closed"});
+  const account=await signedIn(request,db,now);if(!account)return response(401,{error:"Sign in required"});
+  if(request.method!=="POST")return response(405,{error:"POST required"});
+  const x=await json(request);
+  if(p==="/api/network/billing/begin")return response(200,await beginEnrollment(db,env.NETWORK_PAYPAL_BROKER,account.id,x,env.NETWORK_TERMS_VERSION,now));
+  if(p==="/api/network/billing/refresh")return response(200,await refreshEnrollment(db,env.NETWORK_PAYPAL_BROKER,account.id,now));
+  return response(404,{error:"Not found"});
  }
  const who=await member(request,db,now);if(!who)return response(401,{error:"Active membership required"});
  const get=request.method==="GET",post=request.method==="POST";

@@ -24,7 +24,7 @@ jobs:
         with:
           node-version: "22"
       - name: Test authentication and membership access controls
-        run: node --test tests/music-network.test.mjs
+        run: node --test tests/music-network.test.mjs tests/network-subscription-entitlement.test.mjs tests/network-enrollment.test.mjs
       - name: Provision isolated community D1 only
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
