@@ -78,11 +78,20 @@ jobs:
           printf '%s' "$PROBE_TOKEN" | npx --yes wrangler@4 secret put PAYPAL_VERIFY_NONCE --config workers/brua1-checkout-production/wrangler.toml >/dev/null
           key_installed=1
           # No orders, captures, refunds, file delivery or database writes.
-          PAYPAL_PROBE_RESULT="$(curl --silent --show-error --max-time 25 \
-            --request POST \
-            --header "Authorization: Bearer $PROBE_TOKEN" \
-            --header "Accept: application/json" \
-            "https://brua1-checkout-production.a1productions0527.workers.dev/internal/verify-live-oauth")"
+          # A newly deployed Worker secret may take a few seconds to reach the
+          # public Workers.dev edge. Retry ONLY authorization-not-ready responses.
+          # Never retry a PayPal credential-rejection response.
+          PAYPAL_PROBE_RESULT=""
+          for attempt in 1 2 3 4 5 6; do
+            PAYPAL_PROBE_RESULT="$(curl --silent --show-error --max-time 25 \
+              --request POST \
+              --header "Authorization: Bearer $PROBE_TOKEN" \
+              --header "Accept: application/json" \
+              "https://brua1-checkout-production.a1productions0527.workers.dev/internal/verify-live-oauth")"
+            CHECK_CODE="$(PAYPAL_PROBE_RESULT="$PAYPAL_PROBE_RESULT" python3 -c 'import os,json; r=json.loads(os.environ.get("PAYPAL_PROBE_RESULT","{}")); print(r.get("code","UNKNOWN"))' 2>/dev/null || echo UNKNOWN)"
+            if [ "$CHECK_CODE" != "NOT_AUTHORIZED" ]; then break; fi
+            if [ "$attempt" -lt 6 ]; then sleep 4; fi
+          done
           export PAYPAL_PROBE_RESULT
           python3 - <<'PY'
           import json,os,sys
