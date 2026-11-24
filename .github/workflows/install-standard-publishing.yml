@@ -1,0 +1,24 @@
+name: Install owner-authorized BruA1 50-50 publishing schedules
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/install-standard-publishing.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: brua1-production-d1-bootstrap
+  cancel-in-progress: false
+jobs:
+  install:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install and verify 36 owner-authorized publishing schedules
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_D1_API_TOKEN: ${{ secrets.CLOUDFLARE_D1_API_TOKEN }}
+        run: python3 scripts/install-standard-publishing.py
