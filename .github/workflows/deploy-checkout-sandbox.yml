@@ -1,3 +1,4 @@
+# Rerun sandbox D1 migration/deployment after the owner added the dedicated D1 GitHub secret (2026-11-23 CT).
 name: Deploy BruA1 Checkout Sandbox (Manual, Test-Only)
 
 on:
