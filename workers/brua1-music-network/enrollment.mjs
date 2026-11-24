@@ -38,7 +38,7 @@ export async function refreshEnrollment(db,broker,memberId,now){
  await stmt(db,"INSERT INTO network_subscription_ledger(member_id,provider_subscription_id,access_until,updated_at) VALUES(?,?,0,?) ON CONFLICT(member_id) DO NOTHING",memberId,binding.subscriptionId,now).run();
  const before=await first(db,"SELECT * FROM network_subscription_ledger WHERE member_id=?",memberId);
  if(before.provider_subscription_id!==binding.subscriptionId)throw Error("Subscription conflict");
- const data=await broker.readSubscription({subscriptionId:binding.subscriptionId});
+ const data=await broker.readSubscription({subscriptionId:binding.subscriptionId,planId:binding.planId,customId:binding.customId});
  const d=decideEntitlement({binding,subscription:data.subscription,transactions:data.transactions,prior:{transactionId:before.transaction_id,accessUntil:before.access_until,manualHold:!!before.manual_hold},now});
  // Serialize readbacks: stale or concurrent reconciliation cannot overwrite new state.
  const revision=before.revision+1;

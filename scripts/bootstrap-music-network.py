@@ -48,4 +48,6 @@ conf=p.read_text()
 assert all(f+' = "false"' in conf for f in ["NETWORK_MEMBER_API_ENABLED","NETWORK_INVITE_AUTH_ENABLED","NETWORK_BILLING_ENABLED"])
 assert "[[d1_databases]]" not in conf and "[[r2_buckets]]" not in conf
 p.with_name("wrangler.bound.toml").write_text(conf+'\n[[d1_databases]]\nbinding = "NETWORK_DB"\ndatabase_name = "'+name+'"\ndatabase_id = "'+uuid+'"\n')
+with p.with_name("wrangler.bound.toml").open("a") as f:
+ f.write('\n[[services]]\nbinding = "NETWORK_PAYPAL_SERVICE"\nservice = "brua1-checkout-production"\n')
 print("VERIFIED: separate Music Network D1, 17 tables, 10 channels, zero members or subscriptions. Commerce database untouched.")

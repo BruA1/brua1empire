@@ -25,7 +25,7 @@ jobs:
         with:
           node-version: "22"
       - name: Test authentication and membership access controls
-        run: node --test tests/music-network.test.mjs tests/network-subscription-entitlement.test.mjs tests/network-enrollment.test.mjs
+        run: node --test tests/music-network.test.mjs tests/network-subscription-entitlement.test.mjs tests/network-enrollment.test.mjs tests/network-paypal-broker.test.mjs
       - name: Provision isolated community D1 only
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
@@ -58,3 +58,14 @@ jobs:
           done
           export NETWORK_RESULT
           python3 scripts/install-network-paypal-plans.py
+      - name: Configure shared broker credential while billing is locked
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          set -euo pipefail
+          KEY="$(openssl rand -hex 32)"
+          echo "::add-mask::$KEY"
+          printf '%s' "$KEY" | npx --yes wrangler@4 secret put NETWORK_BROKER_KEY --config workers/brua1-checkout-production/wrangler.bound.toml >/dev/null
+          printf '%s' "$KEY" | npx --yes wrangler@4 secret put NETWORK_BROKER_KEY --config workers/brua1-music-network/wrangler.bound.toml >/dev/null
+          echo "Broker credentials installed; payment enrollment still locked."

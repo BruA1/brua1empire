@@ -4,9 +4,9 @@ const PRODUCT_NAME="BruA1 Music Network";
 const productIdValid=id=>typeof id==="string"&&/^PROD-[A-Z0-9]{17}$/.test(id);
 const NAME="BruA1 Music Network";
 export const PLANS=Object.freeze([{key:"monthly",name:"BruA1 Music Network Monthly V1",amount:"4.99",unit:"MONTH"},{key:"annual",name:"BruA1 Music Network Annual V1",amount:"49.99",unit:"YEAR"}]);
-export function verifyPlan(plan,spec,productId=plan.product_id){
+export function verifyPlan(plan,spec,productId=plan.product_id,allowedStatuses=["CREATED","INACTIVE"]){
  const c=plan.billing_cycles?.[0],p=plan.payment_preferences;
- if(!/^P-[A-Z0-9]{24}$/.test(plan.id||"")||!productIdValid(productId)||plan.product_id!==productId||plan.name!==spec.name||!["CREATED","INACTIVE"].includes(plan.status)||plan.billing_cycles.length!==1||c.tenure_type!=="REGULAR"||c.sequence!==1||c.total_cycles!==0||c.frequency?.interval_unit!==spec.unit||c.frequency?.interval_count!==1||c.pricing_scheme?.fixed_price?.currency_code!=="USD"||Number(c.pricing_scheme?.fixed_price?.value)!==Number(spec.amount)||p?.auto_bill_outstanding!==false||p?.payment_failure_threshold!==1||Number(p?.setup_fee?.value||0)!==0||plan.quantity_supported===true)throw Error("Plan does not match locked specification");
+ if(!/^P-[A-Z0-9]{24}$/.test(plan.id||"")||!productIdValid(productId)||plan.product_id!==productId||plan.name!==spec.name||!allowedStatuses.includes(plan.status)||plan.billing_cycles.length!==1||c.tenure_type!=="REGULAR"||c.sequence!==1||c.total_cycles!==0||c.frequency?.interval_unit!==spec.unit||c.frequency?.interval_count!==1||c.pricing_scheme?.fixed_price?.currency_code!=="USD"||Number(c.pricing_scheme?.fixed_price?.value)!==Number(spec.amount)||p?.auto_bill_outstanding!==false||p?.payment_failure_threshold!==1||Number(p?.setup_fee?.value||0)!==0||plan.quantity_supported===true)throw Error("Plan does not match locked specification");
  return true;
 }
 export async function provisionNetworkPlans(env,transport=fetch){

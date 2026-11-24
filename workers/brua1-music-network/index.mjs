@@ -1,3 +1,4 @@
+import {networkBroker} from "./paypal-broker-client.mjs";
 import {beginEnrollment,refreshEnrollment} from "./enrollment.mjs";
 import {redeemInvite,login,logout} from "./auth.mjs";
 // Isolated community API; invite authentication and member features remain locked by default.
@@ -55,12 +56,12 @@ export async function networkRoute(request,env){
   return result?response(200,result):response(401,{error:"Invalid or unavailable access key"});
  }
  if(p.startsWith("/api/network/billing/")){
-  if(env.NETWORK_BILLING_ENABLED!=="true"||!env.NETWORK_PAYPAL_BROKER||!env.NETWORK_TERMS_VERSION)return response(503,{error:"Subscription enrollment is closed"});
+  if(env.NETWORK_BILLING_ENABLED!=="true"||!env.NETWORK_PAYPAL_SERVICE||!env.NETWORK_TERMS_VERSION)return response(503,{error:"Subscription enrollment is closed"});
   const account=await signedIn(request,db,now);if(!account)return response(401,{error:"Sign in required"});
   if(request.method!=="POST")return response(405,{error:"POST required"});
   const x=await json(request);
-  if(p==="/api/network/billing/begin")return response(200,await beginEnrollment(db,env.NETWORK_PAYPAL_BROKER,account.id,x,env.NETWORK_TERMS_VERSION,now));
-  if(p==="/api/network/billing/refresh")return response(200,await refreshEnrollment(db,env.NETWORK_PAYPAL_BROKER,account.id,now));
+  if(p==="/api/network/billing/begin")return response(200,await beginEnrollment(db,networkBroker(env),account.id,x,env.NETWORK_TERMS_VERSION,now));
+  if(p==="/api/network/billing/refresh")return response(200,await refreshEnrollment(db,networkBroker(env),account.id,now));
   return response(404,{error:"Not found"});
  }
  const who=await member(request,db,now);if(!who)return response(401,{error:"Active membership required"});
