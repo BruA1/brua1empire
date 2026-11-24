@@ -49,7 +49,7 @@
     "test_merchant_only": "sandbox until all gates pass"
   },
   "review_document": "https://docs.google.com/document/d/1FXSI0LqcTe9GjUAoo1xLytNduT206yKtxMLCtPeICkw/edit",
-  "notes": "2026-11-23 CEO gave explicit launch authorization. This removes the need to seek strategic direction again but does not constitute independent music-rights clearance, final contract acceptance, merchant credential verification, actual integration QA, or activation of the live checkout. New internal-only checkout entitlement and private MP3/WAV delivery service passed 9 mocked integration tests and was deployed disabled without R2 or D1 bindings. Actual customer payment and private-master fulfillment remain blocked. CEO selected BruA1 as public-facing seller/checkout/contract branding on November 23, 2026. This does NOT verify that BruA1 is a legally registered seller/DBA. This record tracks evidence and blockers. Never interpret a mocked integration test or owner commercial price delegation as a legal opinion, verified real payment, or readiness for live charge capture.",
+  "notes": "CEO confirmed an existing PayPal Business account; live developer REST app/merchant ID not verified. Do not reuse sandbox credentials. 2026-11-23 CEO gave explicit launch authorization. This removes the need to seek strategic direction again but does not constitute independent music-rights clearance, final contract acceptance, merchant credential verification, actual integration QA, or activation of the live checkout. New internal-only checkout entitlement and private MP3/WAV delivery service passed 9 mocked integration tests and was deployed disabled without R2 or D1 bindings. Actual customer payment and private-master fulfillment remain blocked. CEO selected BruA1 as public-facing seller/checkout/contract branding on November 23, 2026. This does NOT verify that BruA1 is a legally registered seller/DBA. This record tracks evidence and blockers. Never interpret a mocked integration test or owner commercial price delegation as a legal opinion, verified real payment, or readiness for live charge capture.",
   "customer_facing_seller_brand": "BruA1",
   "brand_preference_confirmed_on": "2026-11-23",
   "legal_seller_entity_name": null,
@@ -66,5 +66,9 @@
     "authorization_scope": "Launch BruA1.com commercial automated purchases once essential legal, rights, payment and delivery requirements verified",
     "intent": "PROCEED_TO_LAUNCH_AS_SOON_AS_GATES_PASS",
     "remaining_release_gates_not_waived": true
-  }
+  },
+  "paypal_business_account_owner_confirmed": true,
+  "paypal_business_account_owner_confirmed_at": "2026-11-23",
+  "paypal_live_rest_app_verified": false,
+  "paypal_live_merchant_id_verified": false
 }
