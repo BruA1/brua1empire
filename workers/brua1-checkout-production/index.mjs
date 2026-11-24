@@ -1,3 +1,4 @@
+import {auditPrivateAudio} from "../../fulfillment/audit-private-audio.mjs";
 import {verifyLiveMerchant} from "../../fulfillment/paypal-merchant-probe.mjs";
 import {seedPrivateAssets} from "../../fulfillment/seed-private-assets.mjs";
 import {provisionWebhook} from "../../fulfillment/paypal-webhook-provision.mjs";
@@ -108,6 +109,13 @@ export default {
       // details ever appear in this response.
       return respond(report.httpStatus,{verified:report.verified,code:report.code,
         check:"paypal-live-oauth",paymentsEnabled:false});
+    }
+    if(url.pathname==="/internal/audit-private-audio"){
+      if(request.method!=="POST")return respond(405,{verified:false});
+      const bearer=(request.headers.get("Authorization")||"").replace(/^Bearer /,"");
+      if(!verifyNonce(env.PAYPAL_VERIFY_NONCE,bearer))return respond(401,{verified:false,code:"NOT_AUTHORIZED"});
+      try{return respond(200,await auditPrivateAudio(env));}
+      catch{return respond(502,{verified:false,code:"PRIVATE_AUDIO_AUDIT_FAILED"});}
     }
     if(url.pathname==="/internal/seed-private-assets"){
       if(request.method!=="POST")return respond(405,{verified:false});
