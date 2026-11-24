@@ -89,11 +89,11 @@
   "paypal_live_oauth_probe": {
     "verified": false,
     "status": "PAYPAL_REJECTED_CREDENTIALS",
-    "source": "Owner-requested retry through Cloudflare Worker against PayPal Live OAuth endpoint",
-    "workflow_run": "https://github.com/BruA1/brua1empire/actions/runs/45324083194/attempts/2",
+    "source": "Owner-requested attempt 3 Live OAuth test using encrypted Cloudflare Worker secrets",
+    "workflow_run": "https://github.com/BruA1/brua1empire/actions/runs/45324083194/attempts/3",
     "environment": "live",
     "live_transaction_attempted": false,
-    "attempted_at_utc": "2026-11-24T04:15:29Z",
-    "next_action": "Review Live REST app's complete Client ID and newly revealed Client Secret from SAME Live app; do not copy secret ID, sandbox values, or alter locked checkout flags."
+    "attempted_at_utc": "2026-11-24T04:28:20Z",
+    "next_action": "Check actual PayPal Live REST app and match full Client ID to revealed Client Secret; validate PayPal app is Live; ensure secrets not taken from GitHub API token or sandbox."
   }
 }
