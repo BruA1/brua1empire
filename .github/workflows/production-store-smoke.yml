@@ -1,0 +1,49 @@
+name: BruA1 Production Storefront Smoke Test — No Charges
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/production-store-smoke.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Verify deployed public storefront, catalog, checkout lock and private delivery lock
+        run: |
+          python3 - <<'PY'
+          import json,urllib.request,urllib.error
+          site="https://brua1.com"
+          checkout="https://brua1-checkout-production.a1productions0527.workers.dev"
+          delivery="https://brua1-licensed-delivery-stage.a1productions0527.workers.dev"
+          def read(url,method="GET",body=None):
+              req=urllib.request.Request(url,data=body,method=method,headers={"User-Agent":"BruA1-Authorized-Production-Smoke-Test","Cache-Control":"no-cache","Content-Type":"application/json"})
+              try:
+                  with urllib.request.urlopen(req,timeout=20) as r: return r.status,r.read()
+              except urllib.error.HTTPError as e: return e.code,e.read()
+          status,body=read(site+"/instrumentals.html")
+          assert status==200 and b"checkoutPreview" in body and b"PayPal checkout coming soon" in body
+          assert b'aria-disabled="true"' in body
+          print("PASS: deployed storefront checkout preview available; payment disabled")
+          s,b=read(site+"/catalog/public-license-options.json")
+          d=json.loads(b)
+          assert s==200 and d["checkout_enabled"] is False and len(d["items"])==39
+          assert sum(len(x["options"]) for x in d["items"])==108
+          print("PASS: live catalog exposes 108 inquiry-only options")
+          s,b=read(checkout+"/health"); h=json.loads(b)
+          assert s==200 and h["status"]=="PRELAUNCH_LOCKED" and h["livePayments"] is False and h["paymentCaptureEnabled"] is False
+          s,b=read(delivery+"/health"); h=json.loads(b)
+          assert s==200 and h["deliveryEnabled"] is False and h["privateMastersExposed"] is False
+          for origin,paths in [(checkout,["/api/create-order","/api/capture-order","/api/issue-license"]),(delivery,["/api/grants","/api/download"])]:
+              for path in paths:
+                  s,b=read(origin+path,"POST",b"{}")
+                  assert s==503, (path,s)
+          print("PASS: live Workers reject unapproved purchases, licenses and audio downloads; no payment requests sent to PayPal")
+          for path in ["/fulfillment/launch-approval-status.json","/fulfillment/commerce-schema-staging.sql","/workers/brua1-checkout-production/index.mjs"]:
+              s,b=read(site+path)
+              assert s==404, (path,s)
+          print("PASS: internal commerce files are not publicly accessible")
+          PY
