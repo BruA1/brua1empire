@@ -9,7 +9,7 @@ with urllib.request.urlopen(req,timeout=30) as r: payload=json.load(r)
 matches=[d for d in payload["result"] if d["name"]=="brua1-orders-production"]
 assert payload["success"] and len(matches)==1
 uuid=matches[0]["uuid"]
-assert re.fullmatch(r"aaf4b1d0-7d1b-437a-[0-9a-f-]{18}",uuid)
+assert re.fullmatch(r"aaf4b1d0-7d1b-437a-[0-9a-f]{4}-[0-9a-f]{12}",uuid)
 path=pathlib.Path("workers/"+("brua1-checkout-production" if mode=="checkout" else "brua1-licensed-delivery")+"/wrangler.toml")
 config=path.read_text()
 assert not re.search(r"^\[\[(?:d1_databases|r2_buckets)\]\]|^route\s*=",config,re.M)
