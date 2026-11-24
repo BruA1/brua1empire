@@ -21,9 +21,80 @@ const DEFAULT_HEADERS = Object.freeze({
 function respond(status,data) {
   return new Response(JSON.stringify(data),{status,headers:DEFAULT_HEADERS});
 }
+
+// Owner-authorized, read-only LIVE OAuth test. Does NOT create or capture orders.
+// Access requires a random ephemeral one-time test secret, installed and removed
+// by a QA-gated deployment workflow. The time component expires after 10 minutes.
+// No credentials, access token or PayPal raw responses are written to logs/HTTP.
+const OAUTH_URL="https://api-m.paypal.com/v1/oauth2/token";
+const VERIFY_WINDOW_MS=10*60*1000;
+const candidateFormat=/^[0-9]{13}\.[a-f0-9]{64}$/;
+function secureCompare(a,b){
+ if(typeof a!=="string"||typeof b!=="string")return false;
+ const x=new TextEncoder().encode(a),y=new TextEncoder().encode(b);
+ let diff=x.length^y.length;
+ for(let i=0;i<Math.max(x.length,y.length);i++)diff|=(x[i]||0)^(y[i]||0);
+ return diff===0;
+}
+function verifyNonce(expected,provided,now=Date.now()){
+ if(!candidateFormat.test(expected||"")||!candidateFormat.test(provided||""))return false;
+ const stamp=Number(expected.slice(0,13));
+ if(!Number.isSafeInteger(stamp)||stamp>now||now-stamp>VERIFY_WINDOW_MS)return false;
+ return secureCompare(provided,expected);
+}
+export async function paypalLiveAuthProbe(env,transport=fetch){
+ if(env?.PAYPAL_ENVIRONMENT!=="live"||
+    env?.LIVE_CHECKOUT_ENABLED!=="false"||
+    env?.LICENSE_ISSUANCE_ENABLED!=="false"||
+    env?.REAL_AUDIO_DELIVERY_ENABLED!=="false")
+   return {verified:false,code:"PRELAUNCH_GATE_NOT_LOCKED",httpStatus:503};
+ if(typeof env?.PAYPAL_CLIENT_ID!=="string"||!env.PAYPAL_CLIENT_ID.trim()||
+    typeof env?.PAYPAL_CLIENT_SECRET!=="string"||!env.PAYPAL_CLIENT_SECRET.trim())
+   return {verified:false,code:"LIVE_CREDENTIAL_MISSING",httpStatus:503};
+ try{
+   const authorization="Basic "+btoa(env.PAYPAL_CLIENT_ID+":"+env.PAYPAL_CLIENT_SECRET);
+   const response=await transport(OAUTH_URL,{
+     method:"POST",redirect:"error",
+     headers:{
+       Authorization:authorization,
+       "Content-Type":"application/x-www-form-urlencoded",
+       Accept:"application/json"
+     },
+     body:"grant_type=client_credentials",
+     signal:AbortSignal.timeout(15000)
+   });
+   if(response.status===401||response.status===403)
+     return {verified:false,code:"PAYPAL_REJECTED_CREDENTIALS",httpStatus:502};
+   if(!response.ok)
+     return {verified:false,code:"PAYPAL_OAUTH_UNAVAILABLE",httpStatus:502};
+   // The access token is validated for presence but NEVER returned, logged or
+   // persisted. This proves API OAuth only, not merchant/payment permissions.
+   const payload=await response.json();
+   if(typeof payload?.access_token!=="string"||!payload.access_token||
+      payload.token_type?.toLowerCase()!=="bearer"||
+      !Number.isFinite(Number(payload.expires_in))||Number(payload.expires_in)<=0)
+     return {verified:false,code:"PAYPAL_OAUTH_INVALID_RESPONSE",httpStatus:502};
+   return {verified:true,code:"PAYPAL_LIVE_OAUTH_ACCEPTED",httpStatus:200};
+ }catch{
+   return {verified:false,code:"PAYPAL_CONNECTION_ERROR",httpStatus:502};
+ }
+}
+
 export default {
-  async fetch(request) {
+  async fetch(request,env) {
     const url = new URL(request.url);
+    if(url.pathname==="/internal/verify-live-oauth"){
+      if(request.method!=="POST")return respond(405,{verified:false,code:"METHOD_NOT_ALLOWED"});
+      const header=request.headers.get("Authorization")||"";
+      const bearer=header.startsWith("Bearer ")?header.slice(7):"";
+      if(!verifyNonce(env?.PAYPAL_VERIFY_NONCE,bearer))
+        return respond(401,{verified:false,code:"NOT_AUTHORIZED"});
+      const report=await paypalLiveAuthProbe(env);
+      // No PayPal token, client ID, client secret, buyer identity or merchant
+      // details ever appear in this response.
+      return respond(report.httpStatus,{verified:report.verified,code:report.code,
+        check:"paypal-live-oauth",paymentsEnabled:false});
+    }
     if(request.method==="GET" && url.pathname==="/health") {
       return respond(200,{
         service:"brua1-checkout-production",
