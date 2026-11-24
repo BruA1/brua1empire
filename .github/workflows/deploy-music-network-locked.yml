@@ -71,4 +71,8 @@ jobs:
           echo "Broker credentials installed; payment enrollment still locked."
       - name: Verify actual authenticated service bridge with billing disabled
         run: |
-          curl --fail --silent --show-error --retry 5 --retry-all-errors --retry-delay 3 https://brua1-music-network.a1productions0527.workers.dev/health | python3 -c 'import json,sys;x=json.load(sys.stdin);assert x["databaseReady"] and x["locked"] and x["brokerConnected"] and not x["billingEnabled"];print("VERIFIED: authenticated production community-to-PayPal service bridge; no charge, enrollment closed.")'
+          for attempt in 1 2 3 4 5 6 7 8; do
+            if curl --fail --silent --show-error https://brua1-music-network.a1productions0527.workers.dev/health | python3 -c 'import json,sys;x=json.load(sys.stdin);assert x["databaseReady"] and x["locked"] and x["brokerConnected"] and not x["billingEnabled"];print("VERIFIED: authenticated production community-to-PayPal service bridge; no charge, enrollment closed.")'; then exit 0; fi
+            sleep 5
+          done
+          exit 1

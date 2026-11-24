@@ -45,7 +45,7 @@ export async function refreshEnrollment(db,broker,memberId,now){
  const results=await db.batch([
   stmt(db,"UPDATE network_subscription_ledger SET transaction_id=?,access_until=?,revision=?,updated_at=? WHERE member_id=? AND revision=? AND manual_hold=? AND provider_subscription_id=?",d.transactionId||before.transaction_id,d.accessUntil,revision,now,memberId,before.revision,before.manual_hold,binding.subscriptionId),
   stmt(db,"INSERT INTO network_memberships(member_id,provider_subscription_id,status,access_until,updated_at) SELECT member_id,provider_subscription_id,?,?,? FROM network_subscription_ledger WHERE member_id=? AND revision=? AND updated_at=? AND access_until=? AND manual_hold=? ON CONFLICT(member_id) DO UPDATE SET provider_subscription_id=excluded.provider_subscription_id,status=excluded.status,access_until=excluded.access_until,updated_at=excluded.updated_at WHERE network_memberships.provider_subscription_id IS NULL OR network_memberships.provider_subscription_id=excluded.provider_subscription_id",d.status,d.accessUntil,now,memberId,revision,now,d.accessUntil,before.manual_hold),
-  stmt(db,"UPDATE network_enrollments SET status='BOUND' WHERE id=? AND EXISTS(SELECT 1 FROM network_memberships WHERE member_id=? AND provider_subscription_id=?)",row.id,memberId,binding.subscriptionId)
+  stmt(db,"UPDATE network_enrollments SET status='BOUND' WHERE id=? AND EXISTS(SELECT 1 FROM network_memberships WHERE member_id=? AND provider_subscription_id=? AND status IN ('ACTIVE','CANCELED') AND access_until>0)",row.id,memberId,binding.subscriptionId)
  ]);
  if(results[0]?.meta?.changes!==1||results[1]?.meta?.changes!==1)throw Error("Concurrent or conflicting membership refresh");
  return {status:d.status,accessUntil:d.accessUntil};
