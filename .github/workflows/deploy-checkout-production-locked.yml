@@ -6,6 +6,9 @@ on:
       - "fulfillment/seed-private-assets.mjs"
       - "fulfillment/private-master-key-digests.json"
       - "fulfillment/production-paypal-client.mjs"
+      - "fulfillment/production-checkout-service.mjs"
+      - "fulfillment/paypal-event-reconciliation.mjs"
+      - "tests/production-checkout-ledger.integration.test.mjs"
       - "tests/live-paypal-credential-holder.test.mjs"
       - ".github/workflows/deploy-checkout-production-locked.yml"
   push:
@@ -15,6 +18,9 @@ on:
       - "fulfillment/seed-private-assets.mjs"
       - "fulfillment/private-master-key-digests.json"
       - "fulfillment/production-paypal-client.mjs"
+      - "fulfillment/production-checkout-service.mjs"
+      - "fulfillment/paypal-event-reconciliation.mjs"
+      - "tests/production-checkout-ledger.integration.test.mjs"
       - "tests/live-paypal-credential-holder.test.mjs"
       - ".github/workflows/deploy-checkout-production-locked.yml"
 permissions:
