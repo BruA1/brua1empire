@@ -28,7 +28,7 @@ jobs:
       - name: Verify live checkout Worker is hard-locked and contains no secrets
         run: |
           node --check workers/brua1-checkout-production/index.mjs
-          node --test tests/live-paypal-credential-holder.test.mjs
+          node --test tests/live-paypal-credential-holder.test.mjs tests/live-paypal-oauth-probe.test.mjs
           ! grep -Eq '^\[\[(d1_databases|r2_buckets)\]\]|^route\s*=' workers/brua1-checkout-production/wrangler.toml
           grep -Fq 'LIVE_CHECKOUT_ENABLED = "false"' workers/brua1-checkout-production/wrangler.toml
   deploy-locked-only:
@@ -51,3 +51,54 @@ jobs:
           test -n "$CLOUDFLARE_API_TOKEN"
           test -n "$CLOUDFLARE_ACCOUNT_ID"
           npx --yes wrangler@4 deploy --config workers/brua1-checkout-production/wrangler.toml
+
+      - name: One-time verify PayPal LIVE OAuth without charging or revealing tokens
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          set -euo pipefail
+          # The two existing Cloudflare PAYPAL_* secrets remain encrypted.
+          # This random test-only credential expires after ten minutes.
+          PROBE_TOKEN="$(date -u +%s%3N).$(openssl rand -hex 32)"
+          echo "::add-mask::$PROBE_TOKEN"
+          key_installed=0
+          cleanup() {
+            local status=$?
+            trap - EXIT
+            if [ "$key_installed" = 1 ]; then
+              if ! (printf 'y\n' | npx --yes wrangler@4 secret delete PAYPAL_VERIFY_NONCE --config workers/brua1-checkout-production/wrangler.toml >/dev/null); then
+                echo "::error::Temporary verification key cleanup failed; it expires automatically after 10 minutes."
+                status=1
+              fi
+            fi
+            exit "$status"
+          }
+          trap cleanup EXIT
+          printf '%s' "$PROBE_TOKEN" | npx --yes wrangler@4 secret put PAYPAL_VERIFY_NONCE --config workers/brua1-checkout-production/wrangler.toml >/dev/null
+          key_installed=1
+          # No orders, captures, refunds, file delivery or database writes.
+          PAYPAL_PROBE_RESULT="$(curl --silent --show-error --max-time 25 \
+            --request POST \
+            --header "Authorization: Bearer $PROBE_TOKEN" \
+            --header "Accept: application/json" \
+            "https://brua1-checkout-production.a1productions0527.workers.dev/internal/verify-live-oauth")"
+          export PAYPAL_PROBE_RESULT
+          python3 - <<'PY'
+          import json,os,sys
+          try:
+              r=json.loads(os.environ.get("PAYPAL_PROBE_RESULT","{}"))
+              accepted=(r.get("verified") is True and r.get("code")=="PAYPAL_LIVE_OAUTH_ACCEPTED"
+                        and r.get("paymentsEnabled") is False)
+              allowed={"PAYPAL_LIVE_OAUTH_ACCEPTED","LIVE_CREDENTIAL_MISSING","PAYPAL_REJECTED_CREDENTIALS",
+                       "PAYPAL_OAUTH_UNAVAILABLE","PAYPAL_OAUTH_INVALID_RESPONSE",
+                       "PAYPAL_CONNECTION_ERROR","PRELAUNCH_GATE_NOT_LOCKED","NOT_AUTHORIZED"}
+              code=r.get("code","UNRECOGNIZED_RESPONSE")
+              if code not in allowed: code="UNRECOGNIZED_RESPONSE"
+              print("BruA1 PayPal LIVE OAuth: "+("PASS" if accepted else "NOT VERIFIED")+" ("+code+")")
+              print("Real customer charges: DISABLED")
+              sys.exit(0 if accepted else 1)
+          except (ValueError,TypeError,KeyError):
+              print("BruA1 PayPal LIVE OAuth: NOT VERIFIED (INVALID_RESULT)")
+              sys.exit(1)
+          PY
