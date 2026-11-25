@@ -7,12 +7,12 @@ import {DatabaseSync} from "node:sqlite";
 import {createCheckoutService,sha256,receiveVerifiedWebhook} from "../fulfillment/production-checkout-service.mjs";
 const product="BRUA1-INS-0001",version="BRUA1-LEGAL-APPROVED-TEST",scheduleVersion="FIXTURE-V1",terms="TEST ONLY: terms fixture",schedule="TEST ONLY: agreed publishing fixture",merchant="MERCHANT123",orderId="TESTORDER12345",captureId="CAPTURE12345";
 function adapter(sqlite){
- function wrap(sql,args=[]){return {bind(...a){return wrap(sql,a);},first:async()=>sqlite.prepare(sql).get(...args),run:async()=>({meta:{changes:sqlite.prepare(sql).run(...args).changes}}),sql,args};}
+ function wrap(sql,args=[]){return {bind(...a){return wrap(sql,a);},first:async()=>sqlite.prepare(sql).get(...args),all:async()=>({results:sqlite.prepare(sql).all(...args)}),run:async()=>({meta:{changes:sqlite.prepare(sql).run(...args).changes}}),sql,args};}
  return {prepare:wrap,async batch(items){sqlite.exec("BEGIN");try{const out=items.map(s=>({meta:{changes:sqlite.prepare(s.sql).run(...s.args).changes}}));sqlite.exec("COMMIT");return out;}catch(e){sqlite.exec("ROLLBACK");throw e;}}};
 }
-async function fixture(){
+async function fixture({member=false}={}){
  const sqlite=new DatabaseSync(":memory:");
- for(const p of ["commerce-schema-staging","publishing-schedules-staging","checkout-ledger-staging"])sqlite.exec(fs.readFileSync("fulfillment/"+p+".sql","utf8"));
+ for(const p of ["commerce-schema-staging","publishing-schedules-staging","checkout-ledger-staging","member-checkout-quotes-staging"])sqlite.exec(fs.readFileSync("fulfillment/"+p+".sql","utf8"));
  const termsHash=await sha256(terms),scheduleHash=await sha256(schedule);
  sqlite.prepare("INSERT INTO commerce_products(product_id,title,sale_enabled,rights_cleared,independent_qa_pass) VALUES(?,?,1,1,1)").run(product,"Fixture");
  for(const fmt of ["mp3","wav"])sqlite.prepare("INSERT INTO commerce_audio_assets(product_id,format,r2_object_key,private_r2_qa_pass,independent_qa_pass,rights_cleared) VALUES(?,?,?,1,1,1)").run(product,fmt,"fixture/"+fmt);
@@ -20,17 +20,18 @@ async function fixture(){
  sqlite.prepare("INSERT INTO commerce_publishing_schedules VALUES(?,?,?,?,?)").run(product,scheduleVersion,scheduleHash,schedule,"2026-11-23");
  const env=Object.fromEntries("CHECKOUT_ROUTES_ENABLED LIVE_CHECKOUT_ENABLED LICENSE_ISSUANCE_ENABLED REAL_AUDIO_DELIVERY_ENABLED MERCHANT_IDENTITY_VERIFIED FINAL_TERMS_PUBLISHED OWNER_FINAL_GO_LIVE_SIGNOFF RIGHTS_REVIEW_COMPLETED DELIVERY_INTEGRATION_QA_PASS PRODUCTION_PAYPAL_QA_PASS WEBHOOK_SIGNATURE_QA_PASS REFUND_AND_DISPUTE_QA_PASS BUYER_RECEIPT_SERVICE_QA_PASS PRIVACY_AND_REFUND_POLICY_APPROVED TAX_CONFIGURATION_VERIFIED".split(" ").map(f=>[f,"true"]));
  Object.assign(env,{PAYPAL_ENVIRONMENT:"live",AGREEMENT_STATUS:"LEGAL_APPROVED",APPROVED_TERMS_VERSION:version,APPROVED_TERMS_SHA256:termsHash,TAX_PRICE_MODE:"VERIFIED_FIXED_TOTAL_USD",PAYPAL_CLIENT_ID:"fake",PAYPAL_CLIENT_SECRET:"fake",PAYPAL_WEBHOOK_ID:"fake",PAYPAL_MERCHANT_ID:merchant,ORDERS_DB:adapter(sqlite),BUYER_DELIVERY_ROUTE_VERIFIED:'true',WEBHOOK_RECONCILIATION_VERIFIED:'true',INSTRUMENTAL_MASTERS:{head:async()=>({size:4096}),get:async()=>({size:4096,body:new Response(new Uint8Array(4096)).body})}});
- let captures=0,creates=0;
- const order=status=>({id:orderId,status,links:[{rel:"approve",href:"https://www.paypal.com/checkoutnow?token="+orderId}],purchase_units:[{custom_id:product+":basic:"+version,payee:{merchant_id:merchant},amount:{currency_code:"USD",value:"29.99"},payments:{captures:[{id:captureId,status:"COMPLETED",amount:{currency_code:"USD",value:"29.99"},final_capture:true}]}}]});
+ let captures=0,creates=0,eligible=true,providerAmount=member?"25.49":"29.99";
+ if(member)Object.assign(env,{MEMBER_BEAT_DISCOUNT_ENABLED:"true",MEMBER_DISCOUNT_TAX_MODE:"VERIFIED_NO_ADDITIONAL_TAX_USD",NETWORK_PRICING_SERVICE:{fetch:async(url,opts)=>{assert.equal(opts.headers.Authorization,"Bearer "+"a".repeat(64));return Response.json({eligible,checkedAtEpoch:Math.floor(Date.now()/1000),prices:[{tier:"basic",regularCents:2999,discountCents:450,subtotalCents:2549,discountBps:1500,currency:"USD",pricingVersion:"BRUA1-MEMBER-15-V1",taxIncluded:false}]});}}});
+ const order=status=>({id:orderId,status,links:[{rel:"approve",href:"https://www.paypal.com/checkoutnow?token="+orderId}],purchase_units:[{custom_id:product+":basic:"+version,payee:{merchant_id:merchant},amount:{currency_code:"USD",value:providerAmount},payments:{captures:[{id:captureId,status:"COMPLETED",amount:{currency_code:"USD",value:providerAmount},final_capture:true}]}}]});
  const transport=async(url,opts)=>{
   if(url.endsWith("/token"))return Response.json({access_token:"fake"});
   if(url.endsWith("verify-webhook-signature"))return Response.json({verification_status:"SUCCESS"});
-  if(url.endsWith("/orders")&&opts.method==="POST"){creates++;return Response.json(order("CREATED"));}
+  if(url.endsWith("/orders")&&opts.method==="POST"){creates++;assert.equal(JSON.parse(opts.body).purchase_units[0].amount.value,providerAmount);return Response.json(order("CREATED"));}
   if(url.endsWith("/capture")){captures++;return Response.json(order("COMPLETED"));}
   if(url.endsWith(orderId))return Response.json(order(captures?"COMPLETED":"APPROVED"));
   throw Error("Unexpected provider call");
  };
- return {sqlite,env,transport,service:createCheckoutService(env,{transport}),input:{accepted:true,publishingAccepted:true,buyerEmail:"buyer@example.invalid",productId:product,tier:"basic",termsVersion:version,termsHash,scheduleVersion,scheduleHash},counts:()=>({captures,creates})};
+ return {sqlite,env,transport,service:createCheckoutService(env,{transport}),input:{accepted:true,publishingAccepted:true,buyerEmail:"buyer@example.invalid",productId:product,tier:"basic",termsVersion:version,termsHash,scheduleVersion,scheduleHash},counts:()=>({captures,creates}),setEligible:v=>{eligible=v},setProviderAmount:v=>{providerAmount=v}};
 }
 test("full isolated checkout records exact assent, pays once, issues one immutable license",async()=>{
  const f=await fixture(),{service,sqlite,input}=f;
@@ -101,4 +102,28 @@ test("verified full refund blocks delivery, revokes license, deduplicates reconc
  assert.equal((await buyerDownload(f.env,req)).status,403);
  assert.equal((await reconcileVerifiedEvent(f.env,event,verification,"fake",()=>{throw Error("duplicate must not call provider")})).status,"REFUND_RECONCILED");
  f.sqlite.close();
+});
+
+test("verified member quote is immutable and drives mock PayPal, license and paid download",async()=>{
+ const f=await fixture({member:true}),opts={memberToken:"a".repeat(64)};
+ const offer=await f.service.offer(f.input,opts);assert.equal(offer.priceCents,2549);assert.equal(offer.discountCents,450);
+ await assert.rejects(f.service.begin({...f.input,acceptedAmountCents:1},opts),/reviewed/);
+ const session=await f.service.begin({...f.input,acceptedAmountCents:2549,priceCents:1},opts);assert.equal(session.amountCents,2549);
+ assert.throws(()=>f.sqlite.exec("UPDATE commerce_member_checkout_quotes SET subtotal_cents=1"),/immutable/);
+ assert.throws(()=>f.sqlite.exec("DELETE FROM commerce_member_checkout_quotes"),/immutable/);
+ await assert.rejects(f.service.create(session),/unavailable/);
+ f.setEligible(false);await assert.rejects(f.service.create(session,opts),/not verified/);f.setEligible(true);
+ await f.service.create(session,opts);assert.equal(f.sqlite.prepare("SELECT amount_cents FROM commerce_orders").get().amount_cents,2549);
+ f.setProviderAmount("29.99");await assert.rejects(f.service.capture(session),/does not match/);f.setProviderAmount("25.49");
+ const paid=await f.service.capture(session);assert.match(paid.licenseDocument,/Paid: USD 25.49/);
+ assert.equal((await f.service.capture(session)).licenseDocument,paid.licenseDocument);
+ assert.deepEqual(f.counts(),{creates:1,captures:1});
+ const grant=await buyerGrants(f.env,session,f.transport);assert.equal(grant.grants[0].format,"mp3");
+ f.sqlite.close();
+});
+test("discount cannot be injected by browser and tax/config lock denies a member order",async()=>{
+ const f=await fixture({member:true}),opts={memberToken:"a".repeat(64)};
+ await assert.rejects(f.service.begin({...f.input,acceptedAmountCents:2549}),/Price changed/);
+ f.env.MEMBER_DISCOUNT_TAX_MODE="UNVERIFIED";await assert.rejects(f.service.begin({...f.input,acceptedAmountCents:2549},opts),/unavailable/);
+ assert.deepEqual(f.counts(),{creates:0,captures:0});f.sqlite.close();
 });

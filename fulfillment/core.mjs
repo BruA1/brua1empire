@@ -4,6 +4,7 @@
  * All order/payment/acceptance records supplied here MUST be obtained server-side,
  * never from untrusted browser JSON. All gate failures deny access.
  */
+import {validMemberQuote} from "./member-checkout-quote.mjs";
 export const PRICES = Object.freeze({basic:2999,premium:5999,unlimited:9999});
 export const FORMAT_BY_TIER = Object.freeze({
   basic:Object.freeze(["mp3"]),
@@ -18,10 +19,10 @@ export const TOKEN_PATTERN = /^[a-f0-9]{64}$/;
 const own = (obj,k) => Object.prototype.hasOwnProperty.call(obj||{},k);
 const isBoolTrue = x => x === true;
 
-export function fulfillmentDecision({order,product,verifiedPayment,acceptance,config,assets}) {
+export function fulfillmentDecision({order,product,verifiedPayment,acceptance,config,assets,memberQuote}) {
   const blocks = [];
   const tier = order?.license_tier;
-  const priceCents = PRICES[tier];
+  const priceCents = validMemberQuote(memberQuote,tier,order?.product_id)?memberQuote.subtotal_cents:PRICES[tier];
   if(!isBoolTrue(config?.enabled) || !isBoolTrue(config?.owner_signed_off))blocks.push("FULFILLMENT_DISABLED");
   if(config?.environment!=="production")blocks.push("NON_PRODUCTION_ENVIRONMENT");
   if(config?.agreement_status!=="LEGAL_APPROVED" || !isBoolTrue(config?.approved_terms_published))blocks.push("AGREEMENT_NOT_APPROVED");

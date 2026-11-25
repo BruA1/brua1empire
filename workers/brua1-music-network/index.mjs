@@ -1,6 +1,7 @@
 import {networkBroker} from "./paypal-broker-client.mjs";
 import {beginEnrollment,refreshEnrollment,cancelEnrollment} from "./enrollment.mjs";
 import {redeemInvite,login,logout} from "./auth.mjs";
+import {verifiedMemberPricing} from "./member-beat-pricing.mjs";
 // Isolated community API; invite authentication and member features remain locked by default.
 const ORIGIN="https://brua1.com";
 const MUSIC_ROLES=new Set(["musician","vocalist","producer","songwriter","ghostwriter","audio_engineer","dj","recording_studio","video_creator","artist"]);
@@ -70,6 +71,12 @@ export async function networkRoute(request,env){
   if(p==="/api/network/billing/refresh")return response(200,await refreshEnrollment(db,networkBroker(env),account.id,now));
   if(p==="/api/network/billing/cancel"){if(x.confirm!==true)return response(400,{error:"Cancellation confirmation required"});return response(200,await cancelEnrollment(db,networkBroker(env),account.id,now));}
   return response(404,{error:"Not found"});
+ }
+ // Account-authenticated, read-only pricing preview. Public payment gates
+ // and final tax/checkout authorization remain independent and unchanged.
+ if(p==="/api/network/beat-pricing"&&request.method==="GET"){
+  const account=await signedIn(request,db,now);if(!account)return response(401,{error:"Sign in required"});
+  return response(200,await verifiedMemberPricing(db,account.id,now));
  }
  const who=await member(request,db,now);if(!who)return response(401,{error:"Active membership required"});
  const get=request.method==="GET",post=request.method==="POST";

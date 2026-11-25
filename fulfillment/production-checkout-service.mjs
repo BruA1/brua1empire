@@ -1,3 +1,4 @@
+import {quoteForMember,readMemberQuote,validMemberQuote,MEMBER_RATE_VERSION} from "./member-checkout-quote.mjs";
 import {reconcileVerifiedEvent} from "./paypal-event-reconciliation.mjs";
 // Server-side checkout orchestration. No route may be enabled before final release.
 import {productionPayPalClient} from "./production-paypal-client.mjs";
@@ -20,7 +21,12 @@ const first=(db,sql,...args)=>stmt(db,sql,...args).first();
 const changes=r=>Number(r?.meta?.changes||0);
 function assert(condition,msg){if(!condition)throw Error(msg);}
 const token=()=>Array.from(crypto.getRandomValues(new Uint8Array(32))).map(b=>b.toString(16).padStart(2,"0")).join("");
-const selection=(r)=>({productId:r.product_id,tier:r.tier,sku:r.product_id+"-"+r.tier.toUpperCase(),priceCents:r.price_cents,currency:"USD",formats:EXPECTED_FORMATS[r.tier],termsVersion:r.terms_version,customId:r.product_id+":"+r.tier+":"+r.terms_version,paypalEnvironment:"production",fulfillment:"APPROVED_LICENSE_REQUIRED"});
+const selection=(r,q)=>({productId:r.product_id,tier:r.tier,sku:r.product_id+"-"+r.tier.toUpperCase(),priceCents:q?q.subtotal_cents:r.price_cents,...(q?{memberPricingVersion:MEMBER_RATE_VERSION}:{}),currency:"USD",formats:EXPECTED_FORMATS[r.tier],termsVersion:r.terms_version,customId:r.product_id+":"+r.tier+":"+r.terms_version,paypalEnvironment:"production",fulfillment:"APPROVED_LICENSE_REQUIRED"});
+async function checkedQuote(db,row){
+ const q=await readMemberQuote(db,row.session_id);
+ if(q&&!validMemberQuote(q,row.tier,row.product_id))throw Error("Stored member quote invalid");
+ return q;
+}
 async function verifyTerms(db,row,env){
  assert(row.terms_version===env.APPROVED_TERMS_VERSION&&row.terms_hash===env.APPROVED_TERMS_SHA256,"Agreement version changed");
  const terms=await first(db,"SELECT document_text FROM commerce_approved_terms WHERE version=? AND sha256=?",row.terms_version,row.terms_hash);
@@ -48,7 +54,7 @@ export function createCheckoutService(env,{transport=fetch}={}){
  assert(productionCheckoutReady(env),"Production checkout locked");
  const db=env.ORDERS_DB, paypal=productionPayPalClient(env,transport);
  return Object.freeze({
-  async offer(input){
+  async offer(input,{memberToken}={}){
    const row={product_id:input.productId,tier:input.tier,price_cents:EXPECTED_PRICE_CENTS[input.tier],terms_version:env.APPROVED_TERMS_VERSION,terms_hash:env.APPROVED_TERMS_SHA256};
    const product=await checkProduct(db,row);
    // Until version selection is explicitly configured, multiple approved
@@ -58,28 +64,37 @@ export function createCheckoutService(env,{transport=fetch}={}){
    row.schedule_version=schedules.results[0].schedule_version;
    row.schedule_hash=schedules.results[0].schedule_sha256;
    const docs=await verifyTerms(db,row,env);
-   return {productId:row.product_id,title:product.title,tier:row.tier,priceCents:row.price_cents,currency:"USD",termsVersion:row.terms_version,termsHash:row.terms_hash,scheduleVersion:row.schedule_version,scheduleHash:row.schedule_hash,agreement:docs.terms,publishingSchedule:docs.schedule};
+   const q=memberToken?await quoteForMember(env,row.tier,row.product_id,memberToken):null;
+   return {productId:row.product_id,title:product.title,tier:row.tier,priceCents:q?q.subtotal_cents:row.price_cents,regularPriceCents:row.price_cents,discountCents:q?.discount_cents||0,currency:"USD",termsVersion:row.terms_version,termsHash:row.terms_hash,scheduleVersion:row.schedule_version,scheduleHash:row.schedule_hash,agreement:docs.terms,publishingSchedule:docs.schedule};
   },
-  async begin(input){
+  async begin(input,{memberToken}={}){
    assert(input?.accepted===true&&input?.publishingAccepted===true,"Affirmative agreement and publishing acceptance required");
    const buyer=String(input.buyerEmail||"").trim();
    assert(emailRE.test(buyer)&&buyer.length<=254,"Valid buyer email required");
    const row={product_id:input.productId,tier:input.tier,price_cents:EXPECTED_PRICE_CENTS[input.tier],terms_version:input.termsVersion,terms_hash:input.termsHash,schedule_version:input.scheduleVersion,schedule_hash:input.scheduleHash};
    assert(hashRE.test(row.schedule_hash||"")&&typeof row.schedule_version==="string"&&row.schedule_version.length<=100,"Publishing schedule required");
    await checkProduct(db,row);await verifyTerms(db,row,env);
+   const q=memberToken?await quoteForMember(env,row.tier,row.product_id,memberToken):null;
+   if(q)assert(input.acceptedAmountCents===q.subtotal_cents,"Member price must be reviewed and accepted");
+   else if(input.acceptedAmountCents!==undefined)assert(input.acceptedAmountCents===row.price_cents,"Price changed; review regular price");
    const id=crypto.randomUUID(),raw=token();
-   await stmt(db,"INSERT INTO commerce_checkout_sessions(session_id,token_hash,product_id,tier,price_cents,buyer_email,terms_version,terms_hash,schedule_version,schedule_hash,accepted_at,status,created_at_epoch) VALUES(?,?,?,?,?,?,?,?,?,?,?,'ACCEPTED',?)",id,await sha256(raw),row.product_id,row.tier,row.price_cents,buyer,row.terms_version,row.terms_hash,row.schedule_version,row.schedule_hash,now(),Math.floor(Date.now()/1000)).run();
-   return {sessionId:id,sessionToken:raw,amountCents:row.price_cents,currency:"USD"};
+   const session=stmt(db,"INSERT INTO commerce_checkout_sessions(session_id,token_hash,product_id,tier,price_cents,buyer_email,terms_version,terms_hash,schedule_version,schedule_hash,accepted_at,status,created_at_epoch) VALUES(?,?,?,?,?,?,?,?,?,?,?,'ACCEPTED',?)",id,await sha256(raw),row.product_id,row.tier,row.price_cents,buyer,row.terms_version,row.terms_hash,row.schedule_version,row.schedule_hash,now(),Math.floor(Date.now()/1000));
+   if(q)await db.batch([session,stmt(db,"INSERT INTO commerce_member_checkout_quotes(session_id,product_id,tier,regular_cents,discount_bps,subtotal_cents,discount_cents,tax_cents,currency,pricing_version,checked_at_epoch,member_session_hash) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)",id,q.product_id,q.tier,q.regular_cents,q.discount_bps,q.subtotal_cents,q.discount_cents,q.tax_cents,q.currency,q.pricing_version,q.checked_at_epoch,q.member_session_hash)]);
+   else await session.run();
+   return {sessionId:id,sessionToken:raw,amountCents:q?q.subtotal_cents:row.price_cents,currency:"USD"};
   },
-  async create(input){
+  async create(input,{memberToken}={}){
    const r=await authenticate(db,input.sessionId,input.sessionToken);
    assert(r.status==="ACCEPTED"&&Math.floor(Date.now()/1000)-r.created_at_epoch<=1800,"Checkout expired or already started; reconcile before retry");
    await checkProduct(db,r);await verifyTerms(db,r,env);
+   const q=await checkedQuote(db,r);
+   if(q){const fresh=await quoteForMember(env,r.tier,r.product_id,memberToken);assert(fresh.member_session_hash===q.member_session_hash&&fresh.subtotal_cents===q.subtotal_cents,"Member quote must be reaccepted");}
+   else assert(!memberToken,"Restart checkout to apply membership pricing");
    assert(changes(await stmt(db,"UPDATE commerce_checkout_sessions SET status='CREATING' WHERE session_id=? AND status='ACCEPTED'",r.session_id).run())===1,"Checkout already claimed");
    // If network or database fails after the claim, retain CREATING for reconciliation.
-   const provider=await paypal.create(selection(r),"create-"+r.session_id,true);
+   const provider=await paypal.create(selection(r,q),"create-"+r.session_id,true);
    await db.batch([
-    stmt(db,"INSERT INTO commerce_orders(paypal_order_id,product_id,license_tier,amount_cents,currency,buyer_email,status) VALUES(?,?,?,?,'USD',?,'CREATED')",provider.orderId,r.product_id,r.tier,r.price_cents,r.buyer_email),
+    stmt(db,"INSERT INTO commerce_orders(paypal_order_id,product_id,license_tier,amount_cents,currency,buyer_email,status) VALUES(?,?,?,?,'USD',?,'CREATED')",provider.orderId,r.product_id,r.tier,q?q.subtotal_cents:r.price_cents,r.buyer_email),
     stmt(db,"INSERT INTO commerce_terms_acceptance VALUES(?,?,?,?,?,1,?)",provider.orderId,r.product_id,r.tier,r.terms_version,r.terms_hash,r.accepted_at),
     stmt(db,"INSERT INTO commerce_publishing_acceptance VALUES(?,?,?,?,?)",provider.orderId,r.product_id,r.schedule_version,r.schedule_hash,r.accepted_at),
     stmt(db,"UPDATE commerce_checkout_sessions SET status='CREATED',paypal_order_id=? WHERE session_id=? AND status='CREATING'",provider.orderId,r.session_id)
@@ -89,22 +104,22 @@ export function createCheckoutService(env,{transport=fetch}={}){
   async capture(input){
    const r=await authenticate(db,input.sessionId,input.sessionToken);
    assert(r.paypal_order_id&&["CREATED","CAPTURING","COMPLETED"].includes(r.status),"No capturable order");
-   const product=await checkProduct(db,r),docs=await verifyTerms(db,r,env);
+   const product=await checkProduct(db,r),docs=await verifyTerms(db,r,env),q=await checkedQuote(db,r),paidCents=q?q.subtotal_cents:r.price_cents;
    const order=await first(db,"SELECT * FROM commerce_orders WHERE paypal_order_id=?",r.paypal_order_id);
-   assert(order&&order.product_id===r.product_id&&order.license_tier===r.tier&&order.amount_cents===r.price_cents&&order.buyer_email===r.buyer_email&&!order.refunded_at&&!order.chargeback_at&&!order.revoked_at&&["CREATED","CAPTURING","COMPLETED"].includes(order.status),"Order requires reconciliation");
+   assert(order&&order.product_id===r.product_id&&order.license_tier===r.tier&&order.amount_cents===paidCents&&order.buyer_email===r.buyer_email&&!order.refunded_at&&!order.chargeback_at&&!order.revoked_at&&["CREATED","CAPTURING","COMPLETED"].includes(order.status),"Order requires reconciliation");
    const a=await first(db,"SELECT * FROM commerce_terms_acceptance WHERE paypal_order_id=? AND terms_version=?",r.paypal_order_id,r.terms_version);
    const b=await first(db,"SELECT * FROM commerce_publishing_acceptance WHERE paypal_order_id=?",r.paypal_order_id);
    assert(a&&a.product_id===r.product_id&&a.license_tier===r.tier&&a.terms_sha256===r.terms_hash&&a.affirmatively_accepted===1&&b&&b.product_id===r.product_id&&b.schedule_version===r.schedule_version&&b.schedule_sha256===r.schedule_hash,"Acceptance mismatch");
    let payment;
    if(r.status==="CREATED"&&order.status==="CREATED"){
-    const ready=await paypal.reconcile(r.paypal_order_id,selection(r));
+    const ready=await paypal.reconcile(r.paypal_order_id,selection(r,q));
     assert(ready.completed||ready.status==="APPROVED","Buyer approval not yet verified");
     const claim=await stmt(db,"UPDATE commerce_orders SET status='CAPTURING' WHERE paypal_order_id=? AND status='CREATED' AND revoked_at IS NULL AND refunded_at IS NULL AND chargeback_at IS NULL",r.paypal_order_id).run();
     assert(changes(claim)===1,"Capture already claimed; reconcile");
     await stmt(db,"UPDATE commerce_checkout_sessions SET status='CAPTURING' WHERE session_id=? AND status='CREATED'",r.session_id).run();
-    payment=ready.completed?ready.payment:await paypal.capture(r.paypal_order_id,selection(r),"capture-"+r.session_id,true);
+    payment=ready.completed?ready.payment:await paypal.capture(r.paypal_order_id,selection(r,q),"capture-"+r.session_id,true);
    }else{
-    const result=await paypal.reconcile(r.paypal_order_id,selection(r));
+    const result=await paypal.reconcile(r.paypal_order_id,selection(r,q));
     assert(result.completed,"Capture outcome unresolved; do not recapture");
     payment=result.payment;
    }
@@ -115,7 +130,7 @@ export function createCheckoutService(env,{transport=fetch}={}){
    assert(latest?.status==="COMPLETED"&&latest.paypal_capture_id===payment.capture_id&&!latest.revoked_at&&!latest.refunded_at&&!latest.chargeback_at,"Order no longer eligible");
    const licenseId="BRUA1-LIC-"+r.session_id;
    const issuedAt=now();
-   const document=["BruA1 Instrumental License","License ID: "+licenseId,"Buyer: "+r.buyer_email,"Instrumental: "+product.title+" ("+r.product_id+")","Tier: "+r.tier,"Paid: USD "+(r.price_cents/100).toFixed(2),"PayPal order: "+r.paypal_order_id,"Capture: "+payment.capture_id,"Accepted at: "+r.accepted_at,"Agreement version: "+r.terms_version,"Agreement SHA-256: "+r.terms_hash,"Publishing version: "+r.schedule_version,"Publishing SHA-256: "+r.schedule_hash,"Issued at: "+issuedAt,"",docs.terms,"",docs.schedule].join("\n");
+   const document=["BruA1 Instrumental License","License ID: "+licenseId,"Buyer: "+r.buyer_email,"Instrumental: "+product.title+" ("+r.product_id+")","Tier: "+r.tier,"Paid: USD "+(paidCents/100).toFixed(2),"PayPal order: "+r.paypal_order_id,"Capture: "+payment.capture_id,"Accepted at: "+r.accepted_at,"Agreement version: "+r.terms_version,"Agreement SHA-256: "+r.terms_hash,"Publishing version: "+r.schedule_version,"Publishing SHA-256: "+r.schedule_hash,"Issued at: "+issuedAt,"",docs.terms,"",docs.schedule].join("\n");
    const documentHash=await sha256(document);
    // Atomic insert, conditionally on current completed/unrevoked order. Retrying
    // cannot overwrite existing licenses or documents.
