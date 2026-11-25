@@ -3,7 +3,10 @@ import {beginEnrollment,refreshEnrollment,cancelEnrollment} from "./enrollment.m
 import {redeemInvite,login,logout} from "./auth.mjs";
 // Isolated community API; invite authentication and member features remain locked by default.
 const ORIGIN="https://brua1.com";
-const ROLES=new Set(["musician","vocalist","producer","songwriter","ghostwriter","audio_engineer","dj","recording_studio","video_creator","artist"]);
+const MUSIC_ROLES=new Set(["musician","vocalist","producer","songwriter","ghostwriter","audio_engineer","dj","recording_studio","video_creator","artist"]);
+const SERVICE_ROLES=new Set(["carpenter","contractor","electrician","plumber","painter","handyman","graphic_designer","photographer","web_developer","other_service"]);
+const ROLES=new Set([...MUSIC_ROLES,...SERVICE_ROLES]);
+const roleUnion="SELECT member_id,role FROM network_roles UNION ALL SELECT member_id,role FROM network_service_roles";
 const tokenRE=/^[a-f0-9]{64}$/;
 const idRE=/^[A-Za-z0-9-]{1,80}$/;
 const epoch=()=>Math.floor(Date.now()/1000);
@@ -75,15 +78,20 @@ export async function networkRoute(request,env){
  if(p==="/api/network/directory"&&get){
   const q=bounded(url.searchParams.get("q")||"",100).toLowerCase(),role=url.searchParams.get("role")||"";
   if(role&&!ROLES.has(role))throw Error("Invalid role");
-  const rows=await all(db,"SELECT p.member_id,p.display_name,p.bio,p.location,p.genres,p.instruments,p.portfolio_url,p.available,(SELECT group_concat(role) FROM network_roles WHERE member_id=m.id) AS roles FROM network_profiles p JOIN network_members m ON m.id=p.member_id JOIN network_memberships sub ON sub.member_id=m.id WHERE p.directory_visible=1 AND "+active+visibility+" AND (?='' OR EXISTS(SELECT 1 FROM network_roles r WHERE r.member_id=m.id AND r.role=?)) AND (?='' OR instr(lower(p.display_name||' '||p.bio||' '||p.location||' '||p.genres||' '||p.instruments),?)>0) ORDER BY p.display_name LIMIT 50",now,who.id,who.id,role,role,q,q);
+  const rows=await all(db,"SELECT p.member_id,p.display_name,p.bio,p.location,p.genres,p.instruments,p.portfolio_url,p.available,(SELECT group_concat(role) FROM ("+roleUnion+") WHERE member_id=m.id) AS roles FROM network_profiles p JOIN network_members m ON m.id=p.member_id JOIN network_memberships sub ON sub.member_id=m.id WHERE p.directory_visible=1 AND "+active+visibility+" AND (?='' OR EXISTS(SELECT 1 FROM ("+roleUnion+") r WHERE r.member_id=m.id AND r.role=?)) AND (?='' OR instr(lower(p.display_name||' '||p.bio||' '||p.location||' '||p.genres||' '||p.instruments||' '||COALESCE((SELECT group_concat(replace(role,'_',' '),' ') FROM ("+roleUnion+") WHERE member_id=m.id),'')),?)>0) ORDER BY p.display_name LIMIT 50",now,who.id,who.id,role,role,q,q);
   return response(200,{profiles:rows});
+ }
+ if(p==="/api/network/profile"&&get){
+  const profile=await first(db,"SELECT display_name,bio,location,genres,instruments,portfolio_url,available,directory_visible FROM network_profiles WHERE member_id=?",who.id);
+  const roles=await all(db,"SELECT role FROM ("+roleUnion+") WHERE member_id=? ORDER BY role",who.id);
+  return response(200,{profile:profile||{display_name:who.display_name,bio:"",location:"",genres:"",instruments:"",portfolio_url:"",available:0,directory_visible:0},roles:roles.map(r=>r.role)});
  }
  if(p==="/api/network/profile"&&post){
   const x=await json(request),name=bounded(x.displayName,80,true),bio=bounded(x.bio||"",1000),location=bounded(x.location||"",100),genres=bounded(x.genres||"",200),instruments=bounded(x.instruments||"",200),portfolio=bounded(x.portfolioUrl||"",300);
   if(portfolio){const u=new URL(portfolio);if(u.protocol!=="https:"||u.username||u.password)throw Error("Invalid portfolio URL");}
   const roles=[...new Set(Array.isArray(x.roles)?x.roles:[])];if(roles.length>10||roles.some(r=>!ROLES.has(r)))throw Error("Invalid roles");
   if(typeof x.directoryVisible!=="boolean"||typeof x.available!=="boolean")throw Error("Visibility required");
-  await db.batch([stmt(db,"UPDATE network_members SET display_name=? WHERE id=?",name,who.id),stmt(db,"INSERT INTO network_profiles(member_id,display_name,bio,location,genres,instruments,portfolio_url,available,directory_visible) VALUES(?,?,?,?,?,?,?,?,?) ON CONFLICT(member_id) DO UPDATE SET display_name=excluded.display_name,bio=excluded.bio,location=excluded.location,genres=excluded.genres,instruments=excluded.instruments,portfolio_url=excluded.portfolio_url,available=excluded.available,directory_visible=excluded.directory_visible",who.id,name,bio,location,genres,instruments,portfolio,+x.available,+x.directoryVisible),stmt(db,"DELETE FROM network_roles WHERE member_id=?",who.id),...roles.map(r=>stmt(db,"INSERT INTO network_roles VALUES(?,?)",who.id,r))]);return response(200,{saved:true});
+  await db.batch([stmt(db,"UPDATE network_members SET display_name=? WHERE id=?",name,who.id),stmt(db,"INSERT INTO network_profiles(member_id,display_name,bio,location,genres,instruments,portfolio_url,available,directory_visible) VALUES(?,?,?,?,?,?,?,?,?) ON CONFLICT(member_id) DO UPDATE SET display_name=excluded.display_name,bio=excluded.bio,location=excluded.location,genres=excluded.genres,instruments=excluded.instruments,portfolio_url=excluded.portfolio_url,available=excluded.available,directory_visible=excluded.directory_visible",who.id,name,bio,location,genres,instruments,portfolio,+x.available,+x.directoryVisible),stmt(db,"DELETE FROM network_roles WHERE member_id=?",who.id),stmt(db,"DELETE FROM network_service_roles WHERE member_id=?",who.id),...roles.map(r=>stmt(db,MUSIC_ROLES.has(r)?"INSERT INTO network_roles VALUES(?,?)":"INSERT INTO network_service_roles VALUES(?,?)",who.id,r))]);return response(200,{saved:true});
  }
  if(p==="/api/network/chat"&&get){
   const id=url.searchParams.get("channel");await channel(db,id,"chat");

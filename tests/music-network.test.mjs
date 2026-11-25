@@ -25,6 +25,16 @@ test("member API rejects visitors and expired members, persists private chat and
  assert.equal((await call("channels","invalid")).status,401);assert.equal((await call("channels",tokenExpired)).status,401);
  assert.equal((await call("profile",tokenA,{displayName:"Test Producer",roles:["producer","musician"],genres:"Hip-hop",instruments:"Guitar",available:true,directoryVisible:true})).status,200);
  assert.equal((await (await call("directory?role=musician&q=guitar",tokenB)).json()).profiles.length,1);
+ const mixed={displayName:"Test Producer and Carpenter",roles:["producer","carpenter","contractor"],location:"Monroe, LA",instruments:"Trim and framing",available:true,directoryVisible:true};
+ assert.equal((await call("profile",tokenA,mixed)).status,200);
+ assert.deepEqual((await (await call("profile",tokenA)).json()).roles,["carpenter","contractor","producer"]);
+ assert.equal((await (await call("directory?role=carpenter&q=framing",tokenB)).json()).profiles.length,1);
+ assert.equal((await (await call("directory?q=contractor",tokenB)).json()).profiles.length,1);
+ assert.equal((await call("profile",tokenExpired,mixed)).status,401);
+ assert.equal((await call("profile",tokenA,{...mixed,roles:["invalid"]})).status,400);
+ assert.equal((await call("profile",tokenA,{...mixed,directoryVisible:false})).status,200);
+ assert.equal((await (await call("directory?role=carpenter",tokenB)).json()).profiles.length,0);
+ assert.equal((await call("profile",tokenA,mixed)).status,200);
  assert.equal((await call("chat",tokenA,{channel:"general",body:"Hello from member A"})).status,201);
  assert.equal((await (await call("chat?channel=general",tokenB)).json()).messages[0].body,"Hello from member A");
  const thread=await (await call("threads",tokenA,{channel:"collaborations",title:"Find a guitarist",body:"Original music project"})).json();
