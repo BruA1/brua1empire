@@ -1,11 +1,19 @@
 import {redeemInvite,login,logout} from "../workers/brua1-music-network/auth.mjs";
 import {networkRoute} from "../workers/brua1-music-network/index.mjs";
+import {memberPricePreview} from "../workers/brua1-music-network/member-beat-pricing.mjs";
 import {createHash} from "node:crypto";
 import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import {DatabaseSync} from "node:sqlite";
 import {Script} from "node:vm";
+test("member pricing uses exact integer-cent arithmetic and never authorizes checkout",()=>{
+ for(const [tier,regular,subtotal,discount] of [["basic",2999,2549,450],["premium",5999,5099,900],["unlimited",9999,8499,1500]]){
+  const p=memberPricePreview(tier,true);assert.equal(p.regularCents,regular);assert.equal(p.subtotalCents,subtotal);assert.equal(p.discountCents,discount);assert.equal(p.discountBps,1500);assert.equal(p.checkoutAuthorized,false);assert.equal(p.taxIncluded,false);
+  assert.equal(memberPricePreview(tier,false).subtotalCents,regular);assert.equal(memberPricePreview(tier,"true").subtotalCents,regular);
+ }
+ assert.throws(()=>memberPricePreview("__proto__",true));assert.throws(()=>memberPricePreview("exclusive",true));
+});
 test("public preview is linked, honest, and contains no checkout or collection form",()=>{const html=fs.readFileSync("music-network.html","utf8"),home=fs.readFileSync("index.html","utf8"),allow=fs.readFileSync(".assetsignore","utf8");assert(home.includes('href="music-network.html"'));assert(html.includes("Development preview"));assert(html.includes("fictional examples"));assert(!/<form\b|type="password"|type="email"/i.test(html));assert(!/paypal\.com\//i.test(html.replaceAll("https://www.paypal.com/myaccount/autopay/","")));assert.match(html,/<button id="subscribe-monthly"[^>]*disabled/);assert.match(html,/<button id="subscribe-annual"[^>]*disabled/);assert(html.includes("Memberships coming soon"));for(const f of ["music-network.html","music-network.css","music-network.js"])assert(allow.includes("!"+f));assert(!allow.includes("!workers/"));new Script(fs.readFileSync("music-network.js","utf8"));});
 test("isolated community schema supports multiple roles and entitlement records",()=>{const db=new DatabaseSync(":memory:");db.exec(fs.readFileSync("workers/brua1-music-network/schema.sql","utf8"));db.exec("INSERT INTO network_members VALUES ('m1','Example','ACTIVE',1); INSERT INTO network_memberships VALUES ('m1',NULL,'TRIAL',100,1); INSERT INTO network_profiles(member_id,display_name) VALUES('m1','Example'); INSERT INTO network_roles VALUES('m1','producer'),('m1','musician');");assert.equal(db.prepare("SELECT count(*) AS n FROM network_roles").get().n,2);assert.equal(db.prepare("SELECT directory_visible FROM network_profiles").get().directory_visible,0);assert.equal(db.prepare("SELECT count(*) AS n FROM network_channels").get().n,10);assert.throws(()=>db.exec("INSERT INTO network_roles VALUES('m1','invalid')"));assert.throws(()=>db.exec("INSERT INTO network_blocks VALUES('m1','m1')"));db.close();});
 
@@ -88,13 +96,20 @@ test("full subscription route flow: invitation, unpaid denial, provider approval
  const begin=await call("billing/begin",token,{cycle:"monthly",acceptedTerms:true,termsVersion:"TEST-ONLY"});assert.equal(begin.status,200);assert.equal((await begin.json()).status,"APPROVAL_PENDING");
  const pending=await (await call("billing/refresh",token,{})).json();assert.equal(pending.accessUntil,0);
  assert.equal((await call("chat",token,{channel:"general",body:"blocked"})).status,401);
+ assert.equal((await call("beat-pricing",null)).status,401);
+ const unpaid=await (await call("beat-pricing?member=true&discount=100",token)).json();assert.equal(unpaid.eligible,false);assert.deepEqual(unpaid.prices.map(p=>p.subtotalCents),[2999,5999,9999]);
  // Pending provider approval remains retryable; no duplicate subscription created.
  assert.equal((await call("billing/begin",token,{cycle:"monthly",acceptedTerms:true,termsVersion:"TEST-ONLY"})).status,200);assert.equal(created,1);
  phase="ACTIVE";const paid=await (await call("billing/refresh",token,{})).json();assert.equal(paid.status,"ACTIVE");
  assert.equal((await call("me",token)).status,200);
+ const price=await (await call("beat-pricing",token)).json();assert.equal(price.eligible,true);assert.deepEqual(price.prices.map(p=>p.subtotalCents),[2549,5099,8499]);assert.equal(price.checkoutAuthorized,false);
+ db.prepare("UPDATE network_subscription_ledger SET manual_hold=1").run();assert.equal((await (await call("beat-pricing",token)).json()).eligible,false);db.prepare("UPDATE network_subscription_ledger SET manual_hold=0").run();
+ db.prepare("UPDATE network_memberships SET status='TRIAL'").run();assert.equal((await (await call("beat-pricing",token)).json()).eligible,false);db.prepare("UPDATE network_memberships SET status='ACTIVE'").run();
+ db.prepare("UPDATE network_memberships SET status='SUSPENDED'").run();assert.equal((await (await call("beat-pricing",token)).json()).eligible,false);db.prepare("UPDATE network_memberships SET status='ACTIVE'").run();
  assert.equal((await call("chat",token,{channel:"general",body:"Verified test member"})).status,201);
  assert.equal((await (await call("chat?channel=general",token)).json()).messages[0].body,"Verified test member");
  const stopped=await (await call("billing/cancel",token,{confirm:true})).json();assert.equal(stopped.cancellationConfirmed,true);assert.equal(stopped.accessUntil,paid.accessUntil);assert.equal((await call("me",token)).status,200);
- db.prepare("UPDATE network_memberships SET access_until=?").run(now-1);assert.equal((await call("me",token)).status,401);
+ assert.equal((await (await call("beat-pricing",token)).json()).eligible,true);
+ db.prepare("UPDATE network_memberships SET access_until=?").run(now-1);assert.equal((await call("me",token)).status,401);assert.equal((await (await call("beat-pricing",token)).json()).eligible,false);
  db.close();
 });
