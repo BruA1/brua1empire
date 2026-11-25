@@ -24,7 +24,7 @@ def query(sql):
  r=call(base+"/"+uuid+"/query",{"sql":sql})
  assert all(x["success"] for x in r)
  return r[-1].get("results",[])
-expected=set("network_members network_memberships network_sessions network_profiles network_roles network_channels network_threads network_posts network_chat_messages network_blocks network_reports network_dm network_invites network_login_keys network_billing_plans network_enrollments network_subscription_ledger".split())
+expected=set("network_members network_memberships network_sessions network_profiles network_roles network_service_roles network_channels network_threads network_posts network_chat_messages network_blocks network_reports network_dm network_invites network_login_keys network_billing_plans network_enrollments network_subscription_ledger".split())
 def tables():
  return {r["name"] for r in query("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%' AND name NOT LIKE '_cf_%'")}
 assert not (tables()-expected)
@@ -50,4 +50,4 @@ assert "[[d1_databases]]" not in conf and "[[r2_buckets]]" not in conf
 p.with_name("wrangler.bound.toml").write_text(conf+'\n[[d1_databases]]\nbinding = "NETWORK_DB"\ndatabase_name = "'+name+'"\ndatabase_id = "'+uuid+'"\n')
 with p.with_name("wrangler.bound.toml").open("a") as f:
  f.write('\n[[services]]\nbinding = "NETWORK_PAYPAL_SERVICE"\nservice = "brua1-checkout-production"\n')
-print("VERIFIED: separate Music Network D1, 17 tables, 10 channels, zero members or subscriptions. Commerce database untouched.")
+print("VERIFIED: separate Music Network D1, 18 tables, 10 channels, zero members or subscriptions. Commerce database untouched.")
