@@ -8,6 +8,8 @@ CREATE TABLE IF NOT EXISTS network_roles(member_id TEXT NOT NULL REFERENCES netw
 -- Additive migration: retain all existing music role rows and constraints.
 CREATE TABLE IF NOT EXISTS network_service_roles(member_id TEXT NOT NULL REFERENCES network_members(id),role TEXT NOT NULL CHECK(role IN('carpenter','contractor','electrician','plumber','painter','handyman','graphic_designer','photographer','web_developer','other_service')),PRIMARY KEY(member_id,role));
 CREATE INDEX IF NOT EXISTS network_service_roles_role ON network_service_roles(role,member_id);
+-- Additive focused categories; preserve any legacy service rows without displaying them.
+CREATE TABLE IF NOT EXISTS network_focused_roles(member_id TEXT NOT NULL REFERENCES network_members(id),role TEXT NOT NULL CHECK(role IN('motivational_speaker','inspirational_creator','personal_growth_mentor','finish_carpenter','framing_carpenter','cabinetmaker')),PRIMARY KEY(member_id,role));
 CREATE TABLE IF NOT EXISTS network_channels(id TEXT PRIMARY KEY,title TEXT NOT NULL,kind TEXT NOT NULL CHECK(kind IN('forum','chat')),enabled INTEGER NOT NULL DEFAULT 1 CHECK(enabled IN(0,1)));
 CREATE TABLE IF NOT EXISTS network_threads(id TEXT PRIMARY KEY,channel_id TEXT NOT NULL REFERENCES network_channels(id),author_id TEXT NOT NULL REFERENCES network_members(id),title TEXT NOT NULL,created_at INTEGER NOT NULL,hidden INTEGER NOT NULL DEFAULT 0 CHECK(hidden IN(0,1)));
 CREATE TABLE IF NOT EXISTS network_posts(id TEXT PRIMARY KEY,thread_id TEXT NOT NULL REFERENCES network_threads(id),author_id TEXT NOT NULL REFERENCES network_members(id),body TEXT NOT NULL,created_at INTEGER NOT NULL,hidden INTEGER NOT NULL DEFAULT 0 CHECK(hidden IN(0,1)));
