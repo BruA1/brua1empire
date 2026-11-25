@@ -1,14 +1,13 @@
 name: BruA1 Music Network isolated foundation
+# Legacy empty-database provisioning is retired from automatic deployments.
 on:
-  push:
-    branches: [main]
-    paths:
-      - "workers/brua1-music-network/**"
-      - "tests/music-network.test.mjs"
-      - "scripts/bootstrap-music-network.py"
-      - "scripts/install-network-paypal-plans.py"
-      - ".github/workflows/deploy-music-network-locked.yml"
   workflow_dispatch:
+    inputs:
+      confirm_empty_locked_rebuild:
+        description: "Legacy rebuild only; never use for a live founding beta"
+        required: true
+        type: boolean
+        default: false
 permissions:
   contents: read
 concurrency:
@@ -16,7 +15,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   provision-locked:
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' && inputs.confirm_empty_locked_rebuild == true
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -26,6 +25,9 @@ jobs:
           node-version: "22"
       - name: Test authentication and membership access controls
         run: node --test tests/music-network.test.mjs tests/network-subscription-entitlement.test.mjs tests/network-enrollment.test.mjs tests/network-paypal-broker.test.mjs
+      - name: Refuse legacy rebuild of active beta
+        run: |
+          curl --fail --silent --show-error https://brua1-music-network.a1productions0527.workers.dev/health | python3 -c 'import json,sys;x=json.load(sys.stdin);assert x["locked"] and not x["memberApiEnabled"] and not x["publicBetaEnabled"]'
       - name: Provision isolated community D1 only
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
