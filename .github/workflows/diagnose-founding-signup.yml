@@ -1,0 +1,37 @@
+name: Diagnose founding signup — read only
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/diagnose-founding-signup.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Check public site and live membership API without credentials or writes
+        run: |
+          python3 - <<'PY'
+          import subprocess,json
+          base="https://brua1-music-network.a1productions0527.workers.dev"
+          for origin in ["https://brua1.com","https://www.brua1.com"]:
+            for path in ["/health","/api/network/beta/config"]:
+              p=subprocess.run(["curl","-sS","--max-time","15","-D","-","-H","Origin: "+origin,base+path],capture_output=True,text=True)
+              print("PROBE",origin,path,"curl exit",p.returncode)
+              raw=p.stdout.replace("\r\n","\n"); headers,_,body=raw.partition("\n\n")
+              for line in headers.splitlines():
+                if line.lower().startswith(("http/","access-control-allow-origin:","content-type:","location:")): print(line)
+              try:
+                x=json.loads(body)
+                print(json.dumps({k:v for k,v in x.items() if k in ["service","databaseReady","brokerConnected","memberApiEnabled","inviteAuthEnabled","billingEnabled","publicBetaEnabled","locked","error","registered","active","listed","limit","spotsRemaining"]}))
+              except Exception: print("Non-JSON response")
+          for page in ["https://brua1.com/music-network.html","https://brua1.com/music-network.js"]:
+            p=subprocess.run(["curl","-sSL","--max-time","15","-w","\n%{http_code} %{url_effective}","-D","/tmp/probeheaders",page],capture_output=True,text=True)
+            body,_,result=p.stdout.rpartition("\n")
+            print("ASSET",page,result,"bytes",len(body),"founding UI", "beta-registration" in body, "health probe", "/health" in body)
+            for line in open("/tmp/probeheaders"):
+              if line.lower().startswith(("content-security-policy:","content-type:")): print(line.strip())
+          PY
