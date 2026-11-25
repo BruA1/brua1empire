@@ -1,6 +1,7 @@
 import {networkBroker} from "./paypal-broker-client.mjs";
 import {beginEnrollment,refreshEnrollment,cancelEnrollment} from "./enrollment.mjs";
 import {redeemInvite,login,logout} from "./auth.mjs";
+import {BETA_TERMS,betaOpen,betaStats,registerFounder,verifyTurnstile} from "./founding-beta.mjs";
 // Isolated community API; invite authentication and member features remain locked by default.
 const ORIGIN="https://brua1.com";
 const MUSIC_ROLES=new Set(["musician","vocalist","producer","songwriter","ghostwriter","audio_engineer","dj","recording_studio","video_creator","artist"]);
@@ -37,7 +38,7 @@ async function json(request){
 }
 const visibility=" AND NOT EXISTS (SELECT 1 FROM network_blocks b WHERE (b.blocker_id=? AND b.blocked_id=m.id) OR (b.blocked_id=? AND b.blocker_id=m.id))";
 async function channel(db,id,kind){if(!idRE.test(id||""))throw Error("Invalid channel");const row=await first(db,"SELECT id FROM network_channels WHERE id=? AND kind=? AND enabled=1",id,kind);if(!row)throw Error("Unknown channel");}
-export async function networkRoute(request,env){
+export async function networkRoute(request,env,{verifyChallenge=verifyTurnstile}={}){
  const url=new URL(request.url),p=url.pathname,origin=request.headers.get("Origin");
  if(url.protocol==="https:"&&p==="/health"&&request.method==="GET"){
   try{
@@ -45,7 +46,7 @@ export async function networkRoute(request,env){
    try{const probe=await networkBroker(env).readiness();brokerConnected=probe.authenticated===true;}catch{}
    const locked=env.NETWORK_MEMBER_API_ENABLED!=="true"&&env.NETWORK_INVITE_AUTH_ENABLED!=="true"&&env.NETWORK_BILLING_ENABLED!=="true";
    const info=await env.NETWORK_DB?.prepare("SELECT COUNT(*) AS n FROM network_channels").first();
-   return response(info?.n===10?200:503,{service:"brua1-music-network",databaseReady:info?.n===10,brokerConnected,memberApiEnabled:env.NETWORK_MEMBER_API_ENABLED==="true",inviteAuthEnabled:env.NETWORK_INVITE_AUTH_ENABLED==="true",billingEnabled:env.NETWORK_BILLING_ENABLED==="true",locked},origin===ORIGIN);
+   return response(info?.n===10?200:503,{service:"brua1-music-network",databaseReady:info?.n===10,brokerConnected,memberApiEnabled:env.NETWORK_MEMBER_API_ENABLED==="true",inviteAuthEnabled:env.NETWORK_INVITE_AUTH_ENABLED==="true",billingEnabled:env.NETWORK_BILLING_ENABLED==="true",publicBetaEnabled:betaOpen(env),locked},origin===ORIGIN);
   }catch{return response(503,{service:"brua1-music-network",databaseReady:false},false)}
  }
  if(url.protocol!=="https:"||origin!==ORIGIN)return response(403,{error:"Origin not allowed"},false);
@@ -53,8 +54,21 @@ export async function networkRoute(request,env){
  if(request.method==="OPTIONS")return new Response(null,{status:204,headers:{"Access-Control-Allow-Origin":ORIGIN,"Access-Control-Allow-Methods":"GET, POST, OPTIONS","Access-Control-Allow-Headers":"Authorization, Content-Type","Vary":"Origin"}});
  const db=env.NETWORK_DB,now=epoch();
  try{
+ if(p==="/api/network/beta/config"&&request.method==="GET"){
+  if(!betaOpen(env))return response(503,{error:"Founding enrollment is closed"});
+  return response(200,{...await betaStats(db,now),siteKey:env.TURNSTILE_SITE_KEY,termsVersion:BETA_TERMS});
+ }
+ if(p==="/api/network/auth/register"&&request.method==="POST"){
+  if(!betaOpen(env))return response(503,{error:"Founding enrollment is closed"});
+  const x=await json(request);
+  if(!await verifyChallenge(env,x.challengeToken))return response(403,{error:"Human verification required"});
+  const result=await registerFounder(db,x,now);
+  return result?response(201,result):response(409,{error:"Founding cohort is full"});
+ }
  if(p.startsWith("/api/network/auth/")){
-  if(env.NETWORK_INVITE_AUTH_ENABLED!=="true"||request.method!=="POST")return response(503,{error:"Invitation registration is closed"});
+  if(request.method!=="POST")return response(405,{error:"POST required"});
+  if(p==="/api/network/auth/redeem"&&env.NETWORK_INVITE_AUTH_ENABLED!=="true")return response(503,{error:"Invitation registration is closed"});
+  // Existing members can always sign in or out when the member API is open, even when new signups close.
   if(p==="/api/network/auth/logout"){await logout(db,(request.headers.get("Authorization")||"").replace(/^Bearer /,""),now);return response(200,{loggedOut:true});}
   const x=await json(request);
   const result=p==="/api/network/auth/redeem"?await redeemInvite(db,x.invite,now):p==="/api/network/auth/login"?await login(db,x.accessKey,now):null;
@@ -73,7 +87,7 @@ export async function networkRoute(request,env){
  }
  const who=await member(request,db,now);if(!who)return response(401,{error:"Active membership required"});
  const get=request.method==="GET",post=request.method==="POST";
- if(p==="/api/network/me"&&get)return response(200,{member:who});
+ if(p==="/api/network/me"&&get){const sub=await first(db,"SELECT status,provider_subscription_id FROM network_memberships WHERE member_id=?",who.id);return response(200,{member:who,freeBeta:sub?.status==="TRIAL"&&!sub.provider_subscription_id});}
  if(p==="/api/network/channels"&&get)return response(200,{channels:await all(db,"SELECT id,title,kind FROM network_channels WHERE enabled=1 ORDER BY title")});
  if(p==="/api/network/directory"&&get){
   const q=bounded(url.searchParams.get("q")||"",100).toLowerCase(),role=url.searchParams.get("role")||"";

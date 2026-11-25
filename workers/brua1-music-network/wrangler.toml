@@ -6,3 +6,6 @@ workers_dev = true
 NETWORK_MEMBER_API_ENABLED = "false"
 NETWORK_INVITE_AUTH_ENABLED = "false"
 NETWORK_BILLING_ENABLED = "false"
+NETWORK_PUBLIC_BETA_ENABLED = "false"
+NETWORK_BETA_MODERATION_READY = "false"
+# TURNSTILE_SITE_KEY is public configuration; TURNSTILE_SECRET_KEY must be an encrypted Worker secret.
