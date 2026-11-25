@@ -40,6 +40,6 @@ export async function checkoutRoute(request,env,{transport=fetch,serviceFactory=
  }
  try{const input=await body(request,8192);
   if(url.pathname==="/api/checkout/grants")return reply(200,await buyerGrants(env,input,transport),true);
-  const service=serviceFactory(env,{transport});const result=await service[PATHS.get(url.pathname)](input);return reply(200,result,true);}
+  const service=serviceFactory(env,{transport});const authorization=request.headers.get("Authorization");const memberToken=authorization?.startsWith("Bearer ")?authorization.slice(7):undefined;const result=await service[PATHS.get(url.pathname)](input,{memberToken});return reply(200,result,true);}
  catch{return reply(409,{error:"Checkout unavailable or requires reconciliation. Contact support with your order number if charged."},true);}
 }

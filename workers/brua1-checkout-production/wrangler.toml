@@ -10,6 +10,8 @@ keep_vars = true
 [vars]
 PAYPAL_ENVIRONMENT = "live"
 NETWORK_SUBSCRIPTION_ENROLLMENT_ENABLED = "false"
+MEMBER_BEAT_DISCOUNT_ENABLED = "false"
+# Requires separate tax verification and an authenticated NETWORK_PRICING_SERVICE binding before release.
 LIVE_CHECKOUT_ENABLED = "false"
 LICENSE_ISSUANCE_ENABLED = "false"
 REAL_AUDIO_DELIVERY_ENABLED = "false"

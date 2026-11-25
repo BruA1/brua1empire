@@ -7,6 +7,7 @@
  * signature verification (see developer.paypal.com/api/orders/v2 and
  * developer.paypal.com/api/rest/webhooks/rest).
  */
+import {memberSubtotal,MEMBER_RATE_VERSION} from "./member-checkout-quote.mjs";
 export const HELD_PRODUCTS=Object.freeze(["BRUA1-INS-0004","BRUA1-INS-0019","BRUA1-INS-0026"]);
 export const EXPECTED_PRICE_CENTS=Object.freeze({basic:2999,premium:5999,unlimited:9999});
 export const EXPECTED_FORMATS=Object.freeze({basic:Object.freeze(["mp3"]),premium:Object.freeze(["mp3","wav"]),unlimited:Object.freeze(["mp3","wav"])});
@@ -80,7 +81,9 @@ export function makePayPalOrderRequest(selection,siteOrigin) {
   if(origin.protocol!=="https:"||origin.username||origin.password||origin.search||origin.hash||origin.pathname!=="/")
     throw Error("HTTPS checkout origin required");
   const value=(selection.priceCents/100).toFixed(2);
-  if(selection.priceCents!==EXPECTED_PRICE_CENTS[selection.tier]||
+  const standard=Object.hasOwn(EXPECTED_PRICE_CENTS,selection.tier)&&selection.priceCents===EXPECTED_PRICE_CENTS[selection.tier];
+  const member=selection.paypalEnvironment==="production"&&selection.memberPricingVersion===MEMBER_RATE_VERSION&&Object.hasOwn(EXPECTED_PRICE_CENTS,selection.tier)&&selection.priceCents===memberSubtotal(selection.tier);
+  if(!(standard||member)||
      selection.currency!=="USD"||HELD_PRODUCTS.includes(selection.productId))
     throw Error("Untrusted checkout selection rejected");
   return Object.freeze({

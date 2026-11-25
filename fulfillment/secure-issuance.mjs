@@ -9,6 +9,7 @@
  */
 import {fulfillmentDecision,PRICES,FORMAT_BY_TIER,PAYPAL_ORDER_ID} from "./core.mjs";
 import {verifyCompletedPayPalOrder,HELD_PRODUCTS} from "./paypal-payment-gates.mjs";
+import {readOrderMemberQuote} from "./member-checkout-quote.mjs";
 import {issuePurchaseDownloadGrant} from "./private-delivery.mjs";
 
 const BASE="https://api-m.paypal.com";
@@ -87,8 +88,11 @@ export async function authorizePaidDownload({
  if(!order||HELD_PRODUCTS.includes(order.product_id)||
     !FORMAT_BY_TIER[order.license_tier]?.includes(format)||
     order.status!=="COMPLETED"||order.refunded_at||order.chargeback_at||order.revoked_at||
-    !PRICES[order.license_tier]||Number(order.amount_cents)!==PRICES[order.license_tier]||
+    !PRICES[order.license_tier]||
     order.currency!=="USD"||!order.paypal_capture_id)throw Error("Paid entitlement unavailable");
+ const memberQuote=await readOrderMemberQuote(db,order);
+ const expectedAmount=memberQuote?memberQuote.subtotal_cents:PRICES[order.license_tier];
+ if(Number(order.amount_cents)!==expectedAmount)throw Error("Paid amount mismatch");
  const product=await readDatabaseRecord(db,
   "SELECT product_id,title,sale_enabled,rights_cleared,independent_qa_pass FROM commerce_products WHERE product_id=?", [order.product_id]);
  if(!product||!fromD1Bool(product.sale_enabled)||!fromD1Bool(product.rights_cleared)||
@@ -125,7 +129,7 @@ export async function authorizePaidDownload({
  }
  // Always re-read the actual PayPal order using the seller's LIVE API credentials.
  const providerOrder=await paypalGetVerifiedOrder(env,orderId,transport);
- const selection={productId:order.product_id,tier:order.license_tier,priceCents:PRICES[order.license_tier],
+ const selection={productId:order.product_id,tier:order.license_tier,priceCents:expectedAmount,
    sku:order.product_id+"-"+order.license_tier.toUpperCase(),
    customId:order.product_id+":"+order.license_tier+":"+config.approved_terms_version};
  const pay=verifyCompletedPayPalOrder({
@@ -142,7 +146,7 @@ export async function authorizePaidDownload({
    verifiedPayment:{verified_by_server:true,status:pay.status,order_id:pay.order_id,
      capture_id:pay.capture_id,currency:pay.currency,amount_cents:pay.amount_cents,
      product_id:pay.product_id,tier:pay.tier},
-   acceptance,config,assets
+   acceptance,config,assets,memberQuote
  });
  if(!dec.allowed)throw Error("Independent fulfillment gates denied delivery: "+dec.blockers.join(","));
  const rec={license_id:license.license_id,order_id:orderId,product_id:order.product_id,
