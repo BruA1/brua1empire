@@ -30,6 +30,15 @@ test("member API rejects visitors and expired members, persists private chat and
  assert.deepEqual((await (await call("profile",tokenA)).json()).roles,["carpenter","contractor","producer"]);
  assert.equal((await (await call("directory?role=carpenter&q=framing",tokenB)).json()).profiles.length,1);
  assert.equal((await (await call("directory?q=contractor",tokenB)).json()).profiles.length,1);
+ assert.equal((await call("profile",tokenA,{...mixed,roles:["painter"]})).status,200);
+ assert.deepEqual((await (await call("profile",tokenA)).json()).roles,["painter"]);
+ assert.equal((await (await call("directory?role=painter",tokenB)).json()).profiles.length,1);
+ assert.equal((await call("profile",tokenA,{...mixed,roles:["plumber"]})).status,400);
+ assert.equal((await call("directory?role=plumber",tokenB)).status,400);
+ assert.equal((await call("profile",tokenA,{...mixed,roles:["motivational_speaker","finish_carpenter","producer"]})).status,200);
+ assert.deepEqual((await (await call("profile",tokenA)).json()).roles,["finish_carpenter","motivational_speaker","producer"]);
+ assert.equal((await (await call("directory?role=motivational_speaker",tokenB)).json()).profiles.length,1);
+ assert.equal((await call("profile",tokenA,mixed)).status,200);
  assert.equal((await call("profile",tokenExpired,mixed)).status,401);
  assert.equal((await call("profile",tokenA,{...mixed,roles:["invalid"]})).status,400);
  assert.equal((await call("profile",tokenA,{...mixed,directoryVisible:false})).status,200);
