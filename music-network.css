@@ -3,3 +3,5 @@
 .member-profile-editor{border:1px solid var(--line);border-radius:14px;background:var(--panel);padding:20px;margin:22px 0 36px}.role-choices{display:flex;flex-wrap:wrap;gap:12px 20px;margin:12px 0}.role-choices label,.profile-toggle{display:flex;align-items:center;gap:8px;font-size:14px}.member-profile-editor fieldset{border:1px solid var(--line);border-radius:8px;margin:16px 0;padding:12px}.profile-toggle{margin:12px 0}#live-messages{max-height:420px;overflow:auto;min-height:120px;overflow-wrap:anywhere}#live-compose textarea{min-width:0}#profile-status{min-height:1.5em}.network input[type=checkbox]{accent-color:var(--gold)}
 
 #beta-access-key{font-family:monospace;overflow-wrap:anywhere;min-height:72px}#beta-registration details{margin:16px 0}#live-messages .message button{font-size:12px;padding:5px 8px;margin-right:8px;background:transparent;color:var(--muted);border:1px solid var(--line)}
+
+#signin-status,#account-status{min-height:1.5em;color:var(--gold);font-weight:600}#member-welcome,#beta-registration,#beta-key-panel{scroll-margin-top:120px}#member-welcome:focus{outline:none}#new-member-link{color:var(--gold)}

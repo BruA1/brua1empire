@@ -15,7 +15,7 @@ for(const name of Object.keys(channels)){const b=node("button","# "+name);b.type
  const API="https://brua1-music-network.a1productions0527.workers.dev";
  const by=id=>document.getElementById(id),account=by("member-account"),status=by("account-status"),billing=by("billing-status"),workspace=by("member-workspace");
  const roleLabels=professionLabels;
- let token=sessionStorage.getItem("brua1_network_session")||"",config=null,health=null,selectedChannel=null,selectedThread=null,chatTimer=null,chatGeneration=0,chatBusy=false,lastChatSignature="";
+ let token="";try{token=sessionStorage.getItem("brua1_network_session")||"";}catch{}let config=null,health=null,selectedChannel=null,selectedThread=null,chatTimer=null,chatGeneration=0,chatBusy=false,lastChatSignature="";
  const roleInputs=new Map();
  for(const [group,roles] of Object.entries(professionGroups)){const optgroup=node("optgroup");optgroup.label=group;by("live-role-filter").append(optgroup);const field=node("fieldset"),legend=node("legend",group);field.append(legend);by("profile-roles").append(field);for(const [key,label] of Object.entries(roles)){const option=node("option",label);option.value=key;optgroup.append(option);const wrap=node("label",label),cb=node("input");cb.type="checkbox";cb.value=key;wrap.prepend(cb);field.append(wrap);roleInputs.set(key,cb);}}
  function stopChat(){if(chatTimer!==null)clearInterval(chatTimer);chatTimer=null;chatGeneration++;chatBusy=false;lastChatSignature="";}
@@ -23,35 +23,54 @@ for(const name of Object.keys(channels)){const b=node("button","# "+name);b.type
  async function loadProfile(){const r=await api("profile"),p=r.profile;for(const [id,key] of [["profile-name","display_name"],["profile-location","location"],["profile-genres","genres"],["profile-skills","instruments"],["profile-url","portfolio_url"],["profile-bio","bio"]])by(id).value=p[key]||"";for(const [key,cb] of roleInputs)cb.checked=r.roles.includes(key);by("profile-visible").checked=!!p.directory_visible;by("profile-available").checked=!!p.available;}
  by("profile-save").addEventListener("click",async()=>{const b=by("profile-save"),status=by("profile-status");b.disabled=true;try{const roles=[...roleInputs].filter(([,cb])=>cb.checked).map(([k])=>k);if(roles.length>10)throw Error("Choose up to 10 professions.");await api("profile",{displayName:by("profile-name").value,bio:by("profile-bio").value,location:by("profile-location").value,genres:by("profile-genres").value,instruments:by("profile-skills").value,portfolioUrl:by("profile-url").value,roles,available:by("profile-available").checked,directoryVisible:by("profile-visible").checked});status.textContent="Profile saved.";await loadDirectory();}catch(e){status.textContent=e.message;}finally{b.disabled=false;}});
  const setStatus=s=>status.textContent=s;
+ function forgetSession(){token="";try{sessionStorage.removeItem("brua1_network_session");}catch{}}
+ function signInStatus(s){by("signin-status").textContent=s;}
  async function api(path,body,auth=true){
   const response=await fetch(API+"/api/network/"+path,{method:body===undefined?"GET":"POST",headers:{...(body===undefined?{}:{"Content-Type":"application/json"}),...(auth&&token?{Authorization:"Bearer "+token}:{})},...(body===undefined?{}:{body:JSON.stringify(body)})});
   if(!response.ok){const e=Error("Request unavailable ("+response.status+").");e.status=response.status;throw e;}return response.json();
  }
  function action(label,fn){const b=node("button",label);b.type="button";b.addEventListener("click",async()=>{b.disabled=true;try{await fn()}catch(e){setStatus(e.message)}finally{b.disabled=false}});return b;}
  function textInput(label,secret=false){const wrap=node("label",label),input=node("input");input.type=secret?"password":"text";input.autocomplete=secret?"off":"off";wrap.append(input);return [wrap,input]}
- function setToken(t){token=t;sessionStorage.setItem("brua1_network_session",t);}
- async function checkAccess(){
-  try{const me=await api("me");workspace.hidden=false;setStatus(me.freeBeta?"Free founding membership — community access unlocked.":"Membership verified. Community access unlocked.");await loadProfile();await loadDirectory();await loadChannels();}
-  catch(e){lockWorkspace();if(e.status===401)setStatus("Sign in to unlock the community.");else setStatus("Member access could not be verified.");}
+ function setToken(t){if(typeof t!=="string"||!/^[a-f0-9]{64}$/.test(t))throw Error("Server did not return a valid session.");token=t;try{sessionStorage.setItem("brua1_network_session",t);}catch{setStatus("Signed in for this page only; your browser blocks session storage.");}}
+ async function checkAccess({focus=false}={}){
+  let me;
+  try{me=await api("me");}
+  catch(e){lockWorkspace();by("member-signin-panel").hidden=false;by("retry-workspace").hidden=e.status===401;if(e.status===401){forgetSession();by("logout-member").hidden=true;signInStatus("Your session is not active. Sign in again with your saved access key.");setStatus("Sign in to unlock the community.");}else{setStatus("Your session could not be checked. Retry loading the community.");}return false;}
+  by("member-signin-panel").hidden=true;by("beta-registration").hidden=true;workspace.hidden=false;by("logout-member").hidden=false;
+  by("member-welcome").textContent="Welcome, "+me.member.display_name+"!";
+  setStatus(me.freeBeta?"Signed in successfully — free founding membership active.":"Signed in successfully — membership active.");
+  if(focus){by("member-welcome").focus({preventScroll:true});by("member-welcome").scrollIntoView({block:"start"});}
+  const results=await Promise.allSettled([loadProfile(),loadDirectory(),loadChannels()]);
+  const names=["profile","directory","community channels"],failed=names.filter((_,i)=>results[i].status==="rejected");
+  by("retry-workspace").hidden=failed.length===0;
+  if(failed.length)setStatus("Signed in successfully, but "+failed.join(", ")+" could not load. Use Retry loading community.");
+  return true;
  }
  async function refresh(){
   const r=await api("billing/refresh",{});
   setStatus(r.accessUntil>Date.now()/1000?"Paid access verified.":"Payment is not yet verified. Try refreshing after PayPal completes it.");
   await checkAccess();
  }
- async function afterLogin(){
-  by("beta-registration").hidden=true;
+ async function afterLogin(options={}){
   by("refresh-subscription").hidden=!config;by("cancel-subscription").hidden=!config;by("logout-member").hidden=false;by("billing-consent").hidden=!config;
   for(const c of ["monthly","annual"])by("subscribe-"+c).disabled=!config?.plans.some(p=>p.cycle===c);
-  await checkAccess();
+  return await checkAccess(options);
  }
+ by("retry-workspace").addEventListener("click",()=>checkAccess({focus:true}));
  try{
   const r=await fetch(API+"/health",{cache:"no-store"});if(!r.ok)return;health=await r.json();
   if(!health.memberApiEnabled)return;
   account.hidden=false;by("member-signin-link").hidden=false;
   if(health.billingEnabled){config=await api("billing/config",undefined,false);by("membership-terms-link").href=config.termsUrl;billing.textContent="Sign in to subscribe. Recurring payment approval takes place on PayPal.";}
   const [a,access]=textInput("Private access key",true);access.autocomplete="current-password";
-  by("account-controls").append(a,action("Sign in",async()=>{const r=await api("auth/login",{accessKey:access.value.trim()},false);access.value="";setToken(r.sessionToken);await afterLogin();}));
+  access.placeholder="Paste your saved private access key";access.maxLength=128;access.spellcheck=false;access.autocapitalize="none";
+  const signIn=action("Sign in",async()=>{const key=access.value.trim().toLowerCase();if(!/^[a-f0-9]{64}$/.test(key)){signInStatus("Enter the full 64-character private access key from your account registration.");return;}
+   signInStatus("Checking your access key…");
+   try{const r=await api("auth/login",{accessKey:key},false);setToken(r.sessionToken);access.value="";signInStatus("Access key accepted.");await afterLogin({focus:true});}
+   catch(e){signInStatus(e.status===401?"Sign-in was not accepted. Check your saved access key; too many active sessions can also prevent login.":e.status===503?"Sign-in service is temporarily unavailable.":"Sign-in could not reach the server. Check your connection and try again.");}
+  });
+  access.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();if(!signIn.disabled)signIn.click();}});
+  by("account-controls").append(a,signIn);
   function showKey(key){by("beta-access-key").value=key;by("beta-key-panel").hidden=false;by("beta-key-panel").scrollIntoView();}
   by("beta-copy-key").addEventListener("click",async()=>{try{await navigator.clipboard.writeText(by("beta-access-key").value);setStatus("Access key copied. Save it privately.");}catch{by("beta-access-key").select();setStatus("Copy the selected access key manually.");}});
   by("beta-hide-key").addEventListener("click",()=>{by("beta-access-key").value="";by("beta-key-panel").hidden=true;});
@@ -64,7 +83,8 @@ for(const name of Object.keys(channels)){const b=node("button","# "+name);b.type
    by("network-phase").textContent="BRUA1 MUSIC NETWORK / FOUNDING BETA";
    by("network-launch-notice").textContent="Free founding beta. Sample previews are illustrative; sign in to access real member profiles and discussions.";
    by("beta-count").textContent=beta.registered+" founding accounts registered · "+beta.listed+" opted-in professional listings · "+beta.spotsRemaining+" spots remaining.";
-   by("beta-join-link").hidden=false;by("beta-membership-link").hidden=false;
+   by("beta-join-link").hidden=false;by("beta-membership-link").hidden=false;by("new-member-link").hidden=beta.spotsRemaining===0;
+   if(token){await afterLogin();}
    if(!token&&beta.spotsRemaining>0){
     by("beta-registration").hidden=false;
     let challengeToken="",widget=null;
@@ -75,7 +95,7 @@ for(const name of Object.keys(channels)){const b=node("button","# "+name);b.type
     register.addEventListener("click",async()=>{register.disabled=true;try{
      if(!by("beta-adult").checked||!by("beta-consent").checked||!by("beta-name").value.trim())throw Error("Enter a name and accept both confirmations.");
      const r=await api("auth/register",{displayName:by("beta-name").value,adultConfirmed:true,acceptedTerms:true,termsVersion:beta.termsVersion,challengeToken},false);
-     setToken(r.sessionToken);by("beta-registration").hidden=true;showKey(r.accessKey);await afterLogin();
+     showKey(r.accessKey);setToken(r.sessionToken);by("beta-registration").hidden=true;await afterLogin();by("beta-key-panel").scrollIntoView({block:"start"});
     }catch(e){rs.textContent=e.message;challengeToken="";if(widget!==null)window.turnstile.reset(widget);}});
    }
   }
@@ -87,7 +107,7 @@ for(const name of Object.keys(channels)){const b=node("button","# "+name);b.type
    catch{setStatus("Cancellation could not be confirmed here. Use PayPal automatic payments to stop future charges or contact support.");}
    finally{b.disabled=false;}
   });
-  by("logout-member").addEventListener("click",async()=>{try{await api("auth/logout",{});}finally{lockWorkspace();token="";sessionStorage.removeItem("brua1_network_session");location.replace(location.pathname+"#membership");}});
+  by("logout-member").addEventListener("click",async()=>{try{await api("auth/logout",{});}finally{lockWorkspace();forgetSession();location.replace(location.pathname+"#membership");}});
   for(const cycle of ["monthly","annual"])by("subscribe-"+cycle).addEventListener("click",async()=>{
    const b=by("subscribe-"+cycle);b.disabled=true;
    try{if(!token||!config||!by("accept-membership-terms").checked)throw Error("Sign in and accept the membership terms first.");
@@ -97,7 +117,7 @@ for(const name of Object.keys(channels)){const b=node("button","# "+name);b.type
    }catch(e){setStatus(e.message);account.scrollIntoView();b.disabled=false;}
   });
   if(token){await afterLogin();const returned=new URLSearchParams(location.search).get("subscription");if(returned==="return"&&config)await refresh();if(returned==="cancel")setStatus("PayPal approval canceled. No membership access has been granted.");if(returned)history.replaceState(null,"",location.pathname+"#member-account");}
- }catch{billing.textContent="Membership service is unavailable. No new payments can be initiated.";}
+ }catch{billing.textContent="Membership service is unavailable. No new payments can be initiated.";by("beta-count").textContent="Could not connect to registration. Reload the page and try again.";setStatus("Membership service could not load. Please retry.");}
  async function loadDirectory(){
   const r=await api("directory?q="+encodeURIComponent(by("live-directory-search").value)+"&role="+encodeURIComponent(by("live-role-filter").value));const target=by("live-directory");target.replaceChildren();
   for(const p of r.profiles){const card=node("article","","profile");card.append(node("h3",p.display_name),node("p",(p.roles||"").split(",").filter(Boolean).map(r=>roleLabels[r]||r).join(" · ")||"Member","role"),node("p",p.location),node("p",p.instruments),node("p",p.genres),node("p",p.bio));if(p.available)card.append(node("p","Available for work or collaboration","role"));if(p.portfolio_url){try{const u=new URL(p.portfolio_url);if(u.protocol==="https:"&&!u.username&&!u.password){const a=node("a","Portfolio / website");a.href=u.href;a.target="_blank";a.rel="noopener noreferrer";card.append(a);}}catch{}}target.append(card);}
