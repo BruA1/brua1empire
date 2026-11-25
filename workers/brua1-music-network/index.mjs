@@ -5,10 +5,10 @@ import {BETA_TERMS,betaOpen,betaStats,registerFounder,verifyTurnstile} from "./f
 // Isolated community API; invite authentication and member features remain locked by default.
 const ORIGIN="https://brua1.com";
 const MUSIC_ROLES=new Set(["musician","vocalist","producer","songwriter","ghostwriter","audio_engineer","dj","recording_studio","video_creator","artist"]);
-const SERVICE_ROLES=new Set(["carpenter","contractor"]);
+const SERVICE_ROLES=new Set(["carpenter","contractor","painter"]);
 const FOCUSED_ROLES=new Set(["motivational_speaker","inspirational_creator","personal_growth_mentor","finish_carpenter","framing_carpenter","cabinetmaker"]);
 const ROLES=new Set([...MUSIC_ROLES,...SERVICE_ROLES,...FOCUSED_ROLES]);
-const roleUnion="SELECT member_id,role FROM network_roles UNION ALL SELECT member_id,role FROM network_service_roles WHERE role IN ('carpenter','contractor') UNION ALL SELECT member_id,role FROM network_focused_roles";
+const roleUnion="SELECT member_id,role FROM network_roles UNION ALL SELECT member_id,role FROM network_service_roles WHERE role IN ('carpenter','contractor','painter') UNION ALL SELECT member_id,role FROM network_focused_roles";
 const tokenRE=/^[a-f0-9]{64}$/;
 const idRE=/^[A-Za-z0-9-]{1,80}$/;
 const epoch=()=>Math.floor(Date.now()/1000);
@@ -106,7 +106,7 @@ export async function networkRoute(request,env,{verifyChallenge=verifyTurnstile}
   if(portfolio){const u=new URL(portfolio);if(u.protocol!=="https:"||u.username||u.password)throw Error("Invalid portfolio URL");}
   const roles=[...new Set(Array.isArray(x.roles)?x.roles:[])];if(roles.length>10||roles.some(r=>!ROLES.has(r)))throw Error("Invalid roles");
   if(typeof x.directoryVisible!=="boolean"||typeof x.available!=="boolean")throw Error("Visibility required");
-  await db.batch([stmt(db,"UPDATE network_members SET display_name=? WHERE id=?",name,who.id),stmt(db,"INSERT INTO network_profiles(member_id,display_name,bio,location,genres,instruments,portfolio_url,available,directory_visible) VALUES(?,?,?,?,?,?,?,?,?) ON CONFLICT(member_id) DO UPDATE SET display_name=excluded.display_name,bio=excluded.bio,location=excluded.location,genres=excluded.genres,instruments=excluded.instruments,portfolio_url=excluded.portfolio_url,available=excluded.available,directory_visible=excluded.directory_visible",who.id,name,bio,location,genres,instruments,portfolio,+x.available,+x.directoryVisible),stmt(db,"DELETE FROM network_roles WHERE member_id=?",who.id),stmt(db,"DELETE FROM network_service_roles WHERE member_id=? AND role IN ('carpenter','contractor')",who.id),stmt(db,"DELETE FROM network_focused_roles WHERE member_id=?",who.id),...roles.map(r=>stmt(db,MUSIC_ROLES.has(r)?"INSERT INTO network_roles VALUES(?,?)":SERVICE_ROLES.has(r)?"INSERT INTO network_service_roles VALUES(?,?)":"INSERT INTO network_focused_roles VALUES(?,?)",who.id,r))]);return response(200,{saved:true});
+  await db.batch([stmt(db,"UPDATE network_members SET display_name=? WHERE id=?",name,who.id),stmt(db,"INSERT INTO network_profiles(member_id,display_name,bio,location,genres,instruments,portfolio_url,available,directory_visible) VALUES(?,?,?,?,?,?,?,?,?) ON CONFLICT(member_id) DO UPDATE SET display_name=excluded.display_name,bio=excluded.bio,location=excluded.location,genres=excluded.genres,instruments=excluded.instruments,portfolio_url=excluded.portfolio_url,available=excluded.available,directory_visible=excluded.directory_visible",who.id,name,bio,location,genres,instruments,portfolio,+x.available,+x.directoryVisible),stmt(db,"DELETE FROM network_roles WHERE member_id=?",who.id),stmt(db,"DELETE FROM network_service_roles WHERE member_id=? AND role IN ('carpenter','contractor','painter')",who.id),stmt(db,"DELETE FROM network_focused_roles WHERE member_id=?",who.id),...roles.map(r=>stmt(db,MUSIC_ROLES.has(r)?"INSERT INTO network_roles VALUES(?,?)":SERVICE_ROLES.has(r)?"INSERT INTO network_service_roles VALUES(?,?)":"INSERT INTO network_focused_roles VALUES(?,?)",who.id,r))]);return response(200,{saved:true});
  }
  if(p==="/api/network/chat"&&get){
   const id=url.searchParams.get("channel");await channel(db,id,"chat");
