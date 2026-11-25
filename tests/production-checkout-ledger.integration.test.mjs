@@ -7,7 +7,7 @@ import {DatabaseSync} from "node:sqlite";
 import {createCheckoutService,sha256,receiveVerifiedWebhook} from "../fulfillment/production-checkout-service.mjs";
 const product="BRUA1-INS-0001",version="BRUA1-LEGAL-APPROVED-TEST",scheduleVersion="FIXTURE-V1",terms="TEST ONLY: terms fixture",schedule="TEST ONLY: agreed publishing fixture",merchant="MERCHANT123",orderId="TESTORDER12345",captureId="CAPTURE12345";
 function adapter(sqlite){
- function wrap(sql,args=[]){return {bind(...a){return wrap(sql,a);},first:async()=>sqlite.prepare(sql).get(...args),run:async()=>({meta:{changes:sqlite.prepare(sql).run(...args).changes}}),sql,args};}
+ function wrap(sql,args=[]){return {bind(...a){return wrap(sql,a);},first:async()=>sqlite.prepare(sql).get(...args),all:async()=>({results:sqlite.prepare(sql).all(...args)}),run:async()=>({meta:{changes:sqlite.prepare(sql).run(...args).changes}}),sql,args};}
  return {prepare:wrap,async batch(items){sqlite.exec("BEGIN");try{const out=items.map(s=>({meta:{changes:sqlite.prepare(s.sql).run(...s.args).changes}}));sqlite.exec("COMMIT");return out;}catch(e){sqlite.exec("ROLLBACK");throw e;}}};
 }
 async function fixture({member=false}={}){
