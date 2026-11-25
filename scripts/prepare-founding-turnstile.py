@@ -1,14 +1,16 @@
 """Provision only a dedicated Turnstile widget and its two Worker bindings.
 No signup, billing, deployment flag or payment change. Never log credentials."""
-import json,os,re,urllib.request,urllib.error,time
+import json,os,re,urllib.request,urllib.error,time,subprocess
 account=os.environ["CLOUDFLARE_ACCOUNT_ID"]
 token=os.environ["CLOUDFLARE_API_TOKEN"]
 assert re.fullmatch(r"[a-f0-9]{32}",account)
 base="https://api.cloudflare.com/client/v4/accounts/"+account
 health="https://brua1-music-network.a1productions0527.workers.dev/health"
 def get_health():
-    with urllib.request.urlopen(health,timeout=20) as r:
-        return json.load(r)
+    # Use the same HTTPS probe as the successful locked deployment workflow.
+    # Preserve strict status and JSON validation; never ignore a failed probe.
+    result=subprocess.run(["curl","--fail","--silent","--show-error","--max-time","20","--retry","3","--retry-all-errors","--retry-delay","3",health],check=True,capture_output=True,text=True,timeout=100)
+    return json.loads(result.stdout)
 def locked():
     h=get_health()
     assert h.get("databaseReady") and h.get("locked") and not h.get("billingEnabled") and not h.get("memberApiEnabled") and not h.get("publicBetaEnabled")
