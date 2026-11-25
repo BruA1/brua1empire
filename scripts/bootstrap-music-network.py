@@ -24,7 +24,7 @@ def query(sql):
  r=call(base+"/"+uuid+"/query",{"sql":sql})
  assert all(x["success"] for x in r)
  return r[-1].get("results",[])
-expected=set("network_members network_memberships network_sessions network_profiles network_roles network_service_roles network_channels network_threads network_posts network_chat_messages network_blocks network_reports network_dm network_invites network_login_keys network_billing_plans network_enrollments network_subscription_ledger".split())
+expected=set("network_members network_memberships network_sessions network_profiles network_roles network_service_roles network_channels network_threads network_posts network_chat_messages network_blocks network_reports network_dm network_invites network_founding_members network_login_keys network_billing_plans network_enrollments network_subscription_ledger".split())
 def tables():
  return {r["name"] for r in query("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%' AND name NOT LIKE '_cf_%'")}
 assert not (tables()-expected)
@@ -45,9 +45,9 @@ assert all(query("SELECT COUNT(*) AS n FROM "+t)[0]["n"]==0 for t in expected-{"
 assert query("SELECT COUNT(*) AS n FROM network_channels")[0]["n"]==10
 p=pathlib.Path("workers/brua1-music-network/wrangler.toml")
 conf=p.read_text()
-assert all(f+' = "false"' in conf for f in ["NETWORK_MEMBER_API_ENABLED","NETWORK_INVITE_AUTH_ENABLED","NETWORK_BILLING_ENABLED"])
+assert all(f+' = "false"' in conf for f in ["NETWORK_MEMBER_API_ENABLED","NETWORK_INVITE_AUTH_ENABLED","NETWORK_BILLING_ENABLED","NETWORK_PUBLIC_BETA_ENABLED","NETWORK_BETA_MODERATION_READY"])
 assert "[[d1_databases]]" not in conf and "[[r2_buckets]]" not in conf
 p.with_name("wrangler.bound.toml").write_text(conf+'\n[[d1_databases]]\nbinding = "NETWORK_DB"\ndatabase_name = "'+name+'"\ndatabase_id = "'+uuid+'"\n')
 with p.with_name("wrangler.bound.toml").open("a") as f:
  f.write('\n[[services]]\nbinding = "NETWORK_PAYPAL_SERVICE"\nservice = "brua1-checkout-production"\n')
-print("VERIFIED: separate Music Network D1, 18 tables, 10 channels, zero members or subscriptions. Commerce database untouched.")
+print("VERIFIED: separate Music Network D1, 19 tables, 10 channels, zero members or subscriptions. Commerce database untouched.")

@@ -29,8 +29,8 @@ for(const name of Object.keys(channels)){const b=node("button","# "+name);b.type
  function textInput(label,secret=false){const wrap=node("label",label),input=node("input");input.type=secret?"password":"text";input.autocomplete=secret?"off":"off";wrap.append(input);return [wrap,input]}
  function setToken(t){token=t;sessionStorage.setItem("brua1_network_session",t);}
  async function checkAccess(){
-  try{await api("me");workspace.hidden=false;setStatus("Membership verified. Community access unlocked.");await loadProfile();await loadDirectory();await loadChannels();}
-  catch(e){lockWorkspace();if(e.status===401)setStatus("Sign in and complete payment to unlock the community.");else setStatus("Member access could not be verified.");}
+  try{const me=await api("me");workspace.hidden=false;setStatus(me.freeBeta?"Free founding membership — community access unlocked.":"Membership verified. Community access unlocked.");await loadProfile();await loadDirectory();await loadChannels();}
+  catch(e){lockWorkspace();if(e.status===401)setStatus("Sign in to unlock the community.");else setStatus("Member access could not be verified.");}
  }
  async function refresh(){
   const r=await api("billing/refresh",{});
@@ -38,6 +38,7 @@ for(const name of Object.keys(channels)){const b=node("button","# "+name);b.type
   await checkAccess();
  }
  async function afterLogin(){
+  by("beta-registration").hidden=true;
   by("refresh-subscription").hidden=!config;by("cancel-subscription").hidden=!config;by("logout-member").hidden=false;by("billing-consent").hidden=!config;
   for(const c of ["monthly","annual"])by("subscribe-"+c).disabled=!config?.plans.some(p=>p.cycle===c);
   await checkAccess();
@@ -45,11 +46,36 @@ for(const name of Object.keys(channels)){const b=node("button","# "+name);b.type
  try{
   const r=await fetch(API+"/health",{cache:"no-store"});if(!r.ok)return;health=await r.json();
   if(!health.memberApiEnabled)return;
-  account.hidden=false;
+  account.hidden=false;by("member-signin-link").hidden=false;
   if(health.billingEnabled){config=await api("billing/config",undefined,false);by("membership-terms-link").href=config.termsUrl;billing.textContent="Sign in to subscribe. Recurring payment approval takes place on PayPal.";}
+  const [a,access]=textInput("Private access key",true);access.autocomplete="current-password";
+  by("account-controls").append(a,action("Sign in",async()=>{const r=await api("auth/login",{accessKey:access.value.trim()},false);access.value="";setToken(r.sessionToken);await afterLogin();}));
+  function showKey(key){by("beta-access-key").value=key;by("beta-key-panel").hidden=false;by("beta-key-panel").scrollIntoView();}
+  by("beta-copy-key").addEventListener("click",async()=>{try{await navigator.clipboard.writeText(by("beta-access-key").value);setStatus("Access key copied. Save it privately.");}catch{by("beta-access-key").select();setStatus("Copy the selected access key manually.");}});
+  by("beta-hide-key").addEventListener("click",()=>{by("beta-access-key").value="";by("beta-key-panel").hidden=true;});
   if(health.inviteAuthEnabled){
-   const [a,access]=textInput("Access key",true),[b,invite]=textInput("Invitation code",true);
-   by("account-controls").append(a,action("Sign in",async()=>{const r=await api("auth/login",{accessKey:access.value},false);access.value="";setToken(r.sessionToken);await afterLogin()}),b,action("Redeem invitation",async()=>{const r=await api("auth/redeem",{invite:invite.value},false);invite.value="";setToken(r.sessionToken);await afterLogin();const reveal=node("p","Save your access key now: "+r.accessKey);reveal.className="notice";by("account-controls").append(reveal,action("Hide key",async()=>reveal.remove()));}));
+   const [b,invite]=textInput("Invitation code",true);
+   by("account-controls").append(b,action("Redeem invitation",async()=>{const r=await api("auth/redeem",{invite:invite.value},false);invite.value="";setToken(r.sessionToken);showKey(r.accessKey);await afterLogin();}));
+  }
+  if(health.publicBetaEnabled){
+   const beta=await api("beta/config",undefined,false);
+   by("network-phase").textContent="BRUA1 MUSIC NETWORK / FOUNDING BETA";
+   by("network-launch-notice").textContent="Free founding beta. Sample previews are illustrative; sign in to access real member profiles and discussions.";
+   by("beta-count").textContent=beta.registered+" founding accounts registered · "+beta.listed+" opted-in professional listings · "+beta.spotsRemaining+" spots remaining.";
+   by("beta-join-link").hidden=false;by("beta-membership-link").hidden=false;
+   if(!token&&beta.spotsRemaining>0){
+    by("beta-registration").hidden=false;
+    let challengeToken="",widget=null;
+    const register=by("beta-register"),rs=by("beta-register-status");
+    const challengeScript=node("script");challengeScript.src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";challengeScript.async=true;
+    challengeScript.addEventListener("load",()=>{widget=window.turnstile.render("#beta-challenge",{sitekey:beta.siteKey,action:"founding_signup",callback:t=>{challengeToken=t;register.disabled=false;},"expired-callback":()=>{challengeToken="";register.disabled=true;},"error-callback":()=>{challengeToken="";register.disabled=true;rs.textContent="Human verification unavailable; try again.";}});});
+    challengeScript.addEventListener("error",()=>{rs.textContent="Human verification could not load. Registration remains closed.";});document.head.append(challengeScript);
+    register.addEventListener("click",async()=>{register.disabled=true;try{
+     if(!by("beta-adult").checked||!by("beta-consent").checked||!by("beta-name").value.trim())throw Error("Enter a name and accept both confirmations.");
+     const r=await api("auth/register",{displayName:by("beta-name").value,adultConfirmed:true,acceptedTerms:true,termsVersion:beta.termsVersion,challengeToken},false);
+     setToken(r.sessionToken);by("beta-registration").hidden=true;showKey(r.accessKey);await afterLogin();
+    }catch(e){rs.textContent=e.message;challengeToken="";if(widget!==null)window.turnstile.reset(widget);}});
+   }
   }
   by("refresh-subscription").addEventListener("click",()=>refresh().catch(e=>setStatus(e.message)));
   by("cancel-subscription").addEventListener("click",async()=>{
@@ -84,7 +110,7 @@ for(const name of Object.keys(channels)){const b=node("button","# "+name);b.type
  async function renderChannel(){
   stopChat();const generation=chatGeneration,c=selectedChannel,area=by("live-messages"),compose=by("live-compose");area.replaceChildren();compose.replaceChildren();by("live-channel-title").textContent=c.title;by("live-chat-status").textContent="";
   const postInput=node("textarea");postInput.maxLength=2000;postInput.setAttribute("aria-label","Message");
-  function renderMessages(rows){for(const m of rows){const row=node("article","","message");row.append(node("strong",m.display_name),node("p",m.body));area.append(row);}}
+  function renderMessages(rows){for(const m of rows){const row=node("article","","message");row.append(node("strong",m.display_name),node("p",m.body));if(m.id&&m.author_id){const kind=c.kind==="chat"?"chat":"post";row.append(action("Report",async()=>{const reason=window.prompt("Why are you reporting this message?");if(reason?.trim()){await api("report",{kind,id:m.id,reason:reason.trim().slice(0,1000)});setStatus("Report received for moderator review.");}}),action("Block member",async()=>{if(window.confirm("Block this member and hide their content?")){await api("block",{memberId:m.author_id});await renderChannel();}}));}area.append(row);}}
   if(c.kind==="chat"){
    const indicator=by("live-chat-status");
    async function refreshChat(){if(document.hidden||workspace.hidden||generation!==chatGeneration||chatBusy)return;chatBusy=true;try{const r=await api("chat?channel="+encodeURIComponent(c.id));if(generation!==chatGeneration)return;const signature=JSON.stringify(r.messages);if(signature!==lastChatSignature){const nearBottom=area.scrollHeight-area.scrollTop-area.clientHeight<80;area.replaceChildren();renderMessages(r.messages);lastChatSignature=signature;if(nearBottom)area.scrollTop=area.scrollHeight;}indicator.textContent="Live chat · refreshes every 5 seconds";}catch(e){if(generation!==chatGeneration)return;if(e.status===401){lockWorkspace();setStatus("Membership access ended. Sign in or verify your subscription.");}else indicator.textContent="Chat temporarily unavailable; retrying.";}finally{if(generation===chatGeneration)chatBusy=false;}}

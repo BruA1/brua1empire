@@ -98,3 +98,31 @@ test("full subscription route flow: invitation, unpaid denial, provider approval
  db.prepare("UPDATE network_memberships SET access_until=?").run(now-1);assert.equal((await call("me",token)).status,401);
  db.close();
 });
+
+test("free founding signup: consent, bot check, no charges, sign-in, directory, chat, and hard cap",async()=>{
+ const db=new DatabaseSync(":memory:");db.exec(fs.readFileSync("workers/brua1-music-network/schema.sql","utf8"));
+ const adapter={prepare(sql){return{bind(...args){const s=db.prepare(sql);return{first:async()=>s.get(...args)||null,all:async()=>({results:s.all(...args)}),run:async()=>({meta:{changes:Number(s.run(...args).changes)}})}}}},batch:async statements=>{db.exec("BEGIN");try{const out=[];for(const s of statements)out.push(await s.run());db.exec("COMMIT");return out;}catch(e){db.exec("ROLLBACK");throw e;}}};
+ const env={NETWORK_DB:adapter,NETWORK_MEMBER_API_ENABLED:"true",NETWORK_PUBLIC_BETA_ENABLED:"true",NETWORK_BILLING_ENABLED:"false",NETWORK_BETA_MODERATION_READY:"true",TURNSTILE_SITE_KEY:"fixture-site-key",TURNSTILE_SECRET_KEY:"fixture-secret"};
+ const call=(p,body,token,override={})=>networkRoute(new Request("https://network.example/api/network/"+p,{method:body===undefined?"GET":"POST",headers:{Origin:"https://brua1.com",...(token?{Authorization:"Bearer "+token}:{}),...(body===undefined?{}:{"Content-Type":"application/json"})},...(body===undefined?{}:{body:JSON.stringify(body)})}),{...env,...override},{verifyChallenge:async(e,t)=>t==="human"});
+ const input={displayName:"Founding carpenter",adultConfirmed:true,acceptedTerms:true,termsVersion:"BRUA1-FOUNDING-BETA-V1",challengeToken:"human"};
+ assert.equal((await call("auth/register",input,null,{NETWORK_PUBLIC_BETA_ENABLED:"false"})).status,503);
+ assert.equal((await call("auth/register",input,null,{NETWORK_BETA_MODERATION_READY:"false"})).status,503);
+ assert.equal((await call("auth/register",{...input,challengeToken:"bot"})).status,403);
+ assert.equal((await call("auth/register",{...input,acceptedTerms:false})).status,400);
+ const result=await call("auth/register",input);assert.equal(result.status,201);const a=await result.json();assert.match(a.accessKey,/^[a-f0-9]{64}$/);
+ assert.equal((await (await call("me",undefined,a.sessionToken)).json()).freeBeta,true);
+ assert.equal((await call("billing/config")).status,503);
+ assert.equal(db.prepare("SELECT COUNT(*) AS n FROM network_enrollments").get().n,0);
+ assert.equal(db.prepare("SELECT COUNT(*) AS n FROM network_subscription_ledger").get().n,0);
+ assert.equal((await call("profile",{displayName:input.displayName,roles:["carpenter"],available:true,directoryVisible:true},a.sessionToken)).status,200);
+ assert.equal((await call("chat",{channel:"general",body:"Hello founders"},a.sessionToken)).status,201);
+ assert.equal((await call("auth/logout",{},a.sessionToken)).status,200);
+ assert.equal((await call("me",undefined,a.sessionToken)).status,401);
+ const login=await (await call("auth/login",{accessKey:a.accessKey},null,{NETWORK_PUBLIC_BETA_ENABLED:"false"})).json();assert.ok(login.sessionToken);
+ assert.equal((await call("me",undefined,login.sessionToken)).status,200);
+ for(let i=1;i<50;i++)assert.equal((await call("auth/register",{...input,displayName:"Fixture "+i})).status,201);
+ const stats=await (await call("beta/config")).json();assert.equal(stats.registered,50);assert.equal(stats.listed,1);assert.equal(stats.spotsRemaining,0);assert.equal(stats.reviewDue,true);
+ assert.equal((await call("auth/register",input)).status,409);
+ assert.equal((await call("me",undefined,login.sessionToken)).status,200);
+ db.close();
+});
