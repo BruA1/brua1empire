@@ -90,16 +90,25 @@ for(const name of Object.keys(channels)){const b=node("button","# "+name);b.type
    by("beta-join-link").hidden=false;by("beta-membership-link").hidden=false;by("new-member-link").hidden=beta.spotsRemaining===0;
    if(!token&&beta.spotsRemaining>0){
     by("beta-registration").hidden=false;
-    let challengeToken="",widget=null;
+    let challengeToken="",widget=null,busy=false,created=false;
     const register=by("beta-register"),rs=by("beta-register-status");
+    const ready=()=>{register.disabled=busy||created||!challengeToken;};
+    const resetChallenge=()=>{challengeToken="";ready();if(widget!==null)try{window.turnstile.reset(widget);}catch{rs.textContent="Refresh this page to restart security verification.";}};
     const challengeScript=node("script");challengeScript.src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";challengeScript.async=true;
-    challengeScript.addEventListener("load",()=>{widget=window.turnstile.render("#beta-challenge",{sitekey:beta.siteKey,action:"founding_signup",callback:t=>{challengeToken=t;register.disabled=false;},"expired-callback":()=>{challengeToken="";register.disabled=true;},"error-callback":()=>{challengeToken="";register.disabled=true;rs.textContent="Human verification unavailable; try again.";}});});
-    challengeScript.addEventListener("error",()=>{rs.textContent="Human verification could not load. Registration remains closed.";});document.head.append(challengeScript);
-    register.addEventListener("click",async()=>{register.disabled=true;try{
-     if(!by("beta-adult").checked||!by("beta-consent").checked||!by("beta-name").value.trim())throw Error("Enter a name and accept both confirmations.");
-     const r=await api("auth/register",{displayName:by("beta-name").value,adultConfirmed:true,acceptedTerms:true,termsVersion:beta.termsVersion,challengeToken},false);
-     showKey(r.accessKey);setToken(r.sessionToken);by("beta-registration").hidden=true;await afterLogin();by("beta-key-panel").scrollIntoView({block:"start"});
-    }catch(e){rs.textContent=e.message;challengeToken="";if(widget!==null)window.turnstile.reset(widget);}});
+    challengeScript.addEventListener("load",()=>{widget=window.turnstile.render("#beta-challenge",{sitekey:beta.siteKey,action:"founding_signup",callback:t=>{challengeToken=t;ready();},"expired-callback":()=>{challengeToken="";ready();if(!busy&&!created)rs.textContent="Security verification expired. Complete the refreshed check and try again.";}, "error-callback":()=>{challengeToken="";ready();if(!created)rs.textContent="Security verification unavailable. Open brua1.com in Chrome or Safari and refresh.";}});});
+    challengeScript.addEventListener("error",()=>{rs.textContent="Security verification could not load. Open brua1.com in Chrome or Safari and refresh.";});document.head.append(challengeScript);
+    register.addEventListener("click",async()=>{if(busy||created)return;
+     if(!by("beta-adult").checked||!by("beta-consent").checked||!by("beta-name").value.trim()){rs.textContent="Enter a name and accept both confirmations.";return;}
+     if(!challengeToken){rs.textContent="Complete security verification first.";ready();return;}
+     busy=true;ready();rs.textContent="Creating your free account…";
+     try{
+      const r=await api("auth/register",{displayName:by("beta-name").value,adultConfirmed:true,acceptedTerms:true,termsVersion:beta.termsVersion,challengeToken},false);
+      created=true;challengeToken="";showKey(r.accessKey);setToken(r.sessionToken);by("beta-registration").hidden=true;await afterLogin();by("beta-key-panel").scrollIntoView({block:"start"});
+     }catch(e){if(created){setStatus("Account created. Save your private access key before leaving this page. If the community does not load, sign in with that key.");return;}
+      rs.textContent=e.status===403?"Security verification was not accepted by the server. Open this page directly in Chrome or Safari (not Messenger or Facebook), complete the new check, and try again.":e.status===409?"All founding spots are currently filled. Existing members can still sign in.":e.status===503?"Registration is temporarily unavailable. Please try again later.":e.status===400?"Registration details were not accepted. Check your name and confirmations.":"Could not confirm registration. If an access key appeared, save it and sign in instead of creating another account. Otherwise contact brua1@brua1.com if this continues.";
+      resetChallenge();
+     }finally{busy=false;ready();}
+    });
    }
   }
   by("refresh-subscription").addEventListener("click",()=>refresh().catch(e=>setStatus(e.message)));
