@@ -5,6 +5,7 @@ on:
       - ".assetsignore"
       - "wrangler.jsonc"
       - "sitemap.xml"
+      - "assets/brua1-website-banner-2026.jpg"
       - "founding-members.html"
       - "founding-members.css"
       - "founding-members.js"
@@ -37,6 +38,7 @@ on:
       - ".assetsignore"
       - "wrangler.jsonc"
       - "sitemap.xml"
+      - "assets/brua1-website-banner-2026.jpg"
       - "founding-members.html"
       - "founding-members.css"
       - "founding-members.js"
@@ -152,4 +154,14 @@ jobs:
             status="$(curl --silent --show-error --retry 3 -o /tmp/brua1-indexable-page -w '%{http_code}' "https://brua1.com$path")"
             test "$status" = 200
             grep -Fq "rel=\"canonical\" href=\"https://brua1.com$path\"" /tmp/brua1-indexable-page
+          done
+
+      - name: Verify live social banner and preview tags
+        run: |
+          set -euo pipefail
+          curl --fail --silent --show-error --retry 4 --retry-all-errors 'https://brua1.com/assets/brua1-website-banner-2026.jpg' -o /tmp/brua1-banner.jpg
+          echo '6fb69fe63b48def41dac1f97334643be902533859d9826844a8fd5fa644eb2ef  /tmp/brua1-banner.jpg' | sha256sum -c -
+          for path in / /instrumentals /learning-center /music-network /fl-studio-resources /fl-studio-shortcuts /fl-studio-beginners-guide /fl-studio-mixing-guide /founding-members; do
+            curl --fail --silent --show-error --retry 3 "https://brua1.com$path" -o /tmp/brua1-share-page
+            grep -Fq '<meta property="og:image" content="https://brua1.com/assets/brua1-website-banner-2026.jpg">' /tmp/brua1-share-page
           done
