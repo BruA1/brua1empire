@@ -15,6 +15,8 @@ for(const name of Object.keys(channels)){const b=node("button","# "+name);b.type
  const API="https://brua1-music-network.a1productions0527.workers.dev";
  const by=id=>document.getElementById(id),account=by("member-account"),status=by("account-status"),billing=by("billing-status"),workspace=by("member-workspace");
  const roleLabels=professionLabels;
+ const requestedChannel=new URLSearchParams(location.search).get("channel")||"";
+ let initialChannelJump=Boolean(requestedChannel);
  let token="";try{token=sessionStorage.getItem("brua1_network_session")||"";}catch{}let config=null,health=null,selectedChannel=null,selectedThread=null,chatTimer=null,chatGeneration=0,chatBusy=false,lastChatSignature="";
  const roleInputs=new Map();
  for(const [group,roles] of Object.entries(professionGroups)){const optgroup=node("optgroup");optgroup.label=group;by("live-role-filter").append(optgroup);const field=node("fieldset"),legend=node("legend",group);field.append(legend);by("profile-roles").append(field);for(const [key,label] of Object.entries(roles)){const option=node("option",label);option.value=key;optgroup.append(option);const wrap=node("label",label),cb=node("input");cb.type="checkbox";cb.value=key;wrap.prepend(cb);field.append(wrap);roleInputs.set(key,cb);}}
@@ -40,11 +42,12 @@ for(const name of Object.keys(channels)){const b=node("button","# "+name);b.type
   by("member-signin-panel").hidden=true;by("beta-registration").hidden=true;workspace.hidden=false;by("logout-member").hidden=false;
   by("member-welcome").textContent="Welcome, "+me.member.display_name+"!";
   setStatus(me.freeBeta?"Signed in successfully — free founding membership active.":"Signed in successfully — membership active.");
-  if(focus){by("member-welcome").focus({preventScroll:true});by("member-welcome").scrollIntoView({block:"start"});}
+  if(focus&&!initialChannelJump){by("member-welcome").focus({preventScroll:true});by("member-welcome").scrollIntoView({block:"start"});}
   const results=await Promise.allSettled([loadProfile(),loadDirectory(),loadChannels()]);
   const names=["profile","directory","community channels"],failed=names.filter((_,i)=>results[i].status==="rejected");
   by("retry-workspace").hidden=failed.length===0;
   if(failed.length)setStatus("Signed in successfully, but "+failed.join(", ")+" could not load. Use Retry loading community.");
+  if(initialChannelJump&&results[2].status==="fulfilled"&&by("beta-key-panel").hidden){initialChannelJump=false;by("live-community").focus({preventScroll:true});by("live-community").scrollIntoView({block:"start"});}
   return true;
  }
  async function refresh(){
@@ -74,7 +77,7 @@ for(const name of Object.keys(channels)){const b=node("button","# "+name);b.type
   by("account-controls").append(a,signIn);
   function showKey(key){by("beta-access-key").value=key;by("beta-key-panel").hidden=false;by("beta-key-panel").scrollIntoView();}
   by("beta-copy-key").addEventListener("click",async()=>{try{await navigator.clipboard.writeText(by("beta-access-key").value);setStatus("Access key copied. Save it privately.");}catch{by("beta-access-key").select();setStatus("Copy the selected access key manually.");}});
-  by("beta-hide-key").addEventListener("click",()=>{by("beta-access-key").value="";by("beta-key-panel").hidden=true;});
+  by("beta-hide-key").addEventListener("click",()=>{by("beta-access-key").value="";by("beta-key-panel").hidden=true;if(initialChannelJump&&!workspace.hidden&&selectedChannel){initialChannelJump=false;by("live-community").focus({preventScroll:true});by("live-community").scrollIntoView({block:"start"});}});
   if(health.inviteAuthEnabled){
    const [b,invite]=textInput("Invitation code",true);
    by("account-controls").append(b,action("Redeem invitation",async()=>{const r=await api("auth/redeem",{invite:invite.value},false);invite.value="";setToken(r.sessionToken);showKey(r.accessKey);await afterLogin();}));
@@ -85,7 +88,6 @@ for(const name of Object.keys(channels)){const b=node("button","# "+name);b.type
    by("network-launch-notice").textContent="Free founding beta. Sample previews are illustrative; sign in to access real member profiles and discussions.";
    by("beta-count").textContent=beta.registered+" founding accounts registered · "+beta.listed+" opted-in professional listings · "+beta.spotsRemaining+" spots remaining.";
    by("beta-join-link").hidden=false;by("beta-membership-link").hidden=false;by("new-member-link").hidden=beta.spotsRemaining===0;
-   if(token){await afterLogin();}
    if(!token&&beta.spotsRemaining>0){
     by("beta-registration").hidden=false;
     let challengeToken="",widget=null;
@@ -128,7 +130,7 @@ for(const name of Object.keys(channels)){const b=node("button","# "+name);b.type
  async function loadChannels(){
   const r=await api("channels"),target=by("live-channels");target.replaceChildren();
   for(const c of r.channels)target.append(action("# "+c.title,async()=>{selectedChannel=c;selectedThread=null;await renderChannel();}));
-  if(r.channels.length){selectedChannel=r.channels.find(c=>c.id==="general")||r.channels[0];selectedThread=null;await renderChannel();}
+  if(r.channels.length){selectedChannel=r.channels.find(c=>c.id===requestedChannel)||r.channels.find(c=>c.id==="general")||r.channels[0];selectedThread=null;await renderChannel();}
  }
  async function renderChannel(){
   stopChat();const generation=chatGeneration,c=selectedChannel,area=by("live-messages"),compose=by("live-compose");area.replaceChildren();compose.replaceChildren();by("live-channel-title").textContent=c.title;by("live-chat-status").textContent="";

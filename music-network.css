@@ -5,3 +5,5 @@
 #beta-access-key{font-family:monospace;overflow-wrap:anywhere;min-height:72px}#beta-registration details{margin:16px 0}#live-messages .message button{font-size:12px;padding:5px 8px;margin-right:8px;background:transparent;color:var(--muted);border:1px solid var(--line)}
 
 #signin-status,#account-status{min-height:1.5em;color:var(--gold);font-weight:600}#member-welcome,#beta-registration,#beta-key-panel{scroll-margin-top:120px}#member-welcome:focus{outline:none}#new-member-link{color:var(--gold)}
+
+#live-community,#profile-fields{scroll-margin-top:130px}#live-community:focus{outline:none}@media(max-width:780px){#live-community,#profile-fields,#member-welcome,#member-account{scroll-margin-top:200px}}

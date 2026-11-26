@@ -1,0 +1,7 @@
+"use strict";
+(function(){
+ const count=document.getElementById("hub-member-count");
+ if(count)fetch("https://brua1-music-network.a1productions0527.workers.dev/api/network/beta/config",{cache:"no-store"}).then(r=>{if(!r.ok)throw Error();return r.json();}).then(x=>{if(Number.isInteger(x.registered)&&Number.isInteger(x.spotsRemaining)&&x.limit===50&&x.registered+x.spotsRemaining===50)count.textContent=x.registered+" founding accounts registered · "+x.spotsRemaining+" free spots remaining.";}).catch(()=>{});
+ for(const b of document.querySelectorAll(".hub-filters button"))b.addEventListener("click",()=>{for(const x of document.querySelectorAll(".hub-filters button"))x.setAttribute("aria-pressed",String(x===b));for(const card of document.querySelectorAll(".hub-lesson"))card.hidden=b.dataset.filter!=="all"&&card.dataset.category!==b.dataset.filter;});
+ for(const player of document.querySelectorAll(".hub-video")){const b=player.querySelector("button");if(!b)continue;b.addEventListener("click",()=>{const id=player.dataset.video;if(!/^[A-Za-z0-9_-]{11}$/.test(id))return;const frame=document.createElement("iframe");frame.title=b.getAttribute("aria-label")||"BruA1 YouTube lesson";frame.src="https://www.youtube-nocookie.com/embed/"+id+"?autoplay=1&rel=0";frame.allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; fullscreen";frame.allowFullscreen=true;frame.referrerPolicy="strict-origin-when-cross-origin";player.replaceChildren(frame);});}
+})();
