@@ -135,3 +135,5 @@ test("free founding signup: consent, bot check, no charges, sign-in, directory, 
  assert.equal((await call("me",undefined,login.sessionToken)).status,200);
  db.close();
 });
+
+ test("PayPal payment management is hidden by default and never shown to free founding members",()=>{const html=fs.readFileSync("music-network.html","utf8"),js=fs.readFileSync("music-network.js","utf8");assert.match(html,/<p id="paypal-payment-management"[^>]*\bhidden\b[^>]*><a href="https:\/\/www\.paypal\.com\/myaccount\/autopay\//);assert.match(js,/by\("paypal-payment-management"\)\.hidden=!\(health\?\.billingEnabled===true&&config&&!me\.freeBeta\)/);assert.match(js,/function lockWorkspace\(\)\{stopChat\(\);by\("paypal-payment-management"\)\.hidden=true/);});
