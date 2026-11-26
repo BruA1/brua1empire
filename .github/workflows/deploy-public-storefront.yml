@@ -4,6 +4,9 @@ on:
     paths:
       - ".assetsignore"
       - "wrangler.jsonc"
+      - "sitemap.xml"
+      - "robots.txt"
+      - "scripts/validate-search-foundation.mjs"
       - "catalog/instrumentals.json"
       - "catalog/public-license-options.json"
       - "instrumentals.html"
@@ -24,6 +27,9 @@ on:
     paths:
       - ".assetsignore"
       - "wrangler.jsonc"
+      - "sitemap.xml"
+      - "robots.txt"
+      - "scripts/validate-search-foundation.mjs"
       - "catalog/instrumentals.json"
       - "catalog/public-license-options.json"
       - "instrumentals.html"
@@ -63,6 +69,7 @@ jobs:
           node scripts/validate-store-license-options.mjs
           node scripts/check-public-previews.mjs
           node --test tests/music-network.test.mjs
+          node scripts/validate-search-foundation.mjs
       - name: Verify Cloudflare static assets are allowlisted, no private master keys
         run: |
           node --input-type=module <<'EOF'
@@ -107,3 +114,22 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
           npx --yes wrangler@4 deploy --config wrangler.jsonc
+
+      - name: Verify deployed search foundation
+        run: |
+          set -euo pipefail
+          curl --fail --silent --show-error --retry 4 --retry-all-errors https://brua1.com/sitemap.xml -o /tmp/brua1-sitemap.xml
+          curl --fail --silent --show-error --retry 4 --retry-all-errors https://brua1.com/robots.txt -o /tmp/brua1-robots.txt
+          python3 - <<'PY'
+          import xml.etree.ElementTree as ET
+          root=ET.parse('/tmp/brua1-sitemap.xml').getroot()
+          urls=[e.text for e in root.findall('.//{http://www.sitemaps.org/schemas/sitemap/0.9}loc')]
+          assert urls==['https://brua1.com/','https://brua1.com/instrumentals','https://brua1.com/learning-center','https://brua1.com/music-network']
+          assert 'Sitemap: https://brua1.com/sitemap.xml' in open('/tmp/brua1-robots.txt').read()
+          print('Verified live sitemap and robots.txt')
+          PY
+          for path in / /instrumentals /learning-center /music-network; do
+            status="$(curl --silent --show-error --retry 3 -o /tmp/brua1-indexable-page -w '%{http_code}' "https://brua1.com$path")"
+            test "$status" = 200
+            grep -Fq "rel=\"canonical\" href=\"https://brua1.com$path\"" /tmp/brua1-indexable-page
+          done
