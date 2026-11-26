@@ -5,6 +5,12 @@ on:
       - ".assetsignore"
       - "wrangler.jsonc"
       - "sitemap.xml"
+      - "fl-studio-resources.html"
+      - "fl-studio-shortcuts.html"
+      - "fl-studio-beginners-guide.html"
+      - "fl-studio-mixing-guide.html"
+      - "resources.css"
+      - "resources.js"
       - "robots.txt"
       - "scripts/validate-search-foundation.mjs"
       - "catalog/instrumentals.json"
@@ -28,6 +34,12 @@ on:
       - ".assetsignore"
       - "wrangler.jsonc"
       - "sitemap.xml"
+      - "fl-studio-resources.html"
+      - "fl-studio-shortcuts.html"
+      - "fl-studio-beginners-guide.html"
+      - "fl-studio-mixing-guide.html"
+      - "resources.css"
+      - "resources.js"
       - "robots.txt"
       - "scripts/validate-search-foundation.mjs"
       - "catalog/instrumentals.json"
@@ -70,6 +82,7 @@ jobs:
           node scripts/check-public-previews.mjs
           node --test tests/music-network.test.mjs
           node scripts/validate-search-foundation.mjs
+          node --check resources.js
       - name: Verify Cloudflare static assets are allowlisted, no private master keys
         run: |
           node --input-type=module <<'EOF'
@@ -124,11 +137,11 @@ jobs:
           import xml.etree.ElementTree as ET
           root=ET.parse('/tmp/brua1-sitemap.xml').getroot()
           urls=[e.text for e in root.findall('.//{http://www.sitemaps.org/schemas/sitemap/0.9}loc')]
-          assert urls==['https://brua1.com/','https://brua1.com/instrumentals','https://brua1.com/learning-center','https://brua1.com/music-network']
+          assert urls==['https://brua1.com/','https://brua1.com/instrumentals','https://brua1.com/learning-center','https://brua1.com/music-network','https://brua1.com/fl-studio-resources','https://brua1.com/fl-studio-shortcuts','https://brua1.com/fl-studio-beginners-guide','https://brua1.com/fl-studio-mixing-guide']
           assert 'Sitemap: https://brua1.com/sitemap.xml' in open('/tmp/brua1-robots.txt').read()
           print('Verified live sitemap and robots.txt')
           PY
-          for path in / /instrumentals /learning-center /music-network; do
+          for path in / /instrumentals /learning-center /music-network /fl-studio-resources /fl-studio-shortcuts /fl-studio-beginners-guide /fl-studio-mixing-guide; do
             status="$(curl --silent --show-error --retry 3 -o /tmp/brua1-indexable-page -w '%{http_code}' "https://brua1.com$path")"
             test "$status" = 200
             grep -Fq "rel=\"canonical\" href=\"https://brua1.com$path\"" /tmp/brua1-indexable-page

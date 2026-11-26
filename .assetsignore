@@ -22,3 +22,10 @@
 
 !robots.txt
 !sitemap.xml
+
+!fl-studio-resources.html
+!fl-studio-shortcuts.html
+!fl-studio-beginners-guide.html
+!fl-studio-mixing-guide.html
+!resources.css
+!resources.js
