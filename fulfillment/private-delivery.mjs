@@ -93,7 +93,7 @@ export async function streamLicensedAudio({request,env,config}) {
   try {
     const row=await env.ORDERS_DB.prepare(
       "SELECT g.token_hash,g.product_id,g.format,g.expires_at_epoch,g.max_downloads,g.download_count,g.revoked_at AS grant_revoked,"+
-      "l.status AS license_status,l.agreement_version,l.product_id AS license_product,l.tier AS license_tier,"+
+      "l.status AS license_status,l.revoked_at AS license_revoked,l.agreement_version,l.product_id AS license_product,l.tier AS license_tier,"+
       "o.status AS order_status,o.product_id AS order_product,o.refunded_at,o.chargeback_at,o.revoked_at AS order_revoked,"+
       "p.sale_enabled,a.r2_object_key,a.rights_cleared,a.independent_qa_pass,a.private_r2_qa_pass "+
       "FROM commerce_download_grants g "+
@@ -103,7 +103,7 @@ export async function streamLicensedAudio({request,env,config}) {
       "JOIN commerce_audio_assets a ON a.product_id=g.product_id AND a.format=g.format "+
       "WHERE g.token_hash=?"
     ).bind(h).first();
-    if(!row || row.grant_revoked || row.order_revoked || row.refunded_at || row.chargeback_at ||
+    if(!row || row.grant_revoked || row.license_revoked || row.order_revoked || row.refunded_at || row.chargeback_at ||
       row.order_status!=="COMPLETED" || row.license_status!=="ISSUED" ||
       row.agreement_version!==config.approved_terms_version || row.sale_enabled!==1 ||
       row.product_id!==row.license_product || row.product_id!==row.order_product ||
@@ -120,8 +120,17 @@ export async function streamLicensedAudio({request,env,config}) {
     // Atomic claim prevents parallel users sharing a 3-use link to exceed 3 uses.
     const changed=await env.ORDERS_DB.prepare(
       "UPDATE commerce_download_grants SET download_count=download_count+1 "+
-      "WHERE token_hash=? AND revoked_at IS NULL AND expires_at_epoch>? AND download_count<max_downloads"
-    ).bind(h,Math.floor(Date.now()/1000)).run();
+      "WHERE token_hash=? AND revoked_at IS NULL AND expires_at_epoch>? AND download_count<max_downloads "+
+      "AND EXISTS (SELECT 1 FROM commerce_licenses l JOIN commerce_orders o ON o.paypal_order_id=l.paypal_order_id "+
+      "JOIN commerce_products p ON p.product_id=commerce_download_grants.product_id "+
+      "JOIN commerce_audio_assets a ON a.product_id=commerce_download_grants.product_id AND a.format=commerce_download_grants.format "+
+      "WHERE l.license_id=commerce_download_grants.license_id AND l.status='ISSUED' AND l.revoked_at IS NULL "+
+      "AND l.agreement_version=? AND l.product_id=commerce_download_grants.product_id AND o.product_id=l.product_id "+
+      "AND o.status='COMPLETED' AND o.refunded_at IS NULL AND o.chargeback_at IS NULL AND o.revoked_at IS NULL "+
+      "AND o.license_tier=l.tier AND (commerce_download_grants.format='mp3' OR (commerce_download_grants.format='wav' AND l.tier IN ('premium','unlimited'))) "+
+      "AND p.sale_enabled=1 AND p.rights_cleared=1 AND p.independent_qa_pass=1 "+
+      "AND a.r2_object_key=? AND a.rights_cleared=1 AND a.independent_qa_pass=1 AND a.private_r2_qa_pass=1)"
+    ).bind(h,Math.floor(Date.now()/1000),config.approved_terms_version,row.r2_object_key).run();
     if(changed?.meta?.changes!==1){
       media.body.cancel?.().catch(()=>{});
       return j("Download allowance exhausted",403);
